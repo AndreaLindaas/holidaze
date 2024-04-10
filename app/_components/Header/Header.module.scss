@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--jet);
+  a,
+  a:visited {
+    text-decoration: none;
+    color: var(--jet);
+    span {
+      font-size: 40px;
+    }
+  }
+  svg {
+    color: var(--jet);
+    font-size: 40px;
+    margin-right: 10px;
+  }
+}
+.menuList {
+  li {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    a,
+    a:visited {
+      text-decoration: none;
+      color: var(--jet);
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .header {
+    .menuListButton {
+      display: flex;
+      button {
+        margin: 0 10px 15px 10px;
+      }
+    }
+  }
+  .menuList {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    li {
+      span {
+        font-size: 20px;
+      }
+    }
+  }
+}

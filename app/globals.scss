@@ -1,0 +1,22 @@
+:root {
+  --jet: #333;
+  --green: #1d4349;
+}
+.MuiButton-root.MuiButtonBase-root {
+  &.primary {
+    background-color: var(--green);
+    color: #fff;
+  }
+
+  &.secondary {
+    background-color: grey;
+  }
+
+  &.delete {
+    background-color: #e75c3c;
+  }
+
+  &.Mui-disabled {
+    opacity: 0.3;
+  }
+}
