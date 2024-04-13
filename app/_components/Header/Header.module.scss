@@ -2,6 +2,14 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--jet);
+  margin-bottom: 20px;
+  a {
+    display: flex;
+    flex-direction: row;
+    img {
+      width: 50px;
+    }
+  }
   a,
   a:visited {
     text-decoration: none;

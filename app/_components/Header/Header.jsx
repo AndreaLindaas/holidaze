@@ -36,13 +36,6 @@ export default function Header() {
         </li>
 
         <>
-          {!isDesktop && (
-            <li>
-              <Link href="#">
-                <span> Contact us</span>
-              </Link>
-            </li>
-          )}
           <li>
             <Link href="#">
               <span> Logout</span>
@@ -55,16 +48,12 @@ export default function Header() {
   return (
     <nav className={styles.header}>
       <Link href="/">
+        <img src="/logo-color.png" className={styles.logo} alt="" />{" "}
         <span>Holidaze</span>
       </Link>
       {isDesktop && (
         <>
-          <div className={styles.menuListButton}>
-            {renderMenuList()}{" "}
-            <Button variant="contained" className="primary">
-              Contact us
-            </Button>
-          </div>
+          <div>{renderMenuList()} </div>
         </>
       )}
       {!isDesktop && (
