@@ -1,29 +1,16 @@
 :root {
   --jet: #333;
   --green: #1d4349;
+  --red: #ff1010;
 }
-.MuiButton-root.MuiButtonBase-root {
-  &.primary {
-    background-color: var(--green);
-    color: #fff;
-  }
 
-  &.secondary {
-    background-color: grey;
-  }
-
-  &.delete {
-    background-color: #e75c3c;
-  }
-
-  &.Mui-disabled {
-    opacity: 0.3;
-  }
-}
 .spinner {
   text-align: center;
   margin: 50px 0;
 }
 .bold {
   font-weight: bold;
+}
+.lineTrough {
+  text-decoration: line-through;
 }

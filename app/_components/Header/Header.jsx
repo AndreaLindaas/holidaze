@@ -30,8 +30,8 @@ export default function Header() {
         </li>
 
         <li>
-          <Link href="/">
-            <span> Home</span>
+          <Link href="/register">
+            <span> Register</span>
           </Link>
         </li>
 
