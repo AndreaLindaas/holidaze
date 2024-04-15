@@ -11,3 +11,8 @@ export const validateEmail = (email) => {
   }
   return emailFound;
 };
+
+const namePattern = /^[a-zA-Z0-9_]+$/;
+export const validateName = (name) => {
+  return namePattern.test(name);
+};

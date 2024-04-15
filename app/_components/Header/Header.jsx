@@ -24,7 +24,7 @@ export default function Header() {
     return (
       <ul className={styles.menuList}>
         <li>
-          <Link href="#" className="login-link">
+          <Link href="/login" className="login-link">
             <span> Login</span>
           </Link>
         </li>

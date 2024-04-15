@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import Button from "../_components/Button/Button";
 import { API_URL } from "../_lib/constants";
-import { validateEmail } from "../_lib/utils";
+import { validateEmail, validateName } from "../_lib/utils";
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ export default function Register() {
   const [signupButtonDisabled, setSignupButtonDisabled] = useState(true);
 
   useEffect(() => {
-    if (name.length < 2) {
+    if (!validateName(name) || name.length < 2) {
       setSignupButtonDisabled(true);
       return;
     }
