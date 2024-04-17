@@ -3,19 +3,21 @@ import React, { useEffect } from "react";
 import { TextField } from "@mui/material";
 import { useState } from "react";
 import Button from "../_components/Button/Button";
-import { API_URL } from "../_lib/constants";
+import { AUTH_URL } from "../_lib/constants";
+import { useStore } from "../_lib/store";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setName, setEmail, setToken, setBio, setApiKey } = useStore();
   const submitForm = (event) => {
     event.preventDefault();
-    console.log(email);
+
     const data = {
-      email,
+      email: loginEmail,
       password,
     };
-    fetch(`${API_URL}/auth/login`, {
+    fetch(`${AUTH_URL}/login`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -24,11 +26,23 @@ export default function Login() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        localStorage.setItem("accessToken", result.accessToken);
-        localStorage.setItem("email", result.email);
-        localStorage.setItem("avatar", result.avatar);
-        localStorage.setItem("name", result.name);
+        setName(result.data.name);
+        setEmail(result.data.email);
+        setToken(result.data.accessToken);
+        setBio(result.data.bio);
+
+        fetch(`${AUTH_URL}/create-api-key`, {
+          method: "POST",
+          body: JSON.stringify({}),
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${result.data.accessToken}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            setApiKey(result.data.key);
+          });
       })
       .catch((error) => {});
   };
@@ -41,8 +55,8 @@ export default function Login() {
         <TextField
           type="email"
           variant="outlined"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={loginEmail}
+          onChange={(e) => setLoginEmail(e.target.value)}
         />
       </div>
       <div>

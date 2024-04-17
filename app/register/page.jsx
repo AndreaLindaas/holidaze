@@ -2,7 +2,7 @@
 import React, { use, useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import Button from "../_components/Button/Button";
-import { API_URL } from "../_lib/constants";
+import { AUTH_URL } from "../_lib/constants";
 import { validateEmail, validateName } from "../_lib/utils";
 export default function Register() {
   const [name, setName] = useState("");
@@ -37,7 +37,7 @@ export default function Register() {
       email,
       password,
     };
-    fetch(`${API_URL}/auth/register`, {
+    fetch(`${AUTH_URL}/register`, {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

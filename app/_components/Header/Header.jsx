@@ -6,8 +6,10 @@ import { useState } from "react";
 import Link from "next/link";
 import { useMediaQuery } from "@mui/material";
 import styles from "./Header.module.scss";
+import { useStore } from "../../_lib/store";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isVenueManager } = useStore();
   const isDesktop = useMediaQuery("(min-width:768px)");
 
   const toggleDrawer = () => {
@@ -23,6 +25,7 @@ export default function Header() {
   const renderMenuList = () => {
     return (
       <ul className={styles.menuList}>
+        {isVenueManager && <li>test</li>}
         <li>
           <Link href="/login" className="login-link">
             <span> Login</span>
@@ -34,7 +37,11 @@ export default function Header() {
             <span> Register</span>
           </Link>
         </li>
-
+        <li>
+          <Link href="/profile">
+            <span> Profile</span>
+          </Link>
+        </li>
         <>
           <li>
             <Link href="#">

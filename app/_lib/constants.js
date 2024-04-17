@@ -1,1 +1,2 @@
-export const API_URL = "https://api.noroff.dev/api/v1/holidaze";
+export const API_URL = "https://v2.api.noroff.dev/holidaze";
+export const AUTH_URL = "https://v2.api.noroff.dev/auth";
