@@ -20,6 +20,8 @@ export default function CreateVenue() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [continent, setContinent] = useState("Europe");
+  const [lattitude, setLattitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
 
   const continents = [
     {
@@ -70,6 +72,8 @@ export default function CreateVenue() {
         city: city,
         country: country,
         continent: continent,
+        lat: Number(lattitude),
+        lng: Number(longitude),
       },
     };
     console.log("payload", payload);
@@ -164,20 +168,43 @@ export default function CreateVenue() {
           onChange={(e) => setCountry(e.target.value)}
         />
       </div>
-
-      <TextField
-        id="outlined-select-currency"
-        select
-        defaultValue="Europe"
-        helperText="Please select your currency"
-        onChange={(e) => setContinent(e.target.value)}
-      >
-        {continents.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
+      <div>
+        <label htmlFor="">Continents</label>
+      </div>
+      <div>
+        <TextField
+          id="outlined-select-currency"
+          select
+          defaultValue="Europe"
+          onChange={(e) => setContinent(e.target.value)}
+        >
+          {continents.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+      <div>
+        <label htmlFor="">Lattitude</label>
+      </div>
+      <div>
+        <TextField
+          variant="outlined"
+          onChange={(e) => setLattitude(e.target.value)}
+          helperText="Must be within the range of -90 , 90 "
+        />
+      </div>
+      <div>
+        <label htmlFor="">Longitude</label>
+      </div>
+      <div>
+        <TextField
+          variant="outlined"
+          onChange={(e) => setLongitude(e.target.value)}
+          helperText="Must be within the range of -180 , 180 "
+        />
+      </div>
       <div>
         <FormControlLabel
           control={<Checkbox />}
@@ -206,7 +233,6 @@ export default function CreateVenue() {
           onChange={(e) => setPets(e.target.checked)}
         />
       </div>
-
       <Button text="Create" />
     </form>
   );

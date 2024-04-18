@@ -11,7 +11,7 @@ export default function Venues() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${API_URL}/venues/?limit=50&sort=created&sortOrder=asc`)
+    fetch(`${API_URL}/venues/?limit=50&sort=created&sortOrder=desc`)
       .then((response) => response.json())
       .then((result) => {
         setVenues(result);
