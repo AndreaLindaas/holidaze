@@ -9,7 +9,6 @@ import Image from "next/image";
 
 export default function VenueCard(props) {
   const { venue } = props;
-  //console.log(venue);
 
   const getSwiperSlide = () => {
     return venue.media.map((image, i) => {
@@ -21,27 +20,25 @@ export default function VenueCard(props) {
     });
   };
 
-  const renderSlider = () => {
-    if (venue.media && venue.media.length > 0)
-      return (
-        <Swiper
-          spaceBetween={50}
-          pagination={{ clickable: true }}
-          slidesPerView={1}
-          modules={[Navigation, Pagination]}
-        >
-          {getSwiperSlide()}
-        </Swiper>
-      );
-    // return venue.media.map((image, i) => {
-    //   return <img src={image} alt="" key={i} />;
-    // });
-  };
+  // const renderSlider = () => {
+  //   if (venue.media && venue.media.length > 0)
+  //     return (
+  //       <Swiper
+  //         spaceBetween={50}
+  //         pagination={{ clickable: true }}
+  //         slidesPerView={1}
+  //         modules={[Navigation, Pagination]}
+  //       >
+  //         {getSwiperSlide()}
+  //       </Swiper>
+  //     );
+
+  // };
   return (
     <div className={styles.venueCard}>
       <div>
         {venue.media && venue.media.length > 0 && (
-          <img src={venue.media[0]} alt="" className={styles.image} />
+          <img src={venue.media[0].url} alt="" className={styles.image} />
         )}
       </div>
       <div className="bold">

@@ -116,7 +116,7 @@ export default function Profile() {
         </CardActionArea>
         <Button text="Edit profile" onClick={avatarModalOpen} />
       </Card>
-      <Link href="/create-venue">
+      <Link href="/venue/create">
         <span> Create Venue</span>
       </Link>
       <Modal

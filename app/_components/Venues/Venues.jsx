@@ -21,9 +21,8 @@ export default function Venues() {
         setShowError(true);
       });
   }, []);
-  console.log(venues);
   const showVenues = () => {
-    return venues.map((venue) => {
+    return venues.data.map((venue) => {
       return (
         <Link href={`/venue/${venue.id}`} key={venue.id}>
           <VenueCard venue={venue} />

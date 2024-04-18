@@ -18,13 +18,11 @@ export default function Venue(props) {
   const [isLoading, setIsLoading] = useState(true);
 
   const [venue, setVenue] = useState("");
-  console.log("abcd", venue);
-  console.log("denna", props.params.venueId);
   useEffect(() => {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
       .then((result) => {
-        setVenue(result);
+        setVenue(result.data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -45,10 +43,10 @@ export default function Venue(props) {
         rowHeight={164}
         // key={i}
       >
-        {venue.media.map((image) => (
-          <ImageListItem key={image.id}>
+        {venue.media.map((image, i) => (
+          <ImageListItem key={image.id || i}>
             <img
-              src={`${image}?w=164&h=164&fit=crop&auto=format`}
+              src={`${image.url}?w=164&h=164&fit=crop&auto=format`}
               alt="images of place"
               loading="lazy"
             />
@@ -67,36 +65,36 @@ export default function Venue(props) {
   }
   const showBreakfast = () => {
     return venue.meta.breakfast ? (
-      <div>Breakfast</div>
+      <span>Breakfast</span>
     ) : (
-      <div className="lineTrough">Breakfast</div>
+      <span className="lineTrough">Breakfast</span>
     );
   };
   const showWifi = () => {
     return venue.meta.wifi ? (
-      <div>Wifi</div>
+      <span>Wifi</span>
     ) : (
-      <div className="lineTrough">Wifi</div>
+      <span className="lineTrough">Wifi</span>
     );
   };
   const showParking = () => {
     return venue.meta.Parking ? (
-      <div>Parking</div>
+      <span>Parking</span>
     ) : (
-      <div className="lineTrough">Parking</div>
+      <span className="lineTrough">Parking</span>
     );
   };
   const showPets = () => {
     return venue.meta.pets ? (
-      <div>Pets allowed</div>
+      <span>Pets allowed</span>
     ) : (
-      <div className="lineTrough">Pets</div>
+      <span className="lineTrough">Pets</span>
     );
   };
   return (
     <div>
       <h1>
-        {venue.location.city}, {venue.location.country}{" "}
+        {venue.location.address}, {venue.location.country}
       </h1>
       <div>{showImage()}</div>
       <h2>{venue.name}</h2>
