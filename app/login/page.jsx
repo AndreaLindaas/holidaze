@@ -9,7 +9,8 @@ import { useStore } from "../_lib/store";
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setName, setEmail, setToken, setBio, setApiKey } = useStore();
+  const { setName, setEmail, setToken, setAvatar, setBio, setApiKey } =
+    useStore();
   const submitForm = (event) => {
     event.preventDefault();
 
@@ -30,6 +31,7 @@ export default function Login() {
         setEmail(result.data.email);
         setToken(result.data.accessToken);
         setBio(result.data.bio);
+        setAvatar(result.data.avatar.url);
 
         fetch(`${AUTH_URL}/create-api-key`, {
           method: "POST",

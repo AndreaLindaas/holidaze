@@ -15,6 +15,7 @@ import {
   FormControlLabel,
   Switch,
   TextField,
+  Link,
 } from "@mui/material";
 import Button from "../_components/Button/Button";
 import styles from "./profile.module.scss";
@@ -28,11 +29,14 @@ export default function Profile() {
     accessToken,
     apiKey,
     avatar,
+    bio,
     isVenueManager: venueManager,
   } = useStore();
+  const { setName, setEmail, setBio, setAvatar } = useStore();
 
   useEffect(() => {
     setIsVenueManager(venueManager);
+    setNewAvatar(avatar);
   }, []);
   // bruk ved henting av andre profiler
   //   useEffect(() => {
@@ -64,6 +68,7 @@ export default function Profile() {
       avatar: {
         url: newAvatar,
       },
+      bio: bio,
     };
     console.log("payload", payload);
     fetch(`${API_URL}/profiles/${name}`, {
@@ -78,8 +83,14 @@ export default function Profile() {
       .then((response) => response.json())
       .then((result) => {
         console.log("ting", result);
-        if (result.name) {
+        if (result.data.name) {
           //TODO: lagre profildata til store. har gjort det på login. husk venuemanager
+
+          setName(result.data.name);
+          setEmail(result.data.email);
+          setBio(result.data.bio);
+          setAvatar(result.data.avatar.url);
+          setIsVenueManager(result.data.venueManager);
         }
       })
       .catch((error) => {});
@@ -89,7 +100,11 @@ export default function Profile() {
     <div>
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
-          <Avatar alt="profile image" sx={{ width: 70, height: 70 }} />
+          <Avatar
+            alt="profile image"
+            sx={{ width: 70, height: 70 }}
+            src={avatar}
+          />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}
@@ -101,7 +116,9 @@ export default function Profile() {
         </CardActionArea>
         <Button text="Edit profile" onClick={avatarModalOpen} />
       </Card>
-
+      <Link href="/create-venue">
+        <span> Create Venue</span>
+      </Link>
       <Modal
         open={isEditProfileOpen}
         onClose={avatarModalClose}
@@ -121,12 +138,28 @@ export default function Profile() {
               onChange={(e) => setIsVenueManager(e.target.checked)}
             />
           </FormGroup>
+
+          <div>
+            <label htmlFor="">Change avatar</label>
+          </div>
           <div>
             <TextField
               id="outlined-basic"
-              label="Outlined"
               variant="outlined"
               onChange={(e) => setNewAvatar(e.target.value)}
+              value={newAvatar}
+            />
+          </div>
+          <div>
+            <label htmlFor="">Change bio</label>
+          </div>
+          <div>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              multiline
+              onChange={(e) => setBio(e.target.value)}
+              value={bio}
             />
           </div>
           <Button text="Save" onClick={saveProfile} />
