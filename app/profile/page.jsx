@@ -20,8 +20,10 @@ import {
 import Button from "../_components/Button/Button";
 import styles from "./profile.module.scss";
 import { useStore } from "../_lib/store";
+import MyVenueCard from "../_components/MyVenueCard/MyVenueCard";
 export default function Profile() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const [myVenues, setMyVenues] = useState([]);
   const [isVenueManager, setIsVenueManager] = useState(false);
   const [newAvatar, setNewAvatar] = useState("");
   const {
@@ -40,7 +42,6 @@ export default function Profile() {
 
   useEffect(() => {
     setIsVenueManager(venueManager);
-
     setNewAvatar(avatar);
   }, [venueManager, avatar]);
   // bruk ved henting av andre profiler
@@ -97,6 +98,23 @@ export default function Profile() {
       .catch((error) => {});
   };
 
+  useEffect(() => {
+    if (accessToken && apiKey && name) {
+      fetch(`${API_URL}/profiles/${name}/venues`, {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          setMyVenues(result.data);
+        })
+        .catch((error) => {});
+    }
+  }, [accessToken, apiKey, name]);
   return (
     <div>
       <Card sx={{ maxWidth: 345 }}>
@@ -120,6 +138,8 @@ export default function Profile() {
       <Link href="/venue/create">
         <span> Create Venue</span>
       </Link>
+      <MyVenueCard myVenues={myVenues} />
+
       <Modal
         open={isEditProfileOpen}
         onClose={avatarModalClose}
