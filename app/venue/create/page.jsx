@@ -96,7 +96,7 @@ export default function CreateVenue() {
   return (
     <form onSubmit={submitCreateListing}>
       <div>
-        <label htmlFor="">Name</label>
+        <label htmlFor="">Name*</label>
       </div>
       <div>
         <TextField
@@ -105,7 +105,7 @@ export default function CreateVenue() {
         />
       </div>
       <div>
-        <label htmlFor="">Description</label>
+        <label htmlFor="">Description*</label>
       </div>
       <div>
         <TextField
@@ -124,7 +124,7 @@ export default function CreateVenue() {
         />
       </div>
       <div>
-        <label htmlFor="">Price</label>
+        <label htmlFor="">Price*</label>
       </div>
       <div>
         <TextField
@@ -133,7 +133,7 @@ export default function CreateVenue() {
         />
       </div>
       <div>
-        <label htmlFor="">Max amount of guests</label>
+        <label htmlFor="">Max amount of guests*</label>
       </div>
       <div>
         <TextField

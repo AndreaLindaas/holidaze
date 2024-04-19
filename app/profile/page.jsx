@@ -31,13 +31,18 @@ export default function Profile() {
     avatar,
     bio,
     isVenueManager: venueManager,
+    setName,
+    setEmail,
+    setBio,
+    setAvatar,
+    setIsVenueManager: setVenueManager,
   } = useStore();
-  const { setName, setEmail, setBio, setAvatar } = useStore();
 
   useEffect(() => {
     setIsVenueManager(venueManager);
+
     setNewAvatar(avatar);
-  }, []);
+  }, [venueManager, avatar]);
   // bruk ved henting av andre profiler
   //   useEffect(() => {
   //     fetch(`${API_URL}/profiles/${name}`, {
@@ -61,8 +66,6 @@ export default function Profile() {
   };
 
   const saveProfile = (event) => {
-    console.log("avatar ting er vanskelig", newAvatar);
-
     const payload = {
       venueManager: isVenueManager,
       avatar: {
@@ -70,7 +73,6 @@ export default function Profile() {
       },
       bio: bio,
     };
-    console.log("payload", payload);
     fetch(`${API_URL}/profiles/${name}`, {
       method: "PUT",
       body: JSON.stringify(payload),
@@ -82,15 +84,14 @@ export default function Profile() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("ting", result);
+        console.log("ting", result.data.venueManager);
         if (result.data.name) {
           //TODO: lagre profildata til store. har gjort det på login. husk venuemanager
-
           setName(result.data.name);
           setEmail(result.data.email);
           setBio(result.data.bio);
           setAvatar(result.data.avatar.url);
-          setIsVenueManager(result.data.venueManager);
+          setVenueManager(result.data.venueManager);
         }
       })
       .catch((error) => {});
