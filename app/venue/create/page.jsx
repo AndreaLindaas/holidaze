@@ -90,9 +90,7 @@ export default function CreateVenue() {
       .then((result) => {})
       .catch((error) => {});
   };
-  // const toggleWifiCheckbox = () => {
-  //   console.log("checked");
-  // };
+
   return (
     <form onSubmit={submitCreateListing}>
       <div>

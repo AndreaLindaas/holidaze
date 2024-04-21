@@ -25,32 +25,32 @@ export default function EditVenue() {
   const [breakfast, setBreakfast] = useState(false);
   const [pets, setPets] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  // const continents = [
-  //   {
-  //     value: "Europe",
-  //     label: "Europe",
-  //   },
-  //   {
-  //     value: "South America",
-  //     label: "South America",
-  //   },
-  //   {
-  //     value: "North America",
-  //     label: "North America",
-  //   },
-  //   {
-  //     value: "Africa",
-  //     label: "Africa",
-  //   },
-  //   {
-  //     value: "Asia",
-  //     label: "Asia",
-  //   },
-  //   {
-  //     value: "Australia",
-  //     label: "Australia",
-  //   },
-  // ];
+  const continents = [
+    {
+      value: "Europe",
+      label: "Europe",
+    },
+    {
+      value: "South America",
+      label: "South America",
+    },
+    {
+      value: "North America",
+      label: "North America",
+    },
+    {
+      value: "Africa",
+      label: "Africa",
+    },
+    {
+      value: "Asia",
+      label: "Asia",
+    },
+    {
+      value: "Australia",
+      label: "Australia",
+    },
+  ];
   const { accessToken, apiKey } = useStore();
   useEffect(() => {
     fetch(`${API_URL}/venues/${params.venueId}`)
@@ -71,7 +71,7 @@ export default function EditVenue() {
           result.data.location.country ? result.data.location.country : ""
         );
         setContinent(
-          result.data.location.Continent ? result.data.location.Continent : ""
+          result.data.location.continent ? result.data.location.continent : ""
         );
         setLattitude(result.data.location.lat ? result.data.location.lat : "");
         setLongitude(result.data.location.lng ? result.data.location.lng : "");
@@ -218,7 +218,7 @@ export default function EditVenue() {
           value={country}
         />
       </div>
-      {/* <div>
+      <div>
         <label htmlFor="">Continents</label>
       </div>
       <div>
@@ -234,7 +234,7 @@ export default function EditVenue() {
             </MenuItem>
           ))}
         </TextField>
-      </div> */}
+      </div>
       <div>
         <label htmlFor="">Lattitude</label>
       </div>
