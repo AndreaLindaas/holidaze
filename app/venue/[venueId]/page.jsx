@@ -16,8 +16,8 @@ import styles from "./venue.module.scss";
 export default function Venue(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [venue, setVenue] = useState([]);
 
-  const [venue, setVenue] = useState("");
   useEffect(() => {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())

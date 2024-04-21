@@ -7,9 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import Button from "../Button/Button";
+import Link from "next/link";
 export default function MyVenueCard(props) {
   const { myVenues } = props;
-  console.log("MYYYYYYYY", myVenues);
+  console.log("denne", myVenues);
   const showMyVenueCards = () => {
     return myVenues.map((venue) => {
       const showImage = () => {
@@ -34,8 +35,10 @@ export default function MyVenueCard(props) {
                 {venue.name}
               </Typography>
             </CardContent>
+          </CardActionArea>{" "}
+          <Link href={`/venue/edit/${venue.id}`}>
             <Button text="Edit" />
-          </CardActionArea>
+          </Link>
         </Card>
       );
     });
