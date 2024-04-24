@@ -109,7 +109,7 @@ export default function Profile() {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log(result);
+          console.log("Hvilken er denne?", result);
           setMyVenues(result.data);
         })
         .catch((error) => {});
@@ -146,7 +146,7 @@ export default function Profile() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box className={styles.editProfileModal}>
+        <Box className="modal">
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Edit profile
           </Typography>

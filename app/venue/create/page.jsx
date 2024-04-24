@@ -90,148 +90,157 @@ export default function CreateVenue() {
       .then((result) => {})
       .catch((error) => {});
   };
-
+  const addImage = (e) => {
+    e.preventDefault();
+    console.log("halla");
+  };
   return (
-    <form onSubmit={submitCreateListing}>
-      <div>
-        <label htmlFor="">Name*</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setNameOfVenue(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Description*</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          multiline
-          onChange={(e) => setDescription(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Media url</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setMediaUrl(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Price*</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setPrice(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Max amount of guests*</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setMaxAmountOfGuests(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Address</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setAddress(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">city</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setCity(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Country</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setCountry(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Continents</label>
-      </div>
-      <div>
-        <TextField
-          id="outlined-select-currency"
-          select
-          defaultValue="Europe"
-          onChange={(e) => setContinent(e.target.value)}
-        >
-          {continents.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-      <div>
-        <label htmlFor="">Lattitude</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setLattitude(e.target.value)}
-          helperText="Must be within the range of -90 , 90 "
-        />
-      </div>
-      <div>
-        <label htmlFor="">Longitude</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setLongitude(e.target.value)}
-          helperText="Must be within the range of -180 , 180 "
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Wifi"
-          onChange={(e) => setWifi(e.target.checked)}
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="parking"
-          onChange={(e) => setParking(e.target.checked)}
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="breakfast"
-          onChange={(e) => setBreakfast(e.target.checked)}
-        />
-      </div>
-      <div>
-        <FormControlLabel
-          control={<Checkbox />}
-          label="pets"
-          onChange={(e) => setPets(e.target.checked)}
-        />
-      </div>
-      <Button text="Create" />
-    </form>
+    <div>
+      <form onSubmit={addImage}>
+        <div>
+          <label htmlFor="">Media url</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setMediaUrl(e.target.value)}
+          />
+        </div>
+        <Button text="Add" />
+      </form>
+      <form onSubmit={submitCreateListing}>
+        <div>
+          <label htmlFor="">Name*</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setNameOfVenue(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Description*</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            multiline
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="">Price*</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Max amount of guests*</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setMaxAmountOfGuests(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Address</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">city</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setCity(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Country</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setCountry(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Continents</label>
+        </div>
+        <div>
+          <TextField
+            id="outlined-select-currency"
+            select
+            defaultValue="Europe"
+            onChange={(e) => setContinent(e.target.value)}
+          >
+            {continents.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <div>
+          <label htmlFor="">Lattitude</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setLattitude(e.target.value)}
+            helperText="Must be within the range of -90 , 90 "
+          />
+        </div>
+        <div>
+          <label htmlFor="">Longitude</label>
+        </div>
+        <div>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setLongitude(e.target.value)}
+            helperText="Must be within the range of -180 , 180 "
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Wifi"
+            onChange={(e) => setWifi(e.target.checked)}
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="parking"
+            onChange={(e) => setParking(e.target.checked)}
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="breakfast"
+            onChange={(e) => setBreakfast(e.target.checked)}
+          />
+        </div>
+        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="pets"
+            onChange={(e) => setPets(e.target.checked)}
+          />
+        </div>
+        <Button text="Create" />
+      </form>
+    </div>
   );
 }
