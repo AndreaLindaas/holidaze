@@ -1,7 +1,6 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--jet);
+  // display: flex;
+  // justify-content: space-between;
   margin-bottom: 20px;
   a {
     display: flex;
@@ -22,6 +21,10 @@
     color: var(--jet);
     font-size: 40px;
     margin-right: 10px;
+  }
+  .logoAvatar {
+    display: flex;
+    justify-content: space-between;
   }
 }
 .menuList {
@@ -47,7 +50,7 @@
   }
   .menuList {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin: 0;
     li {
       span {

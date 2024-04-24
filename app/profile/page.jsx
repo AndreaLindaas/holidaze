@@ -20,7 +20,7 @@ import {
 import Button from "../_components/Button/Button";
 import styles from "./profile.module.scss";
 import { useStore } from "../_lib/store";
-import MyVenueCard from "../_components/MyVenueCard/MyVenueCard";
+import MyVenues from "../_components/MyVenueCard/MyVenues";
 export default function Profile() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [myVenues, setMyVenues] = useState([]);
@@ -129,16 +129,18 @@ export default function Profile() {
               {name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Noe mer her??
+              {bio}
             </Typography>
           </CardContent>
         </CardActionArea>
         <Button text="Edit profile" onClick={avatarModalOpen} />
       </Card>
-      <Link href="/venue/create">
-        <span> Create Venue</span>
-      </Link>
-      <MyVenueCard myVenues={myVenues} />
+      {venueManager && (
+        <Link href="/venue/create">
+          <span> Create Venue</span>
+        </Link>
+      )}
+      <MyVenues myVenues={myVenues} />
 
       <Modal
         open={isEditProfileOpen}

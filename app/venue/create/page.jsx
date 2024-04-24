@@ -9,7 +9,8 @@ export default function CreateVenue() {
   const { accessToken, apiKey } = useStore();
   const [nameOfVenue, setNameOfVenue] = useState("");
   const [description, setDescription] = useState("");
-  const [mediaUrl, setMediaUrl] = useState("");
+  const [media, setMedia] = useState([]);
+  const [tempMediaUrl, setTempMediaUrl] = useState("");
   const [price, setPrice] = useState(0);
   const [maxAmountOfGuests, setMaxAmountOfGuests] = useState(0);
   const [wifi, setWifi] = useState(false);
@@ -54,11 +55,7 @@ export default function CreateVenue() {
     const payload = {
       name: nameOfVenue,
       description: description,
-      media: [
-        {
-          url: mediaUrl,
-        },
-      ],
+      media: media,
       price: Number(price),
       maxGuests: Number(maxAmountOfGuests),
       meta: {
@@ -76,7 +73,7 @@ export default function CreateVenue() {
         lng: Number(longitude),
       },
     };
-    console.log("payload", payload);
+
     fetch(`${API_URL}/venues`, {
       method: "POST",
       body: JSON.stringify(payload),
@@ -92,7 +89,9 @@ export default function CreateVenue() {
   };
   const addImage = (e) => {
     e.preventDefault();
-    console.log("halla");
+    const newMedia = { url: tempMediaUrl };
+    const mediaArray = [...media, newMedia];
+    setMedia(mediaArray);
   };
   return (
     <div>
@@ -103,11 +102,15 @@ export default function CreateVenue() {
         <div>
           <TextField
             variant="outlined"
-            onChange={(e) => setMediaUrl(e.target.value)}
+            onChange={(e) => setTempMediaUrl(e.target.value)}
           />
         </div>
         <Button text="Add" />
       </form>
+      {media.map((image, i) => {
+        console.log(image);
+        return <img src={image.url} key={i} alt="" />;
+      })}
       <form onSubmit={submitCreateListing}>
         <div>
           <label htmlFor="">Name*</label>
