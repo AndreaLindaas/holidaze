@@ -41,6 +41,7 @@
 }
 @media screen and (min-width: 768px) {
   .header {
+    margin: 0 70px;
     .menuListButton {
       display: flex;
       button {
@@ -51,10 +52,11 @@
   .menuList {
     display: flex;
     justify-content: center;
-    margin: 0;
+    border-top: solid 1px #000;
     li {
       span {
         font-size: 20px;
+        padding-top: 10px;
       }
     }
   }

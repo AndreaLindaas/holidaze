@@ -9,7 +9,7 @@ import styles from "./Header.module.scss";
 import { useStore } from "../../_lib/store";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { isVenueManager, avatar } = useStore();
+  const { isVenueManager, avatar, accessToken } = useStore();
   const isDesktop = useMediaQuery("(min-width:768px)");
 
   const toggleDrawer = () => {
@@ -25,30 +25,34 @@ export default function Header() {
   const renderMenuList = () => {
     return (
       <ul className={styles.menuList}>
-        {isVenueManager && <li>test</li>}
         <li>
-          <Link href="/login" className="login-link">
-            <span> Login</span>
+          <Link href="/">
+            <span> Home</span>
           </Link>
         </li>
-
-        <li>
-          <Link href="/register">
-            <span> Register</span>
-          </Link>
-        </li>
-        <li>
-          <Link href="/profile">
-            <span> Profile</span>
-          </Link>
-        </li>
-        <>
+        {!accessToken && (
           <li>
-            <Link href="#">
-              <span> Logout</span>
+            <Link href="/login" className="login-link">
+              <span> Login</span>
             </Link>
           </li>
-        </>
+        )}
+
+        {accessToken && (
+          <>
+            <li>
+              <Link href="/profile">
+                <span> Profile</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/logout">
+                <span> Logout</span>
+              </Link>
+            </li>
+          </>
+        )}
       </ul>
     );
   };
@@ -67,7 +71,9 @@ export default function Header() {
             </Drawer>
           </div>
         ) : (
-          <Avatar alt="Remy Sharp" src={avatar} />
+          <Link href="/profile">
+            <Avatar alt="Remy Sharp" src={avatar} />
+          </Link>
         )}
       </div>
       {isDesktop && <div>{renderMenuList()} </div>}

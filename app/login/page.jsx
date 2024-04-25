@@ -5,6 +5,7 @@ import { useState } from "react";
 import Button from "../_components/Button/Button";
 import { AUTH_URL } from "../_lib/constants";
 import { useStore } from "../_lib/store";
+import Link from "next/link";
 
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
@@ -44,35 +45,42 @@ export default function Login() {
           .then((response) => response.json())
           .then((result) => {
             setApiKey(result.data.key);
+            window.location.href = "/";
           });
       })
       .catch((error) => {});
   };
   return (
-    <form onSubmit={submitForm}>
-      <div>
-        <label htmlFor="">Email</label>
-      </div>
-      <div>
-        <TextField
-          type="email"
-          variant="outlined"
-          value={loginEmail}
-          onChange={(e) => setLoginEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="">Password</label>
-      </div>
-      <div>
-        <TextField
-          type="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <Button text="login" />
-    </form>
+    <div>
+      <form onSubmit={submitForm}>
+        <div>
+          <label htmlFor="">Email</label>
+        </div>
+        <div>
+          <TextField
+            type="email"
+            variant="outlined"
+            value={loginEmail}
+            onChange={(e) => setLoginEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="">Password</label>
+        </div>
+        <div>
+          <TextField
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <Button text="login" />
+      </form>
+      <p>Not have an account? </p>
+      <Link href="/register">
+        <Button text="Register" />
+      </Link>
+    </div>
   );
 }
