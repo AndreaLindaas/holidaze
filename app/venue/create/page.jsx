@@ -4,7 +4,7 @@ import { TextField, Checkbox, FormControlLabel, MenuItem } from "@mui/material";
 import Button from "../../_components/Button/Button";
 import { API_URL } from "../../_lib/constants";
 import { useStore } from "../../_lib/store";
-
+import styles from "./create.module.scss";
 export default function CreateVenue() {
   const { accessToken, apiKey } = useStore();
   const [nameOfVenue, setNameOfVenue] = useState("");
@@ -94,7 +94,20 @@ export default function CreateVenue() {
     setMedia(mediaArray);
   };
   return (
-    <div>
+    <div className={styles.formContainer}>
+      <p className={styles.text}>
+        Please fill out the form below with accurate and detailed information.
+        This will help potential visitors understand what your venue offers and
+        how it fits their needs.
+      </p>
+      <div className="center">
+        {media.map((image, i) => {
+          console.log(image);
+          return (
+            <img src={image.url} key={i} alt="" className={styles.image} />
+          );
+        })}
+      </div>
       <form onSubmit={addImage}>
         <div>
           <label htmlFor="">Media url</label>
@@ -103,14 +116,11 @@ export default function CreateVenue() {
           <TextField
             variant="outlined"
             onChange={(e) => setTempMediaUrl(e.target.value)}
+            placeholder="Add media url here"
           />
         </div>
         <Button text="Add" />
       </form>
-      {media.map((image, i) => {
-        console.log(image);
-        return <img src={image.url} key={i} alt="" />;
-      })}
       <form onSubmit={submitCreateListing}>
         <div>
           <label htmlFor="">Name*</label>
@@ -119,6 +129,7 @@ export default function CreateVenue() {
           <TextField
             variant="outlined"
             onChange={(e) => setNameOfVenue(e.target.value)}
+            placeholder="What will you call your rental?"
           />
         </div>
         <div>
@@ -129,120 +140,142 @@ export default function CreateVenue() {
             variant="outlined"
             multiline
             onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter a dercription of the place"
           />
+        </div>
+        <div className={styles.flexAddressCity}>
+          <div>
+            <div>
+              <label htmlFor="">Address</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label htmlFor="">city</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styles.flexCountryContinents}>
+          <div>
+            <div>
+              <label htmlFor="">Country</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setCountry(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label htmlFor="">Continents</label>
+            </div>
+            <div>
+              <TextField
+                id="outlined-select-currency"
+                select
+                defaultValue="Europe"
+                onChange={(e) => setContinent(e.target.value)}
+              >
+                {continents.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </div>
+        </div>
+        <div className={styles.flexLatLong}>
+          <div>
+            <div>
+              <label htmlFor="">Lattitude</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setLattitude(e.target.value)}
+                helperText="Must be within the range of -90 , 90 "
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label htmlFor="">Longitude</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setLongitude(e.target.value)}
+                helperText="Must be within the range of -180 , 180 "
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styles.flexPriceGuests}>
+          <div>
+            <div>
+              <label htmlFor="">Price*</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setPrice(e.target.value)}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <label htmlFor="">Max amount of guests*</label>
+            </div>
+            <div>
+              <TextField
+                variant="outlined"
+                onChange={(e) => setMaxAmountOfGuests(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
 
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Wifi"
+          onChange={(e) => setWifi(e.target.checked)}
+        />
+
+        <FormControlLabel
+          control={<Checkbox />}
+          label="parking"
+          onChange={(e) => setParking(e.target.checked)}
+        />
+
+        <FormControlLabel
+          control={<Checkbox />}
+          label="breakfast"
+          onChange={(e) => setBreakfast(e.target.checked)}
+        />
+
+        <FormControlLabel
+          control={<Checkbox />}
+          label="pets"
+          onChange={(e) => setPets(e.target.checked)}
+        />
         <div>
-          <label htmlFor="">Price*</label>
+          <Button text="Create" />
         </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Max amount of guests*</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setMaxAmountOfGuests(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Address</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="">city</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setCity(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Country</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setCountry(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Continents</label>
-        </div>
-        <div>
-          <TextField
-            id="outlined-select-currency"
-            select
-            defaultValue="Europe"
-            onChange={(e) => setContinent(e.target.value)}
-          >
-            {continents.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <div>
-          <label htmlFor="">Lattitude</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setLattitude(e.target.value)}
-            helperText="Must be within the range of -90 , 90 "
-          />
-        </div>
-        <div>
-          <label htmlFor="">Longitude</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setLongitude(e.target.value)}
-            helperText="Must be within the range of -180 , 180 "
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Wifi"
-            onChange={(e) => setWifi(e.target.checked)}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="parking"
-            onChange={(e) => setParking(e.target.checked)}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="breakfast"
-            onChange={(e) => setBreakfast(e.target.checked)}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="pets"
-            onChange={(e) => setPets(e.target.checked)}
-          />
-        </div>
-        <Button text="Create" />
       </form>
     </div>
   );
