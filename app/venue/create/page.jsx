@@ -4,7 +4,7 @@ import { TextField, Checkbox, FormControlLabel, MenuItem } from "@mui/material";
 import Button from "../../_components/Button/Button";
 import { API_URL } from "../../_lib/constants";
 import { useStore } from "../../_lib/store";
-import styles from "./create.module.scss";
+import styles from "../../_styles/createEdit.module.scss";
 export default function CreateVenue() {
   const { accessToken, apiKey } = useStore();
   const [nameOfVenue, setNameOfVenue] = useState("");
@@ -93,6 +93,7 @@ export default function CreateVenue() {
     const mediaArray = [...media, newMedia];
     setMedia(mediaArray);
   };
+
   return (
     <div className={styles.formContainer}>
       <p className={styles.text}>
@@ -109,11 +110,10 @@ export default function CreateVenue() {
         })}
       </div>
       <form onSubmit={addImage}>
-        <div>
-          <label htmlFor="">Media url</label>
-        </div>
-        <div>
+        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
+          <label>Media url</label>
           <TextField
+            className="whiteInput"
             variant="outlined"
             onChange={(e) => setTempMediaUrl(e.target.value)}
             placeholder="Add media url here"
@@ -122,45 +122,43 @@ export default function CreateVenue() {
         <Button text="Add" />
       </form>
       <form onSubmit={submitCreateListing}>
-        <div>
+        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Name*</label>
-        </div>
-        <div>
           <TextField
+            className="whiteInput"
             variant="outlined"
             onChange={(e) => setNameOfVenue(e.target.value)}
             placeholder="What will you call your rental?"
           />
         </div>
-        <div>
+        <div></div>
+        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Description*</label>
-        </div>
-        <div>
           <TextField
+            className="whiteInput"
             variant="outlined"
             multiline
+            rows={4}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Enter a dercription of the place"
           />
         </div>
         <div className={styles.flexAddressCity}>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Address</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setAddress(e.target.value)}
               />
             </div>
           </div>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">city</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setCity(e.target.value)}
               />
@@ -169,22 +167,20 @@ export default function CreateVenue() {
         </div>
         <div className={styles.flexCountryContinents}>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Country</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setCountry(e.target.value)}
               />
             </div>
           </div>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Continents</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 id="outlined-select-currency"
                 select
                 defaultValue="Europe"
@@ -201,11 +197,10 @@ export default function CreateVenue() {
         </div>
         <div className={styles.flexLatLong}>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Lattitude</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setLattitude(e.target.value)}
                 helperText="Must be within the range of -90 , 90 "
@@ -213,11 +208,10 @@ export default function CreateVenue() {
             </div>
           </div>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Longitude</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setLongitude(e.target.value)}
                 helperText="Must be within the range of -180 , 180 "
@@ -227,22 +221,20 @@ export default function CreateVenue() {
         </div>
         <div className={styles.flexPriceGuests}>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Price*</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
           </div>
           <div>
-            <div>
+            <div className={styles.inputContainer}>
               <label htmlFor="">Max amount of guests*</label>
-            </div>
-            <div>
               <TextField
+                className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setMaxAmountOfGuests(e.target.value)}
               />

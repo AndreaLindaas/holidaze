@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { API_URL } from "../../../_lib/constants";
 import Button from "../../../_components/Button/Button";
 import { useStore } from "../../../_lib/store";
+import styles from "../../../_styles/createEdit.module.scss";
 
 export default function EditVenue(props) {
   const [name, setName] = useState("");
@@ -54,8 +55,6 @@ export default function EditVenue(props) {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.data.media);
-        // setVenue(result.data);
         setName(result.data.name);
         setDescription(result.data.description);
         setMediaUrl(result.data.media.url);
@@ -86,7 +85,6 @@ export default function EditVenue(props) {
 
   const submitEditForm = (e) => {
     e.preventDefault();
-    console.log("halla");
 
     const payload = {
       name: name,
@@ -116,7 +114,7 @@ export default function EditVenue(props) {
       },
     };
     console.log("payload", payload);
-    fetch(`${API_URL}/venues/${params.venueId}`, {
+    fetch(`${API_URL}/venues/${props.params.venueId}`, {
       method: "PUT",
       body: JSON.stringify(payload),
       headers: {
@@ -131,11 +129,8 @@ export default function EditVenue(props) {
   };
   const addImage = (e) => {
     e.preventDefault();
-    console.log("hallllllooooo");
-    console.log("media", mediaUrl);
   };
   const showMediaUrl = () => {
-    console.log(mediaUrl);
     // return mediaUrl.map((url, i) => {
     //   return (
     //     <li key={i}>
@@ -152,7 +147,7 @@ export default function EditVenue(props) {
   }
 
   return (
-    <div>
+    <div className={styles.formContainer}>
       <form onSubmit={addImage}>
         <div>
           <label htmlFor="">Image url</label>

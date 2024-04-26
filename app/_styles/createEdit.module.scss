@@ -1,0 +1,49 @@
+.formContainer {
+  background-color: var(--green);
+  max-width: 600px;
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 40px;
+  color: #fff;
+
+  .text {
+    padding: 20px 0;
+  }
+  form {
+    text-align: center;
+  }
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    label {
+      text-align: left;
+    }
+  }
+
+  .image {
+    margin-top: 20px;
+    width: 100px;
+    padding: 5px;
+    border-radius: 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .formContainer {
+    .flexAddressCity,
+    .flexCountryContinents,
+    .flexLatLong,
+    .flexPriceGuests {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .inputContainer {
+      width: 270px;
+    }
+    .fullWidth {
+      width: 540px;
+    }
+  }
+}

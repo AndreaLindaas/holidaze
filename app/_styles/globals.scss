@@ -17,6 +17,17 @@
 .center {
   text-align: center;
 }
+.left {
+  text-align: left;
+}
+.whiteInput {
+  margin: 10px 0;
+
+  .MuiInputBase-root {
+    background-color: #fff;
+  }
+}
+
 .modal {
   position: absolute;
   top: 50%;
