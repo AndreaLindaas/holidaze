@@ -18,6 +18,16 @@ export const useStore = create(
       setAvatar: (a) => set({ avatar: a }),
       setIsVenueManager: (v) => set({ isVenueManager: v }),
       setBio: (b) => set({ bio: b }),
+      logout: () =>
+        set({
+          name: "",
+          email: "",
+          accessToken: "",
+          apiKey: "",
+          avatar: "",
+          isVenueManager: false,
+          bio: "",
+        }),
     }),
     {
       name: "holidaze-storage", // name of the item in the storage (must be unique)
