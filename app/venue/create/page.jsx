@@ -131,7 +131,6 @@ export default function CreateVenue() {
             placeholder="What will you call your rental?"
           />
         </div>
-        <div></div>
         <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Description*</label>
           <TextField

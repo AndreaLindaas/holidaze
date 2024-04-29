@@ -149,168 +149,158 @@ export default function EditVenue(props) {
   return (
     <div className={styles.formContainer}>
       <form onSubmit={addImage}>
-        <div>
+        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Image url</label>
-        </div>
-        <div>
-          <TextField variant="outlined" onChange={mediaUrlChange} />
+          <TextField
+            className="whiteInput"
+            variant="outlined"
+            onChange={mediaUrlChange}
+          />
         </div>
         <Button text="Add" />
       </form>
       <ul>{showMediaUrl()}</ul>
       <form onSubmit={submitEditForm}>
-        <div>
+        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Name*</label>
-        </div>
-        <div>
           <TextField
+            className="whiteInput"
             variant="outlined"
             onChange={(e) => setName(e.target.value)}
             value={name}
           />
         </div>
-        <div>
+
+        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Description*</label>
-        </div>
-        <div>
           <TextField
+            className="whiteInput"
             variant="outlined"
             onChange={(e) => setDescription(e.target.value)}
             value={description}
             multiline
           />
         </div>
-        {/* <div>
-        <label htmlFor="">Media url</label>
-      </div>
-      <div>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setMediaUrl(e.target.value)}
+        <div className={styles.flexAddressCity}>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Address</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setAddress(e.target.value)}
+              value={address}
+            />
+          </div>
+
+          <div className={styles.inputContainer}>
+            <label htmlFor="">city</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setCity(e.target.value)}
+              value={city}
+            />
+          </div>
+        </div>
+        <div className={styles.flexCountryContinents}>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Country</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setCountry(e.target.value)}
+              value={country}
+            />
+          </div>
+
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Continents</label>
+            <TextField
+              className="whiteInput"
+              id="outlined-select-currency"
+              select
+              onChange={(e) => setContinent(e.target.value)}
+              value={continent}
+            >
+              {continents.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </div>
+        </div>
+        <div className={styles.flexLatLong}>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Lattitude</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setLattitude(e.target.value)}
+              helperText="Must be within the range of -90 , 90 "
+              value={lattitude}
+            />
+          </div>
+
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Longitude</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setLongitude(e.target.value)}
+              helperText="Must be within the range of -180 , 180 "
+              value={longitude}
+            />
+          </div>
+        </div>
+        <div className={styles.flexPriceGuests}>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Price*</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setPrice(e.target.value)}
+              value={price}
+            />
+          </div>
+          <div className={styles.inputContainer}>
+            <label htmlFor="">Max amount of guests*</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setMaxGuests(e.target.value)}
+              value={maxGuests}
+            />
+          </div>
+        </div>
+
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Wifi"
+          onChange={(e) => setWifi(e.target.checked)}
+          checked={wifi}
         />
-      </div> */}
+        <FormControlLabel
+          control={<Checkbox />}
+          label="parking"
+          onChange={(e) => setParking(e.target.checked)}
+          checked={parking}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="breakfast"
+          onChange={(e) => setBreakfast(e.target.checked)}
+          checked={breakfast}
+        />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="pets"
+          onChange={(e) => setPets(e.target.checked)}
+          checked={pets}
+        />
         <div>
-          <label htmlFor="">Price*</label>
+          <Button text="save changes" />
         </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setPrice(e.target.value)}
-            value={price}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Max amount of guests*</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setMaxGuests(e.target.value)}
-            value={maxGuests}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Address</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setAddress(e.target.value)}
-            value={address}
-          />
-        </div>
-        <div>
-          <label htmlFor="">city</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setCity(e.target.value)}
-            value={city}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Country</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setCountry(e.target.value)}
-            value={country}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Continents</label>
-        </div>
-        <div>
-          <TextField
-            id="outlined-select-currency"
-            select
-            onChange={(e) => setContinent(e.target.value)}
-            value={continent}
-          >
-            {continents.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
-        <div>
-          <label htmlFor="">Lattitude</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setLattitude(e.target.value)}
-            helperText="Must be within the range of -90 , 90 "
-            value={lattitude}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Longitude</label>
-        </div>
-        <div>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setLongitude(e.target.value)}
-            helperText="Must be within the range of -180 , 180 "
-            value={longitude}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="Wifi"
-            onChange={(e) => setWifi(e.target.checked)}
-            checked={wifi}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="parking"
-            onChange={(e) => setParking(e.target.checked)}
-            checked={parking}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="breakfast"
-            onChange={(e) => setBreakfast(e.target.checked)}
-            checked={breakfast}
-          />
-        </div>
-        <div>
-          <FormControlLabel
-            control={<Checkbox />}
-            label="pets"
-            onChange={(e) => setPets(e.target.checked)}
-            checked={pets}
-          />
-        </div>
-        <Button text="save changes" />
       </form>
     </div>
   );
