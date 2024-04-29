@@ -101,14 +101,16 @@ export default function CreateVenue() {
         This will help potential visitors understand what your venue offers and
         how it fits their needs.
       </p>
-      <div className="center">
+      <ul className="center">
         {media.map((image, i) => {
           console.log(image);
           return (
-            <img src={image.url} key={i} alt="" className={styles.image} />
+            <li key={i}>
+              <img src={image.url} alt="" className={styles.image} />
+            </li>
           );
         })}
-      </div>
+      </ul>
       <form onSubmit={addImage}>
         <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label>Media url</label>

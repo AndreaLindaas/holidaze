@@ -10,7 +10,9 @@ import styles from "../../../_styles/createEdit.module.scss";
 export default function EditVenue(props) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [mediaUrl, setMediaUrl] = useState([]);
+  const [media, setMedia] = useState([]);
+  const [tempMediaUrl, setTempMediaUrl] = useState("");
+
   const [price, setPrice] = useState(0);
   const [maxGuests, setMaxGuests] = useState(0);
   const [address, setAddress] = useState("");
@@ -55,9 +57,10 @@ export default function EditVenue(props) {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
       .then((result) => {
+        console.log("pepsi", result.data.media);
         setName(result.data.name);
         setDescription(result.data.description);
-        setMediaUrl(result.data.media.url);
+        setMedia(result.data.media);
         setPrice(result.data.price);
         setMaxGuests(result.data.maxGuests);
         setAddress(
@@ -89,12 +92,7 @@ export default function EditVenue(props) {
     const payload = {
       name: name,
       description: description,
-      // media: [
-      //   {
-      //     "url": "https://url.com/image.jpg",
-      //     "alt": "string"
-      //   }
-      // ],
+      media: media,
       price: Number(price),
       maxGuests: Number(maxGuests),
 
@@ -108,7 +106,7 @@ export default function EditVenue(props) {
         address: address,
         city: city,
         country: country,
-        // continent:continent,
+        continent: continent,
         lat: Number(lattitude),
         lng: Number(longitude),
       },
@@ -129,25 +127,39 @@ export default function EditVenue(props) {
   };
   const addImage = (e) => {
     e.preventDefault();
+    console.log("denne shiten");
+    const newMedia = { url: tempMediaUrl };
+    const mediaArray = [...media, newMedia];
+    setMedia(mediaArray);
   };
-  const showMediaUrl = () => {
-    // return mediaUrl.map((url, i) => {
-    //   return (
-    //     <li key={i}>
-    //       <img src={url} alt="" />
-    //     </li>
-    //   );
-    // });
+  const removeItem = (index) => {
+    setMedia((prevMedia) => prevMedia.filter((_, i) => i !== index));
+  };
+  const showImages = () => {
+    return media.map((image, i) => {
+      return (
+        <li key={i}>
+          <img
+            src={image.url}
+            alt="image of the rental"
+            className={styles.image}
+          />
+          <Button text="Remove" onClick={() => removeItem(i)} />
+        </li>
+      );
+    });
   };
   const mediaUrlChange = (e) => {
-    const url = e.target.elements;
+    setTempMediaUrl(e.target.value); // Store entered URL in tempMediaUrl
   };
+
   if (isLoading) {
     return <>loading</>;
   }
 
   return (
     <div className={styles.formContainer}>
+      <ul className="center">{showImages()}</ul>
       <form onSubmit={addImage}>
         <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Image url</label>
@@ -159,7 +171,6 @@ export default function EditVenue(props) {
         </div>
         <Button text="Add" />
       </form>
-      <ul>{showMediaUrl()}</ul>
       <form onSubmit={submitEditForm}>
         <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
           <label htmlFor="">Name*</label>
