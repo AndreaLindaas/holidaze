@@ -56,20 +56,22 @@ export default function MyVenueCard(props) {
 
   return (
     <div>
-      <div>
+      <div className={styles.cardContainer}>
         <Card sx={{ maxWidth: 345 }} key={venue.id}>
-          <CardActionArea>
-            {showImage()}
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {venue.name}
-              </Typography>
-            </CardContent>
-          </CardActionArea>{" "}
-          <Link href={`/venue/edit/${venue.id}`}>
-            <Button text="Edit" />
+          <Link href={`venue/${venue.id}`}>
+            <CardActionArea>
+              {showImage()}
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {venue.name}
+                </Typography>
+              </CardContent>
+            </CardActionArea>{" "}
+            <Link href={`/venue/edit/${venue.id}`}>
+              <Button text="Edit" />
+            </Link>
+            <Button text="Delete" onClick={() => openDeleteModal()} />{" "}
           </Link>
-          <Button text="Delete" onClick={() => openDeleteModal()} />
         </Card>
       </div>
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>

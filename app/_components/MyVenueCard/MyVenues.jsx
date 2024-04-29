@@ -1,5 +1,6 @@
 import React from "react";
 import MyVenueCard from "./MyVenueCard";
+import Link from "next/link";
 export default function MyVenues(props) {
   const { myVenues } = props;
 
