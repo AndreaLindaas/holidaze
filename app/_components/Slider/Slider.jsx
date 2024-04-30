@@ -10,7 +10,7 @@ export default function SimpleSlider(props) {
     if (venue.media && venue.media.length > 0)
       return venue.media.map((image, i) => {
         return (
-          <div key={i}>
+          <div className={styles.slide} key={i}>
             <img src={image.url} alt="" />
           </div>
         );

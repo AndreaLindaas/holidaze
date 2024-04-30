@@ -1,1 +1,16 @@
-
+.headline {
+  margin: 20px auto;
+  max-width: 500px;
+  padding: 0 10px;
+}
+.venueContent {
+  margin: 0 auto;
+  max-width: 500px;
+  padding: 0 10px;
+  .offersCard {
+    margin: 30px 0;
+  }
+  .border {
+    border-bottom: 1px solid #000;
+  }
+}
