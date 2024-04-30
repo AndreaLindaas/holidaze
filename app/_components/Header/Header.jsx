@@ -71,12 +71,16 @@ export default function Header() {
             </Drawer>
           </div>
         ) : (
-          <Link href="/profile">
-            <Avatar alt="Remy Sharp" src={avatar} />
-          </Link>
+          <>
+            {" "}
+            <div>{renderMenuList()} </div>
+            <Link href="/profile">
+              <Avatar alt="Remy Sharp" src={avatar} />
+            </Link>
+          </>
         )}
       </div>
-      {isDesktop && <div>{renderMenuList()} </div>}
+      {/* {isDesktop && <div>{renderMenuList()} </div>} */}
     </nav>
   );
 }

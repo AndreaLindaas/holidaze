@@ -25,6 +25,7 @@
   .logoAvatar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 .menuList {
@@ -42,17 +43,14 @@
 @media screen and (min-width: 768px) {
   .header {
     margin: 0 70px;
+    border-bottom: 1px solid #000;
     .menuListButton {
       display: flex;
-      button {
-        margin: 0 10px 15px 10px;
-      }
     }
   }
   .menuList {
     display: flex;
     justify-content: center;
-    border-top: solid 1px #000;
     li {
       span {
         font-size: 20px;
