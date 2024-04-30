@@ -79,10 +79,11 @@ export default function Venue(props) {
       <p>{venue.description}</p>
 
       <p>{venue.price} kr night</p>
-      <h3>What this place offers:</h3>
+
       <Card sx={{ maxWidth: 345 }}>
+        <h3 className="center">What this place offers:</h3>
         <CardActionArea>
-          <CardContent>
+          <CardContent className="center">
             <Typography variant="body2" color="text.secondary">
               {showWifi()}{" "}
             </Typography>

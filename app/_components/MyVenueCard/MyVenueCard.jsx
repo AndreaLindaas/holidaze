@@ -67,11 +67,11 @@ export default function MyVenueCard(props) {
                 </Typography>
               </CardContent>
             </CardActionArea>{" "}
-            <Link href={`/venue/edit/${venue.id}`}>
-              <Button text="Edit" />
-            </Link>
-            <Button text="Delete" onClick={() => openDeleteModal()} />{" "}
           </Link>
+          <Link href={`/venue/edit/${venue.id}`}>
+            <Button text="Edit" />
+          </Link>
+          <Button text="Delete" onClick={() => openDeleteModal()} />{" "}
         </Card>
       </div>
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
