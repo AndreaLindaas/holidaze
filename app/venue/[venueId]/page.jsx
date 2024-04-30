@@ -13,6 +13,8 @@ import {
   Typography,
 } from "@mui/material";
 import styles from "./venue.module.scss";
+import MyBookingCalendar from "../../_components/Calendar/Calendar";
+import SimpleSlider from "../../_components/Slider/Slider";
 export default function Venue(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -29,32 +31,6 @@ export default function Venue(props) {
         console.error("Error fetching product:", error);
       });
   }, [props.params.venueId]);
-
-  const showImage = () => {
-    // if (venue.media && venue.media.length > 0)
-    //   return venue.media.map((image, i) => {
-    return (
-      // <div key={i} className={styles.venueCard}>
-      //   <img src={image} alt="image of venue" className={styles.image} />
-      // </div>
-      <ImageList
-        sx={{ width: 500, height: 450 }}
-        cols={3}
-        rowHeight={164}
-        // key={i}
-      >
-        {venue.media.map((image, i) => (
-          <ImageListItem key={image.id || i}>
-            <img
-              src={`${image.url}?w=164&h=164&fit=crop&auto=format`}
-              alt="images of place"
-              loading="lazy"
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    );
-  };
 
   if (isLoading) {
     return (
@@ -96,7 +72,8 @@ export default function Venue(props) {
       <h1>
         {venue.location.address}, {venue.location.country}
       </h1>
-      <div>{showImage()}</div>
+      <SimpleSlider venue={venue} />
+
       <h2>{venue.name}</h2>
       <p>{venue.maxGuests} guests</p>
       <p>{venue.description}</p>
@@ -121,6 +98,8 @@ export default function Venue(props) {
           </CardContent>
         </CardActionArea>
       </Card>
+
+      <MyBookingCalendar />
     </div>
   );
 }
