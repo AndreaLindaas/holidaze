@@ -140,6 +140,9 @@ export default function Profile() {
           <span> Create Venue</span>
         </Link>
       )}
+      <div>
+        <Link href="/trips"> My Trips</Link>
+      </div>
       <MyVenues myVenues={myVenues} />
 
       <Modal
