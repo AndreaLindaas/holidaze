@@ -103,7 +103,7 @@ export default function Venue(props) {
             </CardActionArea>
           </Card>
         </div>
-        <MyBookingCalendar />{" "}
+        <MyBookingCalendar venue={venue} />
       </div>
     </div>
   );

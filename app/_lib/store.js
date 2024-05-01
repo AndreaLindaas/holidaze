@@ -11,6 +11,7 @@ export const useStore = create(
       avatar: "",
       isVenueManager: false,
       bio: "",
+
       setName: (n) => set({ name: n }),
       setEmail: (e) => set({ email: e }),
       setToken: (t) => set({ accessToken: t }),
@@ -31,6 +32,23 @@ export const useStore = create(
     }),
     {
       name: "holidaze-storage", // name of the item in the storage (must be unique)
+    }
+  )
+);
+
+export const bookingStore = create(
+  persist(
+    (set, get) => ({
+      venue: {},
+      startDate: "",
+      endDate: "",
+
+      setVenue: (v) => set({ venue: v }),
+      setStartDate: (s) => set({ startDate: s }),
+      setEndDate: (e) => set({ endDate: e }),
+    }),
+    {
+      name: "holidaze-booking", // name of the item in the storage (must be unique)
     }
   )
 );
