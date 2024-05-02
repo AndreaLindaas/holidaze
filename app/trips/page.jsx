@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useStore } from "../_lib/store";
 import { CircularProgress } from "@mui/material";
 import useBookings from "../_hooks/fetchBookings";
+import MyTripsCard from "../_components/MyTripsCard/MyTripsCard";
 import VenueCard from "../_components/VenueCard/VenueCard";
 export default function Trips() {
   const { name, accessToken, apiKey } = useStore();
@@ -15,7 +16,7 @@ export default function Trips() {
 
   const renderMyBookings = () => {
     return bookings.data.map((booking) => {
-      return <div key={booking.id}>{booking.venue.name}</div>;
+      return <MyTripsCard booking={booking} key={booking.id} />;
     });
   };
 
@@ -27,10 +28,5 @@ export default function Trips() {
     );
   }
 
-  return (
-    <div>
-      Trips
-      {renderMyBookings()}
-    </div>
-  );
+  return <div>{renderMyBookings()}</div>;
 }
