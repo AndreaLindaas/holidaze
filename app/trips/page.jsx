@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useStore } from "../_lib/store";
 import { CircularProgress } from "@mui/material";
 import useBookings from "../_hooks/fetchBookings";
+import VenueCard from "../_components/VenueCard/VenueCard";
 export default function Trips() {
   const { name, accessToken, apiKey } = useStore();
 

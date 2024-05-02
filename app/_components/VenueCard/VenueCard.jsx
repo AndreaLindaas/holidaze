@@ -1,50 +1,44 @@
 import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import styles from "./VenueCard.module.scss";
+
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-flip";
-import Image from "next/image";
-
+import { Card, CardContent, Typography, CardMedia } from "@mui/material";
+import SimpleSlider from "../Slider/Slider";
+import styles from "./VenueCard.module.scss";
 export default function VenueCard(props) {
   const { venue } = props;
-
-  const getSwiperSlide = () => {
-    return venue.media.map((image, i) => {
+  console.log("venue,", venue);
+  const getCardMedia = () => {
+    if (venue.media && venue.media.length > 0) {
       return (
-        <SwiperSlide className={styles.venueCard} key={i}>
-          <img src={image} alt="" className={styles.image} />
-        </SwiperSlide>
+        <CardMedia
+          component="img"
+          alt=""
+          height="140"
+          image={venue.media[0].url}
+        />
       );
-    });
+    }
   };
 
-  // const renderSlider = () => {
-  //   if (venue.media && venue.media.length > 0)
-  //     return (
-  //       <Swiper
-  //         spaceBetween={50}
-  //         pagination={{ clickable: true }}
-  //         slidesPerView={1}
-  //         modules={[Navigation, Pagination]}
-  //       >
-  //         {getSwiperSlide()}
-  //       </Swiper>
-  //     );
-
-  // };
   return (
-    <div className={styles.venueCard}>
-      <div>
-        {venue.media && venue.media.length > 0 && (
-          <img src={venue.media[0].url} alt="" className={styles.image} />
-        )}
-      </div>
-      <div className="bold">
-        {venue.location.city}, {venue.location.country}
-      </div>
-      <div>{venue.price} kr night</div>
+    <div className={styles.myVenueCardContainer}>
+      <Card sx={{ maxWidth: 345 }}>
+        <div>{getCardMedia()}</div>
+
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {venue.location.city},{venue.location.country}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <span className="bold"> {venue.price} NOK </span> night
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <span className="bold">{venue.maxGuests}</span> guests
+          </Typography>
+        </CardContent>
+      </Card>
     </div>
   );
 }

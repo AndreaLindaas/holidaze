@@ -7,7 +7,8 @@ export default function SimpleSlider(props) {
   console.log("Tralalala", venue);
 
   const showImages = () => {
-    if (venue.media && venue.media.length > 0)
+    // if (venue.media && venue.media.length > 0)
+    if (venue && venue.media && venue.media.length > 0)
       return venue.media.map((image, i) => {
         return (
           <div className={styles.slide} key={i}>
