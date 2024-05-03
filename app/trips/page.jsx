@@ -1,10 +1,22 @@
 "use client";
 import React, { useEffect } from "react";
 import { useStore } from "../_lib/store";
-import { CircularProgress } from "@mui/material";
+import {
+  CircularProgress,
+  Card,
+  CardHeader,
+  Avatar,
+  IconButton,
+  CardMedia,
+  CardContent,
+  Typography,
+} from "@mui/material";
 import useBookings from "../_hooks/fetchBookings";
 import MyTripsCard from "../_components/MyTripsCard/MyTripsCard";
-import VenueCard from "../_components/VenueCard/VenueCard";
+import styles from "./trips.module.scss";
+import Button from "../_components/Button/Button";
+import ExploreIcon from "@mui/icons-material/Explore";
+import Link from "next/link";
 export default function Trips() {
   const { name, accessToken, apiKey } = useStore();
 
@@ -20,7 +32,31 @@ export default function Trips() {
         return <MyTripsCard booking={booking} key={booking.id} />;
       });
     } else {
-      return <div> No trips</div>;
+      return (
+        <div className={styles.noTripsContainer}>
+          <Card sx={{ maxWidth: 500 }}>
+            <CardHeader
+              action={<IconButton aria-label="settings"></IconButton>}
+              title="No Trips booked..."
+              subheader={<ExploreIcon />}
+            />
+            <CardMedia
+              component="img"
+              height="300"
+              image="/hut.jpg"
+              alt="Paella dish"
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                Time to start planning your next adventure.
+              </Typography>
+              <Link href="/">
+                <Button text="Explore" />
+              </Link>
+            </CardContent>
+          </Card>
+        </div>
+      );
     }
   };
 

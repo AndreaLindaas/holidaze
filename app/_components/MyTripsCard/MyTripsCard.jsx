@@ -6,17 +6,19 @@ export default function MyTripsCard(props) {
   console.log("booking", booking);
   return (
     <Card sx={{ maxWidth: 345 }}>
-      {" "}
       <Link href={`trips/${booking.id}`}>
         <CardMedia
           component="img"
-          alt="green iguana"
+          alt=""
           height="140"
           image={booking.venue.media[0].url}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {booking.venue.location.city}, {booking.venue.location.country}
+          </Typography>
+          <Typography component="div">
+            {booking.dateFrom}- {booking.dateTo}
           </Typography>
         </CardContent>{" "}
       </Link>
