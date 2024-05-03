@@ -13,11 +13,15 @@ export default function Trips() {
     apiKey,
     accessToken
   );
-
+  console.log("bookings", bookings);
   const renderMyBookings = () => {
-    return bookings.data.map((booking) => {
-      return <MyTripsCard booking={booking} key={booking.id} />;
-    });
+    if (bookings.data.length > 0) {
+      return bookings.data.map((booking) => {
+        return <MyTripsCard booking={booking} key={booking.id} />;
+      });
+    } else {
+      return <div> No trips</div>;
+    }
   };
 
   if (isLoadingBookingData) {

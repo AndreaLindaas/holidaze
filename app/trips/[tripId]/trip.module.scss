@@ -1,0 +1,29 @@
+.tripContainer {
+  margin: 20px auto;
+  max-width: 500px;
+  padding: 0 10px;
+
+  .flexCheckInOut {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+  }
+  .mail {
+    width: 140px;
+    text-align: center;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .rentalContainer {
+    border-bottom: 1px solid #000;
+    .rental {
+      width: 120px;
+      text-align: center;
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
