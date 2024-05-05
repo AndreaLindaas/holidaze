@@ -68,5 +68,10 @@ export default function Trips() {
     );
   }
 
-  return <div>{renderMyBookings()}</div>;
+  return (
+    <div className={styles.tripsContainer}>
+      <h1>Trips</h1>
+      <div className={styles.renderBookings}>{renderMyBookings()}</div>
+    </div>
+  );
 }

@@ -82,13 +82,13 @@ export default function MyTrip(props) {
         <h3>Payment info</h3>
         <span className="bold">Amount paid</span>
       </div>
-      <Button text="Cansel trip" onClick={() => openDeleteModal()} />
+      <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Sure you want to cansel the trip?
+            Sure you want to cancel the trip?
           </Typography>
-          <Button text="Cansel" onClick={deleteTrip} />
+          <Button danger text="Cancel" onClick={deleteTrip} />
           <Button text="Close" onClick={closeDeleteModal} />
         </Box>
       </Modal>

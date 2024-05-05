@@ -1,4 +1,12 @@
-.noTripsContainer {
-  text-align: center;
-  margin-top: 100px;
+.tripsContainer {
+  h1 {
+    text-align: center;
+  }
+  .renderBookings {
+    display: flex;
+  }
+  .noTripsContainer {
+    text-align: center;
+    margin-top: 100px;
+  }
 }

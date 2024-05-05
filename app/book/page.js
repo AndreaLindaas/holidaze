@@ -8,19 +8,20 @@ import { useState } from "react";
 import { API_URL } from "../_lib/constants";
 import { TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
-
+import Moment from "moment";
+import styles from "./book.module.scss";
 export default function Booking() {
   const { venue, startDate, endDate, setStartDate, setEndDate } =
     bookingStore();
   const { accessToken, apiKey } = useStore();
   const router = useRouter();
 
-  const [bookingDates, setBookingDates] = useState([moment(), moment()]);
   const [amountOfGuests, setAmountOfGuests] = useState(0);
-  console.log("jadda", venue);
+  const setBookingDates = (dates) => {
+    setStartDate(dates[0]);
+    setEndDate(dates[1]);
+  };
   const bookVenue = () => {
-    setStartDate(bookingDates[0]);
-    setEndDate(bookingDates[1]);
     const payload = {
       dateFrom: startDate,
       dateTo: endDate,
@@ -44,9 +45,14 @@ export default function Booking() {
         console.log("galt");
       });
   };
-
+  const numberOfNights = Moment(endDate).diff(Moment(startDate), "days");
+  console.log("numberOfNights", numberOfNights);
+  const pricePerNight = venue.price;
+  const totalPrice = pricePerNight * numberOfNights;
+  console.log("totalPrice", totalPrice);
+  console.log("venue", venue);
   return (
-    <div>
+    <div className={styles.bookContainer}>
       <img src={venue.media[0].url} />
       <h1> {venue.name}</h1>
       <StaticDateRangePicker
@@ -54,9 +60,18 @@ export default function Booking() {
         value={[moment(startDate), moment(endDate)]}
         onChange={(newValue) => setBookingDates(newValue)}
       />
+      <h3>Price details</h3>
+      <div>
+        {venue.price} NOK x {numberOfNights} nights
+      </div>
+      <div className="bold">Total: {totalPrice}</div>
+
       <div>
         <label className="bold">Number of guests?</label>
-        <p>This place allows maximum {venue.maxGuests} guests</p>
+        <p>
+          This place allows maximum{" "}
+          <span className="bold">{venue.maxGuests}</span> guests
+        </p>
         <TextField
           variant="outlined"
           onChange={(e) => setAmountOfGuests(e.target.value)}
