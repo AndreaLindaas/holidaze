@@ -103,7 +103,6 @@ export default function CreateVenue() {
       </p>
       <ul className="center">
         {media.map((image, i) => {
-          console.log(image);
           return (
             <li key={i}>
               <img src={image.url} alt="" className={styles.image} />

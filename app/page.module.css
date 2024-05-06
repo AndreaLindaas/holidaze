@@ -1,7 +1,12 @@
 .backgroundImage {
-  background-image: url("/interior.jpg");
+  background-image: url("/man.jpg");
   height: 400px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
+}
+@media screen and (min-width: 768px) {
+  .backgroundImage {
+    height: 600px;
+  }
 }

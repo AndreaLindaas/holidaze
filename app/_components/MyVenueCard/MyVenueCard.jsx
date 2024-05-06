@@ -35,7 +35,6 @@ export default function MyVenueCard(props) {
     setIsDeleteModalOpen(false);
   };
   const deleteVenue = () => {
-    console.log("tralala");
     fetch(`${API_URL}/venues/${venue.id}`, {
       method: "DELETE",
 

@@ -8,7 +8,6 @@ import SimpleSlider from "../Slider/Slider";
 import styles from "./VenueCard.module.scss";
 export default function VenueCard(props) {
   const { venue } = props;
-  console.log("venue,", venue);
   const getCardMedia = () => {
     if (venue.media && venue.media.length > 0) {
       return (

@@ -57,7 +57,6 @@ export default function EditVenue(props) {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
       .then((result) => {
-        console.log("pepsi", result.data.media);
         setName(result.data.name);
         setDescription(result.data.description);
         setMedia(result.data.media);
@@ -111,7 +110,6 @@ export default function EditVenue(props) {
         lng: Number(longitude),
       },
     };
-    console.log("payload", payload);
     fetch(`${API_URL}/venues/${props.params.venueId}`, {
       method: "PUT",
       body: JSON.stringify(payload),
@@ -127,7 +125,6 @@ export default function EditVenue(props) {
   };
   const addImage = (e) => {
     e.preventDefault();
-    console.log("denne shiten");
     const newMedia = { url: tempMediaUrl };
     const mediaArray = [...media, newMedia];
     setMedia(mediaArray);

@@ -5,7 +5,6 @@ import Moment from "moment";
 import styles from "./MyTripsCard.module.scss";
 export default function MyTripsCard(props) {
   const booking = props.booking;
-  console.log("booking", booking);
   return (
     <div className={styles.myTripsCardContainer}>
       <Card sx={{ maxWidth: 345 }}>

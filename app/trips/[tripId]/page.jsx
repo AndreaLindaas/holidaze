@@ -9,6 +9,7 @@ import styles from "./trip.module.scss";
 import Button from "../../_components/Button/Button";
 import { useState } from "react";
 import { API_URL } from "../../_lib/constants";
+import moment from "moment";
 export default function MyTrip(props) {
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -18,7 +19,6 @@ export default function MyTrip(props) {
     apiKey,
     accessToken
   );
-  console.log(trip);
 
   const openDeleteModal = () => {
     setIsDeleteModalOpen(true);
@@ -27,7 +27,6 @@ export default function MyTrip(props) {
     setIsDeleteModalOpen(false);
   };
   const deleteTrip = () => {
-    console.log("tralala");
     fetch(`${API_URL}/bookings/${trip.data.id}`, {
       method: "DELETE",
 
@@ -57,10 +56,12 @@ export default function MyTrip(props) {
       <h1>Your trip at {trip.data.venue.owner.name}´s place</h1>
       <div className={styles.flexCheckInOut}>
         <div>
-          <h3>Check-in</h3> <span>{trip.data.dateFrom}</span>
+          <h3>Check-in</h3>{" "}
+          <span>{moment(trip.data.dateFrom).format("MMMM Do YYYY")}</span>
         </div>
         <div>
-          <h3>Check-out</h3> <span>{trip.data.dateTo}</span>
+          <h3>Check-out</h3>{" "}
+          <span>{moment(trip.data.dateTo).format("MMMM Do YYYY")}</span>
         </div>
       </div>
       <div className={styles.mail}>

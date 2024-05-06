@@ -67,6 +67,7 @@ export default function Venue(props) {
       <span className="lineThrough">Pets</span>
     );
   };
+  console.log("venue", venue);
   return (
     <div>
       <h1 className={styles.headline}>

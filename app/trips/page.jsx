@@ -25,7 +25,6 @@ export default function Trips() {
     apiKey,
     accessToken
   );
-  console.log("bookings", bookings);
   const renderMyBookings = () => {
     if (bookings.data.length > 0) {
       return bookings.data.map((booking) => {

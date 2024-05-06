@@ -4,7 +4,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import styles from "./Slider.module.scss";
 export default function SimpleSlider(props) {
   const venue = props.venue;
-  console.log("Tralalala", venue);
 
   const showImages = () => {
     // if (venue.media && venue.media.length > 0)

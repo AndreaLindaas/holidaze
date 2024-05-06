@@ -85,7 +85,6 @@ export default function Profile() {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log("ting", result.data.venueManager);
         if (result.data.name) {
           //TODO: lagre profildata til store. har gjort det på login. husk venuemanager
           setName(result.data.name);
@@ -109,7 +108,6 @@ export default function Profile() {
       })
         .then((response) => response.json())
         .then((result) => {
-          console.log("Hvilken er denne?", result);
           setMyVenues(result.data);
         })
         .catch((error) => {});

@@ -46,9 +46,7 @@ export default function Register() {
       },
     })
       .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-      })
+      .then((result) => {})
       .catch((error) => {
         console.log(error);
       });
