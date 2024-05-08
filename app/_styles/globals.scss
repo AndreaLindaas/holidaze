@@ -2,8 +2,11 @@
   --jet: #333;
   --green: #1d4349;
   --red: #ff1010;
+  --orange: #ff6d00;
 }
-
+body {
+  margin: 0;
+}
 .spinner {
   text-align: center;
   margin: 50px 0;

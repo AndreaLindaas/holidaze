@@ -86,7 +86,6 @@ export default function Profile() {
       .then((response) => response.json())
       .then((result) => {
         if (result.data.name) {
-          //TODO: lagre profildata til store. har gjort det på login. husk venuemanager
           setName(result.data.name);
           setEmail(result.data.email);
           setBio(result.data.bio);

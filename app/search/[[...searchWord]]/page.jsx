@@ -8,19 +8,17 @@ export default function SearchPage(props) {
   const { isLoading: isLoadingSearchData, data: search } =
     useSearch(searchWord);
 
-  useEffect(() => {}, [searchWord]);
-
   const showSearchResults = () => {
-    if (!isLoadingSearchData && search.data) {
-      return search.data.map((venue, i) => {
-        return (
-          <div key={venue.id}>
-            <VenueCard venue={venue} />
-          </div>
-        );
-      });
-    } else {
-      return;
+    if (searchWord) {
+      if (!isLoadingSearchData && search.data) {
+        return search.data.map((venue, i) => {
+          return (
+            <div key={venue.id}>
+              <VenueCard venue={venue} />
+            </div>
+          );
+        });
+      }
     }
   };
   return (

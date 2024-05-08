@@ -19,14 +19,17 @@ export default function Search(props) {
   return (
     <div className={styles.centerSearch}>
       <form onSubmit={submitSearch}>
-        <TextField
-          id="outlined-basic"
-          label="Enter search"
-          variant="outlined"
-          value={searchWord}
-          onChange={(e) => setSearchWord(e.target.value)}
-        />
-        <Button text="Search" />
+        <div className={styles.searchForm}>
+          <TextField
+            className="whiteInput"
+            id="outlined-basic"
+            variant="standard"
+            value={searchWord}
+            placeholder="House by the sea..."
+            onChange={(e) => setSearchWord(e.target.value)}
+          />
+          <Button text="Search" />
+        </div>
       </form>
     </div>
   );
