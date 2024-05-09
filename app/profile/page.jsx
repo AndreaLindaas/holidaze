@@ -114,13 +114,15 @@ export default function Profile() {
   }, [accessToken, apiKey, name]);
   return (
     <div>
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
-          <Avatar
-            alt="profile image"
-            sx={{ width: 70, height: 70 }}
-            src={avatar}
-          />
+      <div className={styles.cardContainer}>
+        <Card sx={{ maxWidth: 450 }}>
+          <div className={styles.avatarContainer}>
+            <Avatar
+              alt="profile image"
+              sx={{ width: 70, height: 70 }}
+              src={avatar}
+            />
+          </div>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}
@@ -129,9 +131,9 @@ export default function Profile() {
               {bio}
             </Typography>
           </CardContent>
-        </CardActionArea>
-        <Button text="Edit profile" onClick={avatarModalOpen} />
-      </Card>
+          <Button text="Edit profile" onClick={avatarModalOpen} />
+        </Card>
+      </div>
       {venueManager && (
         <Link href="/venue/create">
           <span> Create Venue</span>
@@ -152,20 +154,20 @@ export default function Profile() {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Edit profile
           </Typography>
-          <Typography>Is a venue manager</Typography>
+          <Typography>
+            Turn on the host switch if you want to rent out a place.
+          </Typography>
           <FormGroup>
             <FormControlLabel
               control={<Switch />}
               checked={isVenueManager}
-              label="Label"
+              label="Host"
               onChange={(e) => setIsVenueManager(e.target.checked)}
             />
           </FormGroup>
 
-          <div>
+          <div className={styles.input}>
             <label htmlFor="">Change avatar</label>
-          </div>
-          <div>
             <TextField
               id="outlined-basic"
               variant="outlined"
@@ -173,10 +175,9 @@ export default function Profile() {
               value={newAvatar}
             />
           </div>
-          <div>
+
+          <div className={styles.input}>
             <label htmlFor="">Change bio</label>
-          </div>
-          <div>
             <TextField
               id="outlined-basic"
               variant="outlined"
