@@ -18,8 +18,10 @@ export default function Booking() {
 
   const [amountOfGuests, setAmountOfGuests] = useState(0);
   const setBookingDates = (dates) => {
-    setStartDate(dates[0]);
-    setEndDate(dates[1]);
+    if (dates && dates.length > 1) {
+      setStartDate(dates[0]);
+      setEndDate(dates[1]);
+    }
   };
   const bookVenue = () => {
     const payload = {
@@ -53,7 +55,9 @@ export default function Booking() {
 
   return (
     <div className={styles.bookContainer}>
-      <img src={venue.media[0].url} />
+      {venue.media && venue.media.length > 0 && (
+        <img src={venue.media[0].url} />
+      )}
       <h1> {venue.name}</h1>
       <StaticDateRangePicker
         slotProps={{ actionBar: { actions: [] } }}

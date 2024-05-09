@@ -23,7 +23,7 @@ export default function Trips() {
   const { isLoading: isLoadingBookingData, data: bookings } =
     useBookingsForUser(name, apiKey, accessToken);
   const renderMyBookings = () => {
-    if (bookings.data.length > 0) {
+    if (bookings && bookings.data && bookings.data.length > 0) {
       return bookings.data.map((booking) => {
         return <MyTripsCard booking={booking} key={booking.id} />;
       });
