@@ -26,14 +26,14 @@ export default function Header() {
     return (
       <ul className={styles.menuList}>
         <li>
-          <Link href="/">
-            <span> Home</span>
+          <Link href="/venue/create">
+            <span>List your home</span>
           </Link>
         </li>
         {!accessToken && (
           <li>
             <Link href="/login" className="login-link">
-              <span> Login</span>
+              <span>Login</span>
             </Link>
           </li>
         )}
@@ -42,31 +42,46 @@ export default function Header() {
           <>
             <li>
               <Link href="/profile">
-                <span> Profile</span>
+                <span>Profile</span>
               </Link>
             </li>
 
             <li>
               <Link href="/logout">
-                <span> Logout</span>
+                <span>Logout</span>
               </Link>
             </li>
           </>
         )}
+
+        <li>
+          <Link href="/">
+            <span> Contact</span>
+          </Link>
+        </li>
       </ul>
     );
   };
   return (
     <nav className={styles.header}>
       <div className={styles.logoAvatar}>
-        <Link href="/">
+        <Link className={styles.logo} href="/">
           <img src="/logo-color.png" className={styles.logo} alt="" />
           <span>Holidaze</span>
         </Link>
         {!isDesktop ? (
           <div>
             <MenuIcon onClick={toggleDrawer} />
-            <Drawer anchor="top" open={menuOpen} onClose={closeMenu}>
+            <Drawer
+              anchor="top"
+              open={menuOpen}
+              onClose={closeMenu}
+              PaperProps={{
+                sx: {
+                  backgroundColor: "var(--green)",
+                },
+              }}
+            >
               {renderMenuList()}
             </Drawer>
           </div>

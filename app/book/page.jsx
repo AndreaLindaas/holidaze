@@ -50,6 +50,7 @@ export default function Booking() {
   const pricePerNight = venue.price;
   const totalPrice = pricePerNight * numberOfNights;
   console.log("totalPrice", totalPrice);
+
   return (
     <div className={styles.bookContainer}>
       <img src={venue.media[0].url} />

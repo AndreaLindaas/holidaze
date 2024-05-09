@@ -18,7 +18,7 @@ const fetchBookings = async(name, apiKey, accessToken) => {
       }
 }
 
-export default function useBookings(name, apiKey, accessToken){
+export default function useBookingsForUser(name, apiKey, accessToken){
     return useQuery({
         queryKey: ["bookings", name],
         queryFn: () => fetchBookings(name, apiKey, accessToken),

@@ -13,32 +13,17 @@ import {
   Typography,
 } from "@mui/material";
 import styles from "./venue.module.scss";
-import MyBookingCalendar from "../../_components/Calendar/Calendar";
+import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
 import SimpleSlider from "../../_components/Slider/Slider";
+import useVenue from "../../_hooks/fetchVenue";
 export default function Venue(props) {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [venue, setVenue] = useState([]);
+  const {
+    isLoading,
+    data: venue,
+    isError,
+    error,
+  } = useVenue(props.params.venueId);
 
-  useEffect(() => {
-    fetch(`${API_URL}/venues/${props.params.venueId}`)
-      .then((response) => response.json())
-      .then((result) => {
-        setVenue(result.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching product:", error);
-      });
-  }, [props.params.venueId]);
-
-  if (isLoading) {
-    return (
-      <div className="spinner">
-        <CircularProgress />
-      </div>
-    );
-  }
   const showBreakfast = () => {
     return venue.meta.breakfast ? (
       <span>Breakfast</span>
@@ -67,7 +52,24 @@ export default function Venue(props) {
       <span className="lineThrough">Pets</span>
     );
   };
-  console.log("venue", venue);
+
+  if (isLoading || !venue) {
+    return (
+      <div className="spinner">
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div>
+        Something went wrong
+        <p>{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1 className={styles.headline}>

@@ -1,10 +1,10 @@
-import { Alegreya_Sans_SC } from "next/font/google";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./_styles/globals.scss";
 import Header from "./_components/Header/Header";
 import Providers from "./_components/Providers";
-const Alegreya = Alegreya_Sans_SC({
+const IBM = IBM_Plex_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "800"],
+  weight: ["400", "500", "600"],
 });
 
 export const metadata = {
@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Providers>
-        <body className={Alegreya.className}>
+        <body className={IBM.className}>
           <Header />
 
           {children}

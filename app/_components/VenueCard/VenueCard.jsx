@@ -23,12 +23,14 @@ export default function VenueCard(props) {
 
   return (
     <div className={styles.myVenueCardContainer}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card>
         <div>{getCardMedia()}</div>
 
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {venue.location.city},{venue.location.country}
+            {venue.location.city || "Great house"}
+            {venue.location.city && venue.location.country ? ", " : ""}
+            {venue.location.country || ", Duckburg"}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             <span className="bold"> {venue.price} NOK </span> night

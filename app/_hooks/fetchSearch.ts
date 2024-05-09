@@ -3,11 +3,6 @@ import { API_URL } from "../_lib/constants";
 
 const fetchSearch = async( searchWord ) => {
     const response = await  fetch(`${API_URL}/venues/search/?q=${searchWord}`, {
-        // headers: {
-        //   "Content-type": "application/json; charset=UTF-8",
-        //   Authorization: `Bearer ${accessToken}`,
-        //   "X-Noroff-API-Key": apiKey,
-        // },
       });
 
       if(response.ok){

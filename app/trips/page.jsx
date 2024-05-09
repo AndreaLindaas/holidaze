@@ -11,7 +11,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import useBookings from "../_hooks/fetchBookings";
+import useBookingsForUser from "../_hooks/fetchBookingsForUser";
 import MyTripsCard from "../_components/MyTripsCard/MyTripsCard";
 import styles from "./trips.module.scss";
 import Button from "../_components/Button/Button";
@@ -20,11 +20,8 @@ import Link from "next/link";
 export default function Trips() {
   const { name, accessToken, apiKey } = useStore();
 
-  const { isLoading: isLoadingBookingData, data: bookings } = useBookings(
-    name,
-    apiKey,
-    accessToken
-  );
+  const { isLoading: isLoadingBookingData, data: bookings } =
+    useBookingsForUser(name, apiKey, accessToken);
   const renderMyBookings = () => {
     if (bookings.data.length > 0) {
       return bookings.data.map((booking) => {

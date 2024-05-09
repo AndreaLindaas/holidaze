@@ -14,7 +14,8 @@ export default function Home() {
       {isDesktop && (
         <>
           <div className={styles.slogan}>
-            Unlock your next adventure - book now!
+            Unlock your next adventure -
+            <span className="orange">book now!</span>
           </div>
           <div className={styles.searchContainer}>
             <Search />

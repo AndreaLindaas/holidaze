@@ -3,4 +3,19 @@
   flex-direction: row;
   flex-wrap: wrap;
   gap: 20px;
+  row-gap: 50px;
+  justify-content: center;
+  margin: 0 20px;
+
+  > a {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .venueCardContainer {
+    > a {
+      width: 345px;
+    }
+  }
 }

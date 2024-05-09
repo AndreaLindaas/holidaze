@@ -1,8 +1,6 @@
 .header {
-  // display: flex;
-  // justify-content: space-between;
-  margin-bottom: 20px;
-  a {
+  margin: 10px 0;
+  .logo {
     display: flex;
     flex-direction: row;
     img {
@@ -12,7 +10,7 @@
   a,
   a:visited {
     text-decoration: none;
-    color: var(--jet);
+    color: #fff;
     span {
       font-size: 40px;
     }
@@ -36,13 +34,26 @@
     a,
     a:visited {
       text-decoration: none;
-      color: var(--jet);
+      color: #fff;
     }
   }
 }
+
+// :global {
+//   .MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorTop {
+//     background-color: var(--jet);
+//     color: #fff;
+//   }
+// }
 @media screen and (min-width: 768px) {
   .header {
     margin: 0 70px;
+
+    a,
+    a:visited {
+      color: var(--jet);
+    }
+
     .menuListButton {
       display: flex;
     }
@@ -51,9 +62,15 @@
     display: flex;
     justify-content: center;
     li {
+      a,
+      a:visited {
+        color: var(--jet);
+      }
+      a:hover {
+        text-decoration: underline var(--orange);
+      }
       span {
-        font-size: 20px;
-        padding-top: 10px;
+        font-size: 16px;
       }
     }
   }
