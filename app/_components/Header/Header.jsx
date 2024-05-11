@@ -37,7 +37,11 @@ export default function Header() {
             </Link>
           </li>
         )}
-
+        <li>
+          <Link href="/">
+            <span> Contact</span>
+          </Link>
+        </li>
         {accessToken && (
           <>
             <li>
@@ -53,12 +57,6 @@ export default function Header() {
             </li>
           </>
         )}
-
-        <li>
-          <Link href="/">
-            <span> Contact</span>
-          </Link>
-        </li>
       </ul>
     );
   };

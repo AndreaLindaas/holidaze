@@ -30,9 +30,7 @@ export default function Venues() {
       );
     });
   };
-  //   if (showError) {
-  //     return <div className="error-message">Problem with fetching Venues.</div>;
-  //   }
+
   if (isLoading) {
     return (
       <div className="spinner">
