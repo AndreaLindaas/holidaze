@@ -12,6 +12,22 @@ export default function Search(props) {
   );
   const router = useRouter();
 
+  const placeHolders = [
+    "House by the sea..",
+    "Dreamy cabin in the forrest..",
+    "Fishing in the lake..",
+    "Skiing downhill..",
+    "Mountain view and fresh air..",
+    "Midtown madness and great restaurants..",
+    "Something boring in Oslo..",
+  ];
+
+  const randomPlaceholder = () => {
+    return placeHolders[
+      Math.floor(Math.random(0, placeHolders.length - 1) * placeHolders.length)
+    ];
+  };
+
   const submitSearch = (e) => {
     e.preventDefault();
     router.push(`/search/${searchWord}`);
@@ -23,9 +39,10 @@ export default function Search(props) {
           <TextField
             className="whiteInput"
             id="outlined-basic"
+            InputProps={{ disableUnderline: true }}
             variant="standard"
             value={searchWord}
-            placeholder="House by the sea..."
+            placeholder={randomPlaceholder()}
             onChange={(e) => setSearchWord(e.target.value)}
           />
           <Button text="Search" />

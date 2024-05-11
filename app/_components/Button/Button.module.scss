@@ -25,7 +25,9 @@
   background-color: var(--orange);
   margin: 0 40px;
 }
-
+.button:hover {
+  cursor: pointer;
+}
 .button::before,
 .button::after {
   position: absolute;

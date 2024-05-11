@@ -17,6 +17,11 @@
   .venueCardContainer {
     > a {
       width: 345px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      &:hover {
+        border: 1px solid var(--orange);
+      }
     }
   }
 }
