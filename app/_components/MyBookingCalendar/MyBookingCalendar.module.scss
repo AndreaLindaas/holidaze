@@ -1,7 +1,12 @@
 .calendar {
+  margin-bottom: 20px;
   :global {
     .MuiButtonBase-root.Mui-disabled.MuiPickersDay-root {
       // color: var(--red);
     }
+  }
+
+  .bookButton {
+    width: 100%;
   }
 }

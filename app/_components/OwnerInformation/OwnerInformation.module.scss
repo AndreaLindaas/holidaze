@@ -1,0 +1,23 @@
+.ownerInformation {
+  margin-bottom: 100px;
+
+  h3 {
+    margin: 0;
+  }
+  .card {
+    background-color: var(--peach);
+    padding-top: 20px;
+  }
+  .avatarContainer {
+    display: flex;
+    justify-content: center;
+  }
+  .mail {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+    a {
+      text-decoration: none;
+    }
+  }
+}

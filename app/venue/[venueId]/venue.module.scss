@@ -4,13 +4,35 @@
   padding: 0 10px;
 }
 .venueContent {
-  margin: 0 auto;
-  max-width: 500px;
   padding: 0 10px;
   .offersCard {
-    margin: 30px 0;
+    margin: 30px auto;
+    width: 100%;
+    max-width: 500px;
   }
-  .border {
-    border-bottom: 1px solid #000;
+  .introBox {
+    background-color: var(--jet);
+    color: var(--orange);
+    padding: 10px;
+    h2 {
+      margin: 0;
+      color: #fff;
+    }
+  }
+  .description {
+    padding: 5px;
+  }
+  .offers {
+    background-color: var(--peach);
+    padding: 10px;
+  }
+  .calendar {
+    margin: 0 auto;
+    width: 300px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .venueContent {
+    width: 600px;
   }
 }

@@ -68,7 +68,7 @@ export default function MyBookingCalendar(props) {
   };
 
   return (
-    <div>
+    <div className={styles.calendar}>
       <StaticDateRangePicker
         slotProps={{ actionBar: { actions: [] } }}
         value={bookingDates}
@@ -81,6 +81,7 @@ export default function MyBookingCalendar(props) {
       {errorMessage && <p>{errorMessage}</p>}
 
       <Button
+        className={styles.bookButton}
         disabled={isBookButtonDisabled || errorMessage}
         text="Book"
         onClick={bookingClick}

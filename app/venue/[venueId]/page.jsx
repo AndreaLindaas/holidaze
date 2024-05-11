@@ -1,21 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
-import { API_URL } from "../../_lib/constants";
-import { useState } from "react";
-import {
-  CircularProgress,
-  ImageList,
-  ImageListItem,
-  Card,
-  CardActionArea,
-  CardMedia,
-  CardContent,
-  Typography,
-} from "@mui/material";
+import StarIcon from "@mui/icons-material/Star";
+import { CircularProgress, Card, CardContent, Typography } from "@mui/material";
 import styles from "./venue.module.scss";
 import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
 import SimpleSlider from "../../_components/Slider/Slider";
 import useVenue from "../../_hooks/fetchVenue";
+import OwnerInformation from "../../_components/OwnerInformation/OwnerInformation";
+
 export default function Venue(props) {
   const {
     isLoading,
@@ -52,7 +44,13 @@ export default function Venue(props) {
       <span className="lineThrough">Pets</span>
     );
   };
-
+  const showRating = () => {
+    let ratings = [];
+    for (let i = 0; i < venue.rating; i++) {
+      ratings.push(<StarIcon key={i} />);
+    }
+    return ratings;
+  };
   if (isLoading || !venue) {
     return (
       <div className="spinner">
@@ -77,21 +75,23 @@ export default function Venue(props) {
       </h1>
       <SimpleSlider venue={venue} />
       <div className={styles.venueContent}>
-        <div className={styles.border}>
+        <div className={styles.introBox}>
           <h2>{venue.name}</h2>
           <p className="bold">{venue.maxGuests} guests</p>
           <p className="bold">{venue.price} kr night</p>
+          {showRating()}
         </div>
-        <div className={styles.border}>
+        <div className={styles.description}>
           <p>{venue.description}</p>
         </div>
         <div className={styles.offersCard}>
-          <Card sx={{ maxWidth: 345 }}>
-            <h3 className="center">What this place offers:</h3>
-            <CardActionArea>
+          <Card>
+            <div className={styles.offers}>
+              <h3 className="center">What this place offers:</h3>
+
               <CardContent className="center">
                 <Typography variant="body2" color="text.secondary">
-                  {showWifi()}{" "}
+                  {showWifi()}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {showBreakfast()}
@@ -103,10 +103,16 @@ export default function Venue(props) {
                   {showPets()}
                 </Typography>
               </CardContent>
-            </CardActionArea>
+            </div>
           </Card>
         </div>
-        <MyBookingCalendar venue={venue} />
+        <div className={styles.calendar}>
+          <MyBookingCalendar venue={venue} />
+        </div>
+
+        <div>
+          <OwnerInformation owner={venue.owner} />
+        </div>
       </div>
     </div>
   );

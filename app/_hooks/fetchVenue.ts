@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "../_lib/constants";
 
 const fetchVenue = async(id) => {
-    const response = await  fetch(`${API_URL}/venues/${id}?_bookings=true`, {
+    const response = await  fetch(`${API_URL}/venues/${id}?_bookings=true&_owner=true`, {
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
