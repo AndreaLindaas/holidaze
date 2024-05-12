@@ -7,7 +7,6 @@ import { CircularProgress, Card, CardContent, Typography } from "@mui/material";
 
 export default function OwnerInformation(props) {
   const { owner } = props;
-  console.log(owner);
   return (
     <div className={styles.ownerInformation}>
       <Card>
@@ -23,18 +22,17 @@ export default function OwnerInformation(props) {
               />
             </div>
             <Typography variant="body2">
-              {" "}
               <span className="bold">{owner.name}</span>
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {owner.bio}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              <div className={styles.mail}>
+              <span className={styles.mail}>
                 <a href={"mailto:" + owner.email}>
                   <Button icon={<EmailIcon />} text="Message host" />
                 </a>
-              </div>
+              </span>
             </Typography>
             <Typography variant="body2" color="text.secondary"></Typography>
           </CardContent>

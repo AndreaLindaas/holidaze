@@ -1,13 +1,13 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { CircularProgress, Card, CardContent, Typography } from "@mui/material";
 import styles from "./venue.module.scss";
 import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
 import SimpleSlider from "../../_components/Slider/Slider";
 import useVenue from "../../_hooks/fetchVenue";
+import Map from "../../_components/Map/Map";
 import OwnerInformation from "../../_components/OwnerInformation/OwnerInformation";
-
 export default function Venue(props) {
   const {
     isLoading,
@@ -67,7 +67,7 @@ export default function Venue(props) {
       </div>
     );
   }
-
+  console.log(venue);
   return (
     <div>
       <h1 className={styles.headline}>
@@ -110,9 +110,13 @@ export default function Venue(props) {
           <MyBookingCalendar venue={venue} />
         </div>
 
-        <div>
-          <OwnerInformation owner={venue.owner} />
-        </div>
+        <OwnerInformation owner={venue.owner} />
+
+        <Map
+          position={[venue.location.lat, venue.location.lng]}
+          zoom={13}
+          location={venue.location}
+        />
       </div>
     </div>
   );
