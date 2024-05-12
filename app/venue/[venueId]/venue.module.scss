@@ -25,7 +25,15 @@
   }
 }
 @media screen and (min-width: 768px) {
-  .venueContent {
-    width: 600px;
+  .flexContent {
+    display: flex;
+    gap: 50px;
+    margin: 50px auto;
+    max-width: 1000px;
+    padding: 0 10px;
   }
+
+  // .venueContent {
+  //   width: 600px;
+  // }
 }

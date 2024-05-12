@@ -10,7 +10,11 @@ import Map from "../../_components/Map/Map";
 import OwnerInformation from "../../_components/OwnerInformation/OwnerInformation";
 import PlaceOffers from "../../_components/PlaceOffers/PlaceOffers";
 import { addressToLatLong } from "../../_lib/utils";
+import { useMediaQuery } from "@mui/material";
+
 export default function Venue(props) {
+  const isDesktop = useMediaQuery("(min-width:768px)");
+
   const {
     isLoading,
     data: venue,
@@ -71,24 +75,30 @@ export default function Venue(props) {
         {venue.location.address}, {venue.location.country}
       </h1>
       <SimpleSlider venue={venue} />
-      <div className={styles.venueContent}>
-        <div className={styles.introBox}>
-          <h2>{venue.name}</h2>
-          <p className="bold">{venue.maxGuests} guests</p>
-          <p className="bold">{venue.price} kr night</p>
-          {showRating()}
+      <div className={styles.flexContent}>
+        <div>
+          <div className={styles.venueContent}>
+            <div className={styles.introBox}>
+              <h2>{venue.name}</h2>
+              <p className="bold">{venue.maxGuests} guests</p>
+              <p className="bold">{venue.price} kr night</p>
+              {showRating()}
+            </div>
+            <div className={styles.description}>
+              <h2 className="orangeHeader">About the venue</h2>
+              <p>{venue.description}</p>
+            </div>
+            <PlaceOffers venue={venue} />
+            {isDesktop && <OwnerInformation owner={venue.owner} />}
+          </div>
         </div>
-        <div className={styles.description}>
-          <p>{venue.description}</p>
-        </div>
-        <PlaceOffers venue={venue} />
         <div className={styles.calendar}>
           <MyBookingCalendar venue={venue} />
         </div>
-
-        <OwnerInformation owner={venue.owner} />
-        {renderMap()}
       </div>
+      {!isDesktop && <OwnerInformation owner={venue.owner} />}
+
+      {renderMap()}
     </div>
   );
 }
