@@ -8,6 +8,8 @@ import SimpleSlider from "../../_components/Slider/Slider";
 import useVenue from "../../_hooks/fetchVenue";
 import Map from "../../_components/Map/Map";
 import OwnerInformation from "../../_components/OwnerInformation/OwnerInformation";
+import PlaceOffers from "../../_components/PlaceOffers/PlaceOffers";
+import { addressToLatLong } from "../../_lib/utils";
 export default function Venue(props) {
   const {
     isLoading,
@@ -15,35 +17,6 @@ export default function Venue(props) {
     isError,
     error,
   } = useVenue(props.params.venueId);
-
-  const showBreakfast = () => {
-    return venue.meta.breakfast ? (
-      <span>Breakfast</span>
-    ) : (
-      <span className="lineThrough">Breakfast</span>
-    );
-  };
-  const showWifi = () => {
-    return venue.meta.wifi ? (
-      <span>Wifi</span>
-    ) : (
-      <span className="lineThrough">Wifi</span>
-    );
-  };
-  const showParking = () => {
-    return venue.meta.parking ? (
-      <span>Parking</span>
-    ) : (
-      <span className="lineThrough">Parking</span>
-    );
-  };
-  const showPets = () => {
-    return venue.meta.pets ? (
-      <span>Pets allowed</span>
-    ) : (
-      <span className="lineThrough">Pets</span>
-    );
-  };
   const showRating = () => {
     let ratings = [];
     for (let i = 0; i < venue.rating; i++) {
@@ -51,6 +24,30 @@ export default function Venue(props) {
     }
     return ratings;
   };
+
+  const renderMap = () => {
+    if (!!venue.location.lat && !!venue.location.lng) {
+      return (
+        <Map
+          position={[venue.location.lat, venue.location.lng]}
+          zoom={13}
+          location={venue.location}
+        />
+      );
+    }
+    //  else if (
+    //   !!venue.location.address &&
+    //   !!venue.location.city &&
+    //   !!venue.location.country
+    // ) {
+    //   const geolocation = addressToLatLong(
+    //     encodeURI(
+    //       `${venue.location.address} ${venue.location.city} ${venue.location.country}`
+    //     )
+    //   );
+    // }
+  };
+
   if (isLoading || !venue) {
     return (
       <div className="spinner">
@@ -84,39 +81,13 @@ export default function Venue(props) {
         <div className={styles.description}>
           <p>{venue.description}</p>
         </div>
-        <div className={styles.offersCard}>
-          <Card>
-            <div className={styles.offers}>
-              <h3 className="center">What this place offers:</h3>
-
-              <CardContent className="center">
-                <Typography variant="body2" color="text.secondary">
-                  {showWifi()}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {showBreakfast()}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {showParking()}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {showPets()}
-                </Typography>
-              </CardContent>
-            </div>
-          </Card>
-        </div>
+        <PlaceOffers venue={venue} />
         <div className={styles.calendar}>
           <MyBookingCalendar venue={venue} />
         </div>
 
         <OwnerInformation owner={venue.owner} />
-
-        <Map
-          position={[venue.location.lat, venue.location.lng]}
-          zoom={13}
-          location={venue.location}
-        />
+        {renderMap()}
       </div>
     </div>
   );

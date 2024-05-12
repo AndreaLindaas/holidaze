@@ -5,11 +5,7 @@
 }
 .venueContent {
   padding: 0 10px;
-  .offersCard {
-    margin: 30px auto;
-    width: 100%;
-    max-width: 500px;
-  }
+
   .introBox {
     background-color: var(--jet);
     color: var(--orange);
@@ -22,10 +18,7 @@
   .description {
     padding: 5px;
   }
-  .offers {
-    background-color: var(--peach);
-    padding: 10px;
-  }
+
   .calendar {
     margin: 0 auto;
     width: 300px;
