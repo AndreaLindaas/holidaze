@@ -6,7 +6,7 @@ import { StaticDateRangePicker } from "@mui/x-date-pickers-pro";
 import Button from "../_components/Button/Button";
 import { useState } from "react";
 import { API_URL } from "../_lib/constants";
-import { TextField } from "@mui/material";
+import { TextField, Card } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Moment from "moment";
 import styles from "./book.module.scss";
@@ -64,17 +64,20 @@ export default function Booking() {
         value={[moment(startDate), moment(endDate)]}
         onChange={(newValue) => setBookingDates(newValue)}
       />
-      <h3>Price details</h3>
-      <div>
-        {venue.price} NOK x {numberOfNights} nights
-      </div>
-      <div className="bold">Total: {totalPrice}</div>
-
-      <div>
+      <Card className={styles.priceDetailsCard}>
+        <h3 className="orangeHeader">Price details</h3>
+        <div>
+          {venue.price} NOK x {numberOfNights} nights
+        </div>
+        <div>
+          <span className="bold">Total:</span> {totalPrice}
+        </div>
+      </Card>
+      <div className={styles.guests}>
         <label className="bold">Number of guests?</label>
-        <p>
-          This place allows maximum{" "}
-          <span className="bold">{venue.maxGuests}</span> guests
+        <p className={styles.greyText}>
+          This place allows maximum
+          {""} <span className="bold">{venue.maxGuests}</span> guests
         </p>
         <TextField
           variant="outlined"
@@ -82,7 +85,7 @@ export default function Booking() {
         />
       </div>
 
-      <Button text="Book" onClick={bookVenue} />
+      <Button text="Book" onClick={bookVenue} className={styles.buttonBook} />
     </div>
   );
 }
