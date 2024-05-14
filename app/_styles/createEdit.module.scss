@@ -1,13 +1,17 @@
 .formContainer {
-  background-color: var(--green);
-  max-width: 600px;
   border-radius: 6px;
   margin: 0 auto;
-  padding: 40px;
-  color: #fff;
-
+  padding: 10px;
+  .orangeCard {
+    padding: 20px;
+    background-color: var(--peach);
+    margin: 20px 0;
+  }
+  .whiteCard {
+    padding: 20px;
+  }
   .text {
-    padding: 20px 0;
+    padding: 20px;
   }
   form {
     text-align: center;
@@ -20,7 +24,11 @@
       text-align: left;
     }
   }
-
+  .button {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
   .image {
     margin-top: 20px;
     width: 100px;
@@ -41,6 +49,7 @@
 
 @media screen and (min-width: 768px) {
   .formContainer {
+    width: 700px;
     .flexAddressCity,
     .flexCountryContinents,
     .flexLatLong,

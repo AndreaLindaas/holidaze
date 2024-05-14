@@ -1,6 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { TextField, MenuItem, FormControlLabel, Checkbox } from "@mui/material";
+import {
+  TextField,
+  MenuItem,
+  FormControlLabel,
+  Checkbox,
+  Card,
+} from "@mui/material";
 import { useEffect } from "react";
 import { API_URL } from "../../../_lib/constants";
 import Button from "../../../_components/Button/Button";
@@ -156,157 +162,174 @@ export default function EditVenue(props) {
 
   return (
     <div className={styles.formContainer}>
-      <ul className="center">{showImages()}</ul>
-      <form onSubmit={addImage}>
-        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-          <label htmlFor="">Image url</label>
-          <TextField
-            className="whiteInput"
-            variant="outlined"
-            onChange={mediaUrlChange}
-          />
-        </div>
-        <Button text="Add" />
-      </form>
+      <h1 className="center">Edit your rental</h1>
+      <p className={styles.text}>
+        Please fill out the form below with accurate and detailed information.
+        This will help potential visitors understand what your venue offers and
+        how it fits their needs.
+      </p>
+      <Card className={styles.orangeCard}>
+        <ul className="center">{showImages()}</ul>
+        <form onSubmit={addImage}>
+          <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
+            <label htmlFor="">Image url</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={mediaUrlChange}
+            />
+          </div>
+          <Button text="Add" />
+        </form>
+      </Card>
       <form onSubmit={submitEditForm}>
-        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-          <label htmlFor="">Name*</label>
-          <TextField
-            className="whiteInput"
-            variant="outlined"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
+        <Card className={styles.whiteCard}>
+          {" "}
+          <h3>About the venue</h3>
+          <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
+            <label htmlFor="">Name*</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+          </div>
+          <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
+            <label htmlFor="">Description*</label>
+            <TextField
+              className="whiteInput"
+              variant="outlined"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              multiline
+            />
+          </div>{" "}
+        </Card>{" "}
+        <Card className={styles.orangeCard}>
+          <h3>Location</h3>
+          <div className={styles.flexAddressCity}>
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Address</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setAddress(e.target.value)}
+                value={address}
+              />
+            </div>
+
+            <div className={styles.inputContainer}>
+              <label htmlFor="">city</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setCity(e.target.value)}
+                value={city}
+              />
+            </div>
+          </div>
+          <div className={styles.flexCountryContinents}>
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Country</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setCountry(e.target.value)}
+                value={country}
+              />
+            </div>
+
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Continents</label>
+              <TextField
+                className="whiteInput"
+                id="outlined-select-currency"
+                select
+                onChange={(e) => setContinent(e.target.value)}
+                value={continent}
+              >
+                {continents.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </div>
+          </div>
+          <div className={styles.flexLatLong}>
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Lattitude</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setLattitude(e.target.value)}
+                helperText="Must be within the range of -90 , 90 "
+                value={lattitude}
+              />
+            </div>
+
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Longitude</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setLongitude(e.target.value)}
+                helperText="Must be within the range of -180 , 180 "
+                value={longitude}
+              />
+            </div>
+          </div>
+        </Card>{" "}
+        <Card className={styles.whiteCard}>
+          {" "}
+          <h3>Pricing and details</h3>
+          <div className={styles.flexPriceGuests}>
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Price*</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setPrice(e.target.value)}
+                value={price}
+              />
+            </div>
+            <div className={styles.inputContainer}>
+              <label htmlFor="">Max amount of guests*</label>
+              <TextField
+                className="whiteInput"
+                variant="outlined"
+                onChange={(e) => setMaxGuests(e.target.value)}
+                value={maxGuests}
+              />
+            </div>
+          </div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="Wifi"
+            onChange={(e) => setWifi(e.target.checked)}
+            checked={wifi}
           />
-        </div>
-
-        <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-          <label htmlFor="">Description*</label>
-          <TextField
-            className="whiteInput"
-            variant="outlined"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-            multiline
+          <FormControlLabel
+            control={<Checkbox />}
+            label="parking"
+            onChange={(e) => setParking(e.target.checked)}
+            checked={parking}
           />
-        </div>
-        <div className={styles.flexAddressCity}>
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Address</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setAddress(e.target.value)}
-              value={address}
-            />
-          </div>
-
-          <div className={styles.inputContainer}>
-            <label htmlFor="">city</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setCity(e.target.value)}
-              value={city}
-            />
-          </div>
-        </div>
-        <div className={styles.flexCountryContinents}>
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Country</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setCountry(e.target.value)}
-              value={country}
-            />
-          </div>
-
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Continents</label>
-            <TextField
-              className="whiteInput"
-              id="outlined-select-currency"
-              select
-              onChange={(e) => setContinent(e.target.value)}
-              value={continent}
-            >
-              {continents.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </div>
-        </div>
-        <div className={styles.flexLatLong}>
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Lattitude</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setLattitude(e.target.value)}
-              helperText="Must be within the range of -90 , 90 "
-              value={lattitude}
-            />
-          </div>
-
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Longitude</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setLongitude(e.target.value)}
-              helperText="Must be within the range of -180 , 180 "
-              value={longitude}
-            />
-          </div>
-        </div>
-        <div className={styles.flexPriceGuests}>
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Price*</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setPrice(e.target.value)}
-              value={price}
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <label htmlFor="">Max amount of guests*</label>
-            <TextField
-              className="whiteInput"
-              variant="outlined"
-              onChange={(e) => setMaxGuests(e.target.value)}
-              value={maxGuests}
-            />
-          </div>
-        </div>
-
-        <FormControlLabel
-          control={<Checkbox />}
-          label="Wifi"
-          onChange={(e) => setWifi(e.target.checked)}
-          checked={wifi}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="parking"
-          onChange={(e) => setParking(e.target.checked)}
-          checked={parking}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="breakfast"
-          onChange={(e) => setBreakfast(e.target.checked)}
-          checked={breakfast}
-        />
-        <FormControlLabel
-          control={<Checkbox />}
-          label="pets"
-          onChange={(e) => setPets(e.target.checked)}
-          checked={pets}
-        />
-        <div>
+          <FormControlLabel
+            control={<Checkbox />}
+            label="breakfast"
+            onChange={(e) => setBreakfast(e.target.checked)}
+            checked={breakfast}
+          />
+          <FormControlLabel
+            control={<Checkbox />}
+            label="pets"
+            onChange={(e) => setPets(e.target.checked)}
+            checked={pets}
+          />{" "}
+        </Card>
+        <div className={styles.button}>
           <Button text="save changes" />
         </div>
       </form>

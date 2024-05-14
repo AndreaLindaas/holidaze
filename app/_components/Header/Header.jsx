@@ -25,11 +25,13 @@ export default function Header() {
   const renderMenuList = () => {
     return (
       <ul className={styles.menuList}>
-        <li>
-          <Link href="/venue/create">
-            <span>List your home</span>
-          </Link>
-        </li>
+        {isVenueManager && (
+          <li>
+            <Link href="/venue/create">
+              <span>List your home</span>
+            </Link>
+          </li>
+        )}
         {!accessToken && (
           <li>
             <Link href="/login" className="login-link">
@@ -37,6 +39,7 @@ export default function Header() {
             </Link>
           </li>
         )}
+
         <li>
           <Link href="/">
             <span> Contact</span>
@@ -44,6 +47,11 @@ export default function Header() {
         </li>
         {accessToken && (
           <>
+            <li>
+              <Link href="/trips">
+                <span> Trips</span>
+              </Link>
+            </li>
             <li>
               <Link href="/profile">
                 <span>Profile</span>

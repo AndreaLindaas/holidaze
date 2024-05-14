@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import { CircularProgress, Card, CardContent, Typography } from "@mui/material";
 import styles from "./venue.module.scss";
@@ -14,6 +14,7 @@ import { useMediaQuery } from "@mui/material";
 
 export default function Venue(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
+  const [latLng, setLatLng] = useState([]);
 
   const {
     isLoading,
@@ -21,6 +22,29 @@ export default function Venue(props) {
     isError,
     error,
   } = useVenue(props.params.venueId);
+
+  useEffect(() => {
+    if (!isLoading && !!venue.location.lat && !!venue.location.lng) {
+      setLatLng([venue.location.lat, venue.location.lng]);
+    } else if (
+      !isLoading &&
+      !!venue.location.address &&
+      !!venue.location.city &&
+      !!venue.location.country
+    ) {
+      const address = encodeURI(
+        `${venue.location.address} ${venue.location.city} ${venue.location.country}`
+      );
+      const searchUrl = `https://nominatim.openstreetmap.org/search.php?q=${address}&polygon_geojson=1&format=jsonv2`;
+      fetch(searchUrl)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.length > 0) {
+            setLatLng([result[0].lat, result[0].lon]);
+          }
+        });
+    }
+  }, [venue]);
   const showRating = () => {
     let ratings = [];
     for (let i = 0; i < venue.rating; i++) {
@@ -38,18 +62,13 @@ export default function Venue(props) {
           location={venue.location}
         />
       );
+    } else if (
+      !!venue.location.address &&
+      !!venue.location.city &&
+      !!venue.location.country
+    ) {
+      console.log("geoLo", addressToGeo());
     }
-    //  else if (
-    //   !!venue.location.address &&
-    //   !!venue.location.city &&
-    //   !!venue.location.country
-    // ) {
-    //   const geolocation = addressToLatLong(
-    //     encodeURI(
-    //       `${venue.location.address} ${venue.location.city} ${venue.location.country}`
-    //     )
-    //   );
-    // }
   };
 
   if (isLoading || !venue) {
@@ -72,7 +91,10 @@ export default function Venue(props) {
   return (
     <div>
       <h1 className={styles.headline}>
-        {venue.location.address}, {venue.location.country}
+        {venue.location.city || "Great house"}
+        {venue.location.city && venue.location.country ? ", " : ""}
+        {venue.location.country || ", Duckburg"}
+        {/* {venue.location.address}, {venue.location.country} */}
       </h1>
       <SimpleSlider venue={venue} />
       <div className={styles.flexContent}>
@@ -98,7 +120,9 @@ export default function Venue(props) {
       </div>
       {!isDesktop && <OwnerInformation owner={venue.owner} />}
 
-      {renderMap()}
+      {latLng.length == 2 && (
+        <Map position={latLng} zoom={13} location={venue.location} />
+      )}
     </div>
   );
 }

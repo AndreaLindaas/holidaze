@@ -1,14 +1,22 @@
 import React from "react";
 import Link from "next/link";
+import styles from "./success.module.scss";
+
 export default function SuccessPage() {
   return (
-    <div>
-      <h3>Your booking was successfully made.</h3>
+    <div className={styles.successContainer}>
+      <h3 className="orangeHeader">Your booking was successfully made.</h3>
       <p>
-        return to your <Link href="/trips">Trips</Link>
+        Return to your{" "}
+        <Link className="orangeHeader" href="/trips">
+          Trips
+        </Link>
       </p>
       <p>
-        or <Link href="/">Home</Link>
+        or{" "}
+        <Link href="/" className="orangeHeader">
+          Home
+        </Link>
       </p>
     </div>
   );

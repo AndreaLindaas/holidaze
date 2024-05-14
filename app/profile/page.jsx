@@ -134,16 +134,7 @@ export default function Profile() {
           <Button text="Edit profile" onClick={avatarModalOpen} />
         </Card>
       </div>
-      {venueManager && (
-        <Link href="/venue/create">
-          <span> Create Venue</span>
-        </Link>
-      )}
-      <div>
-        <Link href="/trips"> My Trips</Link>
-      </div>
       <MyVenues myVenues={myVenues} />
-
       <Modal
         open={isEditProfileOpen}
         onClose={avatarModalClose}

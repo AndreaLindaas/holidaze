@@ -41,18 +41,11 @@ export const getTimestampsBetweenDates = (startDate, endDate) => {
 };
 
 //TODO fix
-export const addressToLatLong = async (address) => {
+export const addressToLatLong = (address) => {
   const searchUrl = `https://nominatim.openstreetmap.org/search.php?q=${address}&polygon_geojson=1&format=jsonv2`;
   fetch(searchUrl)
-    .then((response) => {
-      console.log("banan", response.json());
-    })
+    .then((response) => response.json())
     .then((result) => {
-      console.log("bla", result);
       return result;
-    })
-    .catch((error) => {
-      console.log("ERROR", error);
-      return null;
     });
 };
