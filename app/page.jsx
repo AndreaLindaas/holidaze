@@ -30,7 +30,7 @@ export default function Home() {
           </Link>
         </div>
       )}
-      <Venues />
+      <Venues limit={10} />
     </main>
   );
 }

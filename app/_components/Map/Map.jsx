@@ -11,7 +11,7 @@ export default function MyMap(props) {
       className="map"
       center={position}
       zoom={zoom}
-      height="200"
+      height="300"
       width="200"
     >
       <TileLayer

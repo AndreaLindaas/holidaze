@@ -53,24 +53,6 @@ export default function Venue(props) {
     return ratings;
   };
 
-  const renderMap = () => {
-    if (!!venue.location.lat && !!venue.location.lng) {
-      return (
-        <Map
-          position={[venue.location.lat, venue.location.lng]}
-          zoom={13}
-          location={venue.location}
-        />
-      );
-    } else if (
-      !!venue.location.address &&
-      !!venue.location.city &&
-      !!venue.location.country
-    ) {
-      console.log("geoLo", addressToGeo());
-    }
-  };
-
   if (isLoading || !venue) {
     return (
       <div className="spinner">
@@ -98,7 +80,7 @@ export default function Venue(props) {
       </h1>
       <SimpleSlider venue={venue} />
       <div className={styles.flexContent}>
-        <div>
+        <div className={styles.venueContentContainer}>
           <div className={styles.venueContent}>
             <div className={styles.introBox}>
               <h2>{venue.name}</h2>
@@ -121,7 +103,7 @@ export default function Venue(props) {
       {!isDesktop && <OwnerInformation owner={venue.owner} />}
 
       {latLng.length == 2 && (
-        <Map position={latLng} zoom={13} location={venue.location} />
+        <Map position={latLng} zoom={8} location={venue.location} />
       )}
     </div>
   );

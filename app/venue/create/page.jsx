@@ -112,9 +112,11 @@ export default function CreateVenue() {
   };
   const addImage = (e) => {
     e.preventDefault();
-    const newMedia = { url: tempMediaUrl };
-    const mediaArray = [...media, newMedia];
-    setMedia(mediaArray);
+    if (tempMediaUrl) {
+      const newMedia = { url: tempMediaUrl };
+      const mediaArray = [...media, newMedia];
+      setMedia(mediaArray);
+    }
   };
 
   return (
@@ -145,7 +147,9 @@ export default function CreateVenue() {
               placeholder="Add media url here"
             />
           </div>
-          <Button text="Add" />
+          <div className={styles.addButton}>
+            <Button text="Add" />
+          </div>
         </form>
       </Card>
       <form onSubmit={submitCreateListing}>
@@ -207,6 +211,12 @@ export default function CreateVenue() {
                   onChange={(e) => setCountry(e.target.value)}
                 />
               </div>
+              <div className={styles.geoButton}>
+                <Button
+                  text="Get coordinates automatically (beta)"
+                  onClick={getGeolocation}
+                />
+              </div>
             </div>
             <div>
               <div className={styles.inputContainer}>
@@ -225,12 +235,6 @@ export default function CreateVenue() {
                   ))}
                 </TextField>
               </div>
-            </div>
-            <div>
-              <Button
-                text="Get coordinates automatically (beta)"
-                onClick={getGeolocation}
-              />
             </div>
           </div>
 

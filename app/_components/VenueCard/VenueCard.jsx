@@ -28,7 +28,7 @@ export default function VenueCard(props) {
   const showRating = () => {
     let ratings = [];
     for (let i = 0; i < venue.rating; i++) {
-      ratings.push(<StarIcon />);
+      ratings.push(<StarIcon key={i} />);
     }
     return ratings;
   };
@@ -54,7 +54,9 @@ export default function VenueCard(props) {
             <Typography variant="body2">
               <span className="bold">{venue.maxGuests}</span> guests
             </Typography>
-            <Typography className={styles.rating}>{showRating()}</Typography>
+            <Typography className={styles.rating}>
+              {showRating()} &nbsp;
+            </Typography>
           </CardContent>
         </div>
       </Card>

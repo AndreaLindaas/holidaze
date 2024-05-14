@@ -28,6 +28,9 @@
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    button {
+      width: 200px;
+    }
   }
   .image {
     margin-top: 20px;
@@ -63,6 +66,12 @@
     }
     .fullWidth {
       width: 540px;
+    }
+    .addButton {
+      margin-left: 60px;
+    }
+    .geoButton {
+      margin: 10px 0;
     }
   }
 }

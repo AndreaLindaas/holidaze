@@ -1,14 +1,25 @@
 "use client";
 import React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import { Drawer, Button, Avatar } from "@mui/material"; //Riktig
 import { useState } from "react";
 import Link from "next/link";
 import { useMediaQuery } from "@mui/material";
 import styles from "./Header.module.scss";
 import { useStore } from "../../_lib/store";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const { isVenueManager, avatar, accessToken } = useStore();
   const isDesktop = useMediaQuery("(min-width:768px)");
 
@@ -25,12 +36,16 @@ export default function Header() {
   const renderMenuList = () => {
     return (
       <ul className={styles.menuList}>
-        {isVenueManager && (
-          <li>
-            <Link href="/venue/create">
-              <span>List your home</span>
-            </Link>
-          </li>
+        {!isDesktop && (
+          <>
+            {isVenueManager && (
+              <li>
+                <Link href="/venue/create">
+                  <span>List your home</span>
+                </Link>
+              </li>
+            )}
+          </>
         )}
         {!accessToken && (
           <li>
@@ -49,20 +64,23 @@ export default function Header() {
           <>
             <li>
               <Link href="/trips">
-                <span> Trips</span>
+                <span> My trips</span>
               </Link>
             </li>
-            <li>
-              <Link href="/profile">
-                <span>Profile</span>
-              </Link>
-            </li>
-
-            <li>
-              <Link href="/logout">
-                <span>Logout</span>
-              </Link>
-            </li>
+            {!isDesktop && (
+              <li>
+                <Link href="/profile">
+                  <span>Profile</span>
+                </Link>
+              </li>
+            )}
+            {!isDesktop && (
+              <li>
+                <Link href="/logout">
+                  <span>Logout</span>
+                </Link>
+              </li>
+            )}
           </>
         )}
       </ul>
@@ -93,15 +111,45 @@ export default function Header() {
           </div>
         ) : (
           <>
-            {" "}
             <div>{renderMenuList()} </div>
-            <Link href="/profile">
-              <Avatar alt="Remy Sharp" src={avatar} />
-            </Link>
+            {accessToken && (
+              <div onClick={handleClick} className={styles.iconAvatar}>
+                <ArrowDropDownIcon />
+                <Avatar alt="Rprofile image" src={avatar} />
+              </div>
+            )}
           </>
         )}
       </div>
       {/* {isDesktop && <div>{renderMenuList()} </div>} */}
+      <Menu
+        className={styles.dropDownMenu}
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "basic-button",
+        }}
+      >
+        <MenuItem onClick={handleClose}>
+          <Link href="/profile">
+            <span>Profile</span>
+          </Link>
+        </MenuItem>
+
+        <MenuItem onClick={handleClose}>
+          <Link href="/venue/create">
+            <span>List your home</span>
+          </Link>
+        </MenuItem>
+
+        <MenuItem onClick={handleClose}>
+          <Link href="/logout">
+            <span>Logout</span>
+          </Link>
+        </MenuItem>
+      </Menu>
     </nav>
   );
 }

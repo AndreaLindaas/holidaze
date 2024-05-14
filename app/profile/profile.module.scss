@@ -4,9 +4,12 @@
   margin: 50px auto;
   :global {
     .MuiPaper-root.MuiCard-root {
-      background-color: var(--jet);
-      color: #fff;
+      background-color: var(--peach);
     }
+  }
+  .editProfileButton {
+    display: flex;
+    justify-content: center;
   }
   .avatarContainer {
     display: flex;

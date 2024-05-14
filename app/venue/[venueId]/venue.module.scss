@@ -1,27 +1,30 @@
 .headline {
   margin: 20px auto;
-  max-width: 500px;
+  width: 90%;
   padding: 0 10px;
 }
-.venueContent {
-  padding: 0 10px;
+.venueContentContainer {
+  width: 100%;
+  .venueContent {
+    padding: 0 10px;
 
-  .introBox {
-    background-color: var(--jet);
-    color: var(--orange);
-    padding: 10px;
-    h2 {
-      margin: 0;
-      color: #fff;
+    .introBox {
+      background-color: var(--jet);
+      color: var(--orange);
+      padding: 10px;
+      h2 {
+        margin: 0;
+        color: #fff;
+      }
     }
-  }
-  .description {
-    padding: 5px;
-  }
+    .description {
+      padding: 5px;
+    }
 
-  .calendar {
-    margin: 0 auto;
-    width: 300px;
+    .calendar {
+      margin: 0 auto;
+      width: 300px;
+    }
   }
 }
 @media screen and (min-width: 768px) {
@@ -29,7 +32,7 @@
     display: flex;
     gap: 50px;
     margin: 50px auto;
-    max-width: 1000px;
+    width: 90%;
     padding: 0 10px;
     justify-content: center;
   }

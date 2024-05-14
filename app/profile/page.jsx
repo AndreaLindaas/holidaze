@@ -59,10 +59,10 @@ export default function Profile() {
   //       });
   //   }, []);
 
-  const avatarModalOpen = () => {
+  const editModalOpen = () => {
     setIsEditProfileOpen(true);
   };
-  const avatarModalClose = () => {
+  const editModalClose = () => {
     setIsEditProfileOpen(false);
   };
 
@@ -92,6 +92,7 @@ export default function Profile() {
           setAvatar(result.data.avatar.url);
           setVenueManager(result.data.venueManager);
         }
+        setIsEditProfileOpen(false);
       })
       .catch((error) => {});
   };
@@ -131,13 +132,14 @@ export default function Profile() {
               {bio}
             </Typography>
           </CardContent>
-          <Button text="Edit profile" onClick={avatarModalOpen} />
+          <div className={styles.editProfileButton}>
+            <Button text="Edit profile" onClick={editModalOpen} />
+          </div>
         </Card>
       </div>
       <MyVenues myVenues={myVenues} />
       <Modal
         open={isEditProfileOpen}
-        onClose={avatarModalClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -178,6 +180,7 @@ export default function Profile() {
             />
           </div>
           <Button text="Save" onClick={saveProfile} />
+          <Button text="close" onClick={editModalClose} />
         </Box>
       </Modal>
     </div>
