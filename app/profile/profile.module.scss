@@ -27,3 +27,17 @@
   width: 300px;
   margin: 10px auto;
 }
+.editModalButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+.host {
+  display: flex;
+  justify-content: center;
+}
+.venueManagerContainer {
+  background: var(--peach);
+  padding: 10px;
+}

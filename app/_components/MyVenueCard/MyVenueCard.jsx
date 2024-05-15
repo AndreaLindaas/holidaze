@@ -25,7 +25,9 @@ export default function MyVenueCard(props) {
         <CardMedia component="img" height="140" image={venue.media[0].url} />
       );
     } else {
-      return <div>No Image</div>;
+      return (
+        <CardMedia component="img" alt="" height="140" image="/no_image.png" />
+      );
     }
   };
   const openDeleteModal = () => {
@@ -56,7 +58,7 @@ export default function MyVenueCard(props) {
   return (
     <div>
       <div className={styles.cardContainer}>
-        <Card sx={{ maxWidth: 345 }} key={venue.id}>
+        <Card sx={{ width: 345 }} key={venue.id}>
           <Link href={`venue/${venue.id}`}>
             <CardActionArea>
               {showImage()}
@@ -67,10 +69,12 @@ export default function MyVenueCard(props) {
               </CardContent>
             </CardActionArea>{" "}
           </Link>
-          <Link href={`/venue/edit/${venue.id}`}>
-            <Button text="Edit" />
-          </Link>
-          <Button text="Delete" onClick={() => openDeleteModal()} />{" "}
+          <span className={styles.editDeleteButtons}>
+            <Link href={`/venue/edit/${venue.id}`}>
+              <Button text="Edit" />
+            </Link>
+            <Button text="Delete" onClick={() => openDeleteModal()} />
+          </span>
         </Card>
       </div>
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
@@ -78,8 +82,10 @@ export default function MyVenueCard(props) {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Sure you want to delete the venue?{" "}
           </Typography>
-          <Button text="Delete" onClick={deleteVenue} />
-          <Button text="Close" onClick={closeDeleteModal} />
+          <span className={styles.deleteCloseButtons}>
+            <Button text="Delete" onClick={deleteVenue} />
+            <Button text="Close" onClick={closeDeleteModal} />
+          </span>
         </Box>
       </Modal>
     </div>

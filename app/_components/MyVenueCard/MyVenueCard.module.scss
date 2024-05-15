@@ -1,7 +1,18 @@
 .cardContainer {
-  margin: 30px 0;
   a {
     text-decoration: none;
     color: #000;
   }
+  .editDeleteButtons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    justify-content: center;
+  }
+}
+.deleteCloseButtons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
 }

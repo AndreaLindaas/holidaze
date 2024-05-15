@@ -144,21 +144,25 @@ export default function Profile() {
         aria-describedby="modal-modal-description"
       >
         <Box className="modal">
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography variant="h6" component="h2" className="orangeHeader">
             Edit profile
           </Typography>
-          <Typography>
-            Turn on the host switch if you want to rent out a place.
-          </Typography>
-          <FormGroup>
-            <FormControlLabel
-              control={<Switch />}
-              checked={isVenueManager}
-              label="Host"
-              onChange={(e) => setIsVenueManager(e.target.checked)}
-            />
-          </FormGroup>
 
+          <Card className={styles.venueManagerContainer}>
+            <Typography>
+              Turn on the host switch if you want to rent out a place.
+            </Typography>
+            <span className={styles.host}>
+              <FormGroup>
+                <FormControlLabel
+                  control={<Switch />}
+                  checked={isVenueManager}
+                  label="Host"
+                  onChange={(e) => setIsVenueManager(e.target.checked)}
+                />
+              </FormGroup>
+            </span>
+          </Card>
           <div className={styles.input}>
             <label htmlFor="">Change avatar</label>
             <TextField
@@ -179,8 +183,10 @@ export default function Profile() {
               value={bio}
             />
           </div>
-          <Button text="Save" onClick={saveProfile} />
-          <Button text="close" onClick={editModalClose} />
+          <div className={styles.editModalButtons}>
+            <Button text="Save" onClick={saveProfile} />
+            <Button text="close" onClick={editModalClose} />
+          </div>
         </Box>
       </Modal>
     </div>

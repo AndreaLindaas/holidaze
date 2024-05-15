@@ -10,5 +10,5 @@ export default function MyVenues(props) {
     });
   };
 
-  return <div>{showMyVenueCards()}</div>;
+  return <div className="venueCards1">{showMyVenueCards()}</div>;
 }
