@@ -14,6 +14,7 @@ export default function Booking() {
   const { venue, startDate, endDate, setStartDate, setEndDate } =
     bookingStore();
   const { accessToken, apiKey } = useStore();
+  const { isBookButtonDisabled, setIsBookButtonDiasbled } = useState(false);
   const router = useRouter();
 
   const [amountOfGuests, setAmountOfGuests] = useState(0);
@@ -23,6 +24,7 @@ export default function Booking() {
       setEndDate(dates[1]);
     }
   };
+
   const bookVenue = () => {
     const payload = {
       dateFrom: startDate,
@@ -82,6 +84,7 @@ export default function Booking() {
         <TextField
           variant="outlined"
           onChange={(e) => setAmountOfGuests(e.target.value)}
+          type="number"
         />
       </div>
 

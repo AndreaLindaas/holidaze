@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
-import { CircularProgress, Card, CardContent, Typography } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import styles from "./venue.module.scss";
 import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
 import SimpleSlider from "../../_components/Slider/Slider";
@@ -9,13 +9,13 @@ import useVenue from "../../_hooks/fetchVenue";
 import Map from "../../_components/Map/Map";
 import OwnerInformation from "../../_components/OwnerInformation/OwnerInformation";
 import PlaceOffers from "../../_components/PlaceOffers/PlaceOffers";
-import { addressToLatLong } from "../../_lib/utils";
 import { useMediaQuery } from "@mui/material";
-
+import { useStore } from "../../_lib/store";
 export default function Venue(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
   const [latLng, setLatLng] = useState([]);
-
+  const { email } = useStore();
+  console.log(email);
   const {
     isLoading,
     data: venue,
@@ -53,6 +53,7 @@ export default function Venue(props) {
     return ratings;
   };
 
+  // const isOwner = email === venue.owner.email;
   if (isLoading || !venue) {
     return (
       <div className="spinner">
@@ -69,7 +70,6 @@ export default function Venue(props) {
       </div>
     );
   }
-  console.log(venue);
   return (
     <div>
       <h1 className={styles.headline}>
@@ -93,14 +93,36 @@ export default function Venue(props) {
               <p>{venue.description}</p>
             </div>
             <PlaceOffers venue={venue} />
-            {isDesktop && <OwnerInformation owner={venue.owner} />}
+            {isDesktop && (
+              <>
+                {venue.owner.email != email ? (
+                  <OwnerInformation owner={venue.owner} />
+                ) : (
+                  <div>Stå noe om inntjening her</div>
+                )}
+              </>
+            )}
           </div>
         </div>
-        <div className={styles.calendar}>
-          <MyBookingCalendar venue={venue} />
-        </div>
+
+        {venue.owner.email != email ? (
+          <div className={styles.calendar}>
+            <MyBookingCalendar venue={venue} />
+          </div>
+        ) : (
+          <div> Noe om bookinger her</div>
+        )}
       </div>
-      {!isDesktop && <OwnerInformation owner={venue.owner} />}
+
+      {!isDesktop && (
+        <>
+          {venue.owner.email != email ? (
+            <OwnerInformation owner={venue.owner} />
+          ) : (
+            <div>Stå noe om inntjening her</div>
+          )}
+        </>
+      )}
 
       {latLng.length == 2 && (
         <Map position={latLng} zoom={8} location={venue.location} />

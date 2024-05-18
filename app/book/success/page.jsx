@@ -9,7 +9,7 @@ export default function SuccessPage() {
       <p>
         Return to your{" "}
         <Link className="orangeHeader" href="/trips">
-          Trips
+          My trips
         </Link>
       </p>
       <p>

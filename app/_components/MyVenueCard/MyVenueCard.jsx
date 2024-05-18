@@ -67,7 +67,7 @@ export default function MyVenueCard(props) {
                   {venue.name}
                 </Typography>
               </CardContent>
-            </CardActionArea>{" "}
+            </CardActionArea>
           </Link>
           <span className={styles.editDeleteButtons}>
             <Link href={`/venue/edit/${venue.id}`}>
