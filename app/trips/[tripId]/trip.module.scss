@@ -6,18 +6,31 @@
   .flexCheckInOut {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #000;
-    border-top: 1px solid #000;
+    padding: 20px;
+    background-color: var(--peach);
+    h3 {
+      margin: 0;
+    }
   }
-  .mail {
-    width: 140px;
-    text-align: center;
-    p {
-      margin-bottom: 0;
+  .flexMailRental {
+    display: flex;
+    justify-content: space-around;
+    .mailCard,
+    .rentalCard {
+      padding: 10px;
+      margin: 20px 0;
+      .mail {
+        display: flex;
+        align-items: center;
+        width: 140px;
+        text-align: center;
+        p {
+          margin-bottom: 0;
+        }
+      }
     }
   }
   .rentalContainer {
-    border-bottom: 1px solid #000;
     .rental {
       width: 120px;
       text-align: center;
@@ -26,4 +39,10 @@
       }
     }
   }
+}
+.flexanselCloseTripButton {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 10px 0;
 }
