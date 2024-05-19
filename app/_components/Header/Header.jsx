@@ -102,7 +102,7 @@ export default function Header() {
               onClose={closeMenu}
               PaperProps={{
                 sx: {
-                  backgroundColor: "var(--green)",
+                  backgroundColor: "var(--peach)",
                 },
               }}
             >
@@ -115,7 +115,8 @@ export default function Header() {
             {accessToken && (
               <div onClick={handleClick} className={styles.iconAvatar}>
                 <ArrowDropDownIcon />
-                <Avatar alt="Rprofile image" src={avatar} />
+
+                <Avatar src={avatar} alt="profile Image" />
               </div>
             )}
           </>

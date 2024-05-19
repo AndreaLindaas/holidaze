@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Avatar } from "@mui/material";
 import styles from "./venue.module.scss";
 import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
 import SimpleSlider from "../../_components/Slider/Slider";
@@ -11,11 +11,11 @@ import OwnerInformation from "../../_components/OwnerInformation/OwnerInformatio
 import PlaceOffers from "../../_components/PlaceOffers/PlaceOffers";
 import { useMediaQuery } from "@mui/material";
 import { useStore } from "../../_lib/store";
+import moment from "moment";
 export default function Venue(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
   const [latLng, setLatLng] = useState([]);
   const { email } = useStore();
-  console.log(email);
   const {
     isLoading,
     data: venue,
@@ -52,8 +52,29 @@ export default function Venue(props) {
     }
     return ratings;
   };
+  const showBookings = () => {
+    return venue.bookings.map((booking) => {
+      console.log(booking);
+      return (
+        <li key={booking.id} className={styles.customer}>
+          <span>
+            <Avatar src={booking.customer.avatar.url} />
+          </span>
+          <div>
+            <div>
+              {booking.customer.name} and {booking.guests}{" "}
+              {booking.guests == 1 ? "guest" : "guests"}
+            </div>
+            <div className={styles.dates}>
+              {moment(booking.dateFrom).format("MMMM Do YYYY")}-{" "}
+              {moment(booking.dateTo).format("MMMM Do YYYY")}
+            </div>
+          </div>
+        </li>
+      );
+    });
+  };
 
-  // const isOwner = email === venue.owner.email;
   if (isLoading || !venue) {
     return (
       <div className="spinner">
@@ -85,7 +106,7 @@ export default function Venue(props) {
             <div className={styles.introBox}>
               <h2>{venue.name}</h2>
               <p className="bold">{venue.maxGuests} guests</p>
-              <p className="bold">{venue.price} kr night</p>
+              <p className="bold">{venue.price},- per night</p>
               {showRating()}
             </div>
             <div className={styles.description}>
@@ -110,7 +131,10 @@ export default function Venue(props) {
             <MyBookingCalendar venue={venue} />
           </div>
         ) : (
-          <div> Noe om bookinger her</div>
+          <div className={styles.bookingsContainer}>
+            <h2 className="orangeHeader">Bookings</h2>
+            <ul className={styles.showBookings}> {showBookings()}</ul>
+          </div>
         )}
       </div>
 

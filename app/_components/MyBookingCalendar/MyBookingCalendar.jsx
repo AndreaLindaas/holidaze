@@ -8,12 +8,13 @@ import { useStore, bookingStore } from "../../_lib/store";
 import { useRouter } from "next/navigation";
 import { getTimestampsBetweenDates } from "../../_lib/utils";
 import styles from "./MyBookingCalendar.module.scss";
-
+import { Card } from "@mui/material";
 export default function MyBookingCalendar(props) {
   const [bookingDates, setBookingDates] = useState([null, null]);
   const [allBookedDates, setAllBookedDates] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(true);
+  const { accessToken } = useStore();
   const { venue } = props;
   const { setVenue, setStartDate, setEndDate } = bookingStore();
   const router = useRouter();
@@ -50,7 +51,7 @@ export default function MyBookingCalendar(props) {
   useEffect(() => {
     //Extract all dates from booking array
     const bookings = venue.bookings;
-    //  console.log(bookings);
+
     let allDates = [];
     bookings.forEach((booking) => {
       const datesBetweenRange = getTimestampsBetweenDates(
@@ -79,13 +80,18 @@ export default function MyBookingCalendar(props) {
       />
 
       {errorMessage && <p>{errorMessage}</p>}
-
-      <Button
-        className={styles.bookButton}
-        disabled={isBookButtonDisabled || errorMessage}
-        text="Book"
-        onClick={bookingClick}
-      />
+      {accessToken ? (
+        <Button
+          className={styles.bookButton}
+          disabled={isBookButtonDisabled || errorMessage}
+          text="Book"
+          onClick={bookingClick}
+        />
+      ) : (
+        <Card className={styles.textForLogin}>
+          <div> To book this venue you need to log in.</div>
+        </Card>
+      )}
     </div>
   );
 }

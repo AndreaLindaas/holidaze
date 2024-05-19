@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import Button from "./_components/Button/Button";
 import Search from "./_components/Search/Search";
 import Venues from "./_components/Venues/Venues";
@@ -8,7 +9,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
 export default function Home() {
   const isDesktop = useMediaQuery("(min-width:768px)");
-
   return (
     <main>
       <div className={styles.backgroundImage}></div>
@@ -30,7 +30,7 @@ export default function Home() {
           </Link>
         </div>
       )}
-      <Venues limit={10} />
+      <Venues />
     </main>
   );
 }

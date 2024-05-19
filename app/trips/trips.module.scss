@@ -3,10 +3,16 @@
     text-align: center;
   }
   .renderBookings {
-    display: flex;
   }
   .noTripsContainer {
     text-align: center;
     margin-top: 100px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .renderBookings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
   }
 }

@@ -1,0 +1,9 @@
+.pagination {
+  span {
+    padding: 0 5px;
+
+    &.currentPage {
+      background: red;
+    }
+  }
+}

@@ -50,10 +50,8 @@ export default function Booking() {
       });
   };
   const numberOfNights = Moment(endDate).diff(Moment(startDate), "days");
-  console.log("numberOfNights", numberOfNights);
   const pricePerNight = venue.price;
   const totalPrice = pricePerNight * numberOfNights;
-  console.log("totalPrice", totalPrice);
 
   return (
     <div className={styles.bookContainer}>

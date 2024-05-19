@@ -1,24 +1,43 @@
 "use client";
-import { API_URL } from "../../_lib/constants";
 import React, { useEffect, useState } from "react";
-import { CircularProgress } from "@mui/material";
-import VenueCard from "../VenueCard/VenueCard";
+import useVenues from "../_hooks/fetchAllVenues";
+import Button from "../_components/Button/Button";
 import Link from "next/link";
+import VenueCard from "../_components/VenueCard/VenueCard";
 import styles from "./Venues.module.scss";
-import Button from "../Button/Button";
-import useVenues from "../../_hooks/fetchAllVenues";
-import { useRouter } from "next/navigation";
+import { CircularProgress } from "@mui/material";
+
 export default function Venues() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
-  const router = useRouter();
-
   const { isLoading, data: venues, isError } = useVenues(limit, page);
 
-  const seeAllVenues = () => {
-    router.push("/venues");
+  const loadPage = (e) => {
+    setPage(e.target.dataset.page);
   };
 
+  const showPagination = () => {
+    console.log(venues);
+    if (isLoading) {
+      return;
+    }
+
+    let pages = [];
+
+    for (let i = 1; i <= venues.meta.pageCount; i++) {
+      pages.push(
+        <span
+          className={i == page ? styles.currentPage : ""}
+          data-page={i}
+          onClick={loadPage}
+        >
+          {i}
+        </span>
+      );
+    }
+
+    return pages;
+  };
   const showVenues = () => {
     if (!venues) {
       return <p>Could not fetch venues</p>;
@@ -35,21 +54,16 @@ export default function Venues() {
 
   if (isLoading) {
     return (
-      <div className="spinner">
+      <div>
         <CircularProgress />
       </div>
     );
   }
 
-  if (isError) {
-    return <div>Something went wrong. Please try again.</div>;
-  }
   return (
     <div>
       <div className={styles.venueCardContainer}>{showVenues()}</div>
-      <div className={styles.seeMoreButton}>
-        <Button text="Show more venues" onClick={seeAllVenues} />
-      </div>
+      <div className={styles.pagination}>{showPagination()}</div>
     </div>
   );
 }

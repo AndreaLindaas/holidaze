@@ -7,7 +7,7 @@ export default function MyTripsCard(props) {
   const booking = props.booking;
   return (
     <div className={styles.myTripsCardContainer}>
-      <Card sx={{ maxWidth: 345 }}>
+      <Card>
         <Link href={`trips/${booking.id}`}>
           <CardMedia
             component="img"
@@ -17,13 +17,17 @@ export default function MyTripsCard(props) {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {booking.venue.location.city}, {booking.venue.location.country}
+              {booking.venue.location.city || "Great house"}
+              {booking.venue.location.city && booking.venue.location.country
+                ? ", "
+                : ""}
+              {booking.venue.location.country || ", Duckburg"}
             </Typography>
             <Typography component="div">
               {Moment(booking.dateFrom).format("MMMM Do YYYY")} -
               {Moment(booking.dateTo).format("MMMM Do YYYY")}
             </Typography>
-          </CardContent>{" "}
+          </CardContent>
         </Link>
       </Card>
     </div>

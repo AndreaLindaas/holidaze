@@ -1,6 +1,6 @@
 .tripContainer {
   margin: 20px auto;
-  max-width: 500px;
+  max-width: 1000px;
   padding: 0 10px;
 
   .flexCheckInOut {
@@ -14,25 +14,32 @@
   }
   .flexMailRental {
     display: flex;
-    justify-content: space-around;
+    gap: 20px;
     .mailCard,
     .rentalCard {
       padding: 10px;
       margin: 20px 0;
+      width: 100%;
+      a {
+        color: var(--orange);
+        text-decoration: none;
+      }
       .mail {
         display: flex;
         align-items: center;
-        width: 140px;
-        text-align: center;
-        p {
-          margin-bottom: 0;
+        justify-content: center;
+        gap: 5px;
+        .messageHost {
+          text-align: center;
+          p {
+            margin-bottom: 0;
+          }
         }
       }
     }
   }
   .rentalContainer {
     .rental {
-      width: 120px;
       text-align: center;
       p {
         margin-bottom: 0;
