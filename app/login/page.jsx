@@ -10,8 +10,15 @@ import Link from "next/link";
 export default function Login() {
   const [loginEmail, setLoginEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setName, setEmail, setToken, setAvatar, setBio, setApiKey } =
-    useStore();
+  const {
+    setName,
+    setEmail,
+    setToken,
+    setAvatar,
+    setBio,
+    setApiKey,
+    setBanner,
+  } = useStore();
   const submitForm = (event) => {
     event.preventDefault();
 
@@ -33,6 +40,7 @@ export default function Login() {
         setToken(result.data.accessToken);
         setBio(result.data.bio);
         setAvatar(result.data.avatar.url);
+        setBanner(result.data.banner.url);
 
         fetch(`${AUTH_URL}/create-api-key`, {
           method: "POST",

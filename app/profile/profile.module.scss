@@ -1,23 +1,27 @@
-.cardContainer {
-  text-align: center;
-  max-width: 450px;
-  margin: 50px auto;
-  :global {
-    .MuiPaper-root.MuiCard-root {
-      background-color: var(--peach);
+.banner {
+  padding: 20px;
+  background-size: cover;
+  .cardContainer {
+    text-align: center;
+    max-width: 450px;
+    margin: 50px auto;
+    :global {
+      .MuiPaper-root.MuiCard-root {
+        background-color: var(--peach);
+      }
     }
-  }
-  .editProfileButton {
-    display: flex;
-    justify-content: center;
-  }
-  .avatarContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  button {
-    margin-bottom: 30px;
+    .editProfileButton {
+      display: flex;
+      justify-content: center;
+    }
+    .avatarContainer {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    button {
+      margin-bottom: 30px;
+    }
   }
 }
 .input {

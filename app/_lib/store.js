@@ -11,7 +11,7 @@ export const useStore = create(
       avatar: "",
       isVenueManager: false,
       bio: "",
-
+      banner: "",
       setName: (n) => set({ name: n }),
       setEmail: (e) => set({ email: e }),
       setToken: (t) => set({ accessToken: t }),
@@ -19,6 +19,7 @@ export const useStore = create(
       setAvatar: (a) => set({ avatar: a }),
       setIsVenueManager: (v) => set({ isVenueManager: v }),
       setBio: (b) => set({ bio: b }),
+      setBanner: (i) => set({ banner: i }),
       logout: () =>
         set({
           name: "",
@@ -28,6 +29,7 @@ export const useStore = create(
           avatar: "",
           isVenueManager: false,
           bio: "",
+          banner: "",
         }),
     }),
     {

@@ -26,6 +26,7 @@ export default function Profile() {
   const [myVenues, setMyVenues] = useState([]);
   const [isVenueManager, setIsVenueManager] = useState(false);
   const [newAvatar, setNewAvatar] = useState("");
+  const [newBanner, setNewBanner] = useState("");
   const {
     name,
     accessToken,
@@ -33,11 +34,13 @@ export default function Profile() {
     avatar,
     bio,
     isVenueManager: venueManager,
+    banner,
     setName,
     setEmail,
     setBio,
     setAvatar,
     setIsVenueManager: setVenueManager,
+    setBanner,
   } = useStore();
 
   useEffect(() => {
@@ -73,6 +76,9 @@ export default function Profile() {
         url: newAvatar,
       },
       bio: bio,
+      banner: {
+        url: newBanner,
+      },
     };
     fetch(`${API_URL}/profiles/${name}`, {
       method: "PUT",
@@ -91,6 +97,7 @@ export default function Profile() {
           setBio(result.data.bio);
           setAvatar(result.data.avatar.url);
           setVenueManager(result.data.venueManager);
+          setBanner(result.data.banner.url);
         }
         setIsEditProfileOpen(false);
       })
@@ -115,27 +122,32 @@ export default function Profile() {
   }, [accessToken, apiKey, name]);
   return (
     <div>
-      <div className={styles.cardContainer}>
-        <Card sx={{ maxWidth: 450 }}>
-          <div className={styles.avatarContainer}>
-            <Avatar
-              alt="profile image"
-              sx={{ width: 70, height: 70 }}
-              src={avatar}
-            />
-          </div>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {bio}
-            </Typography>
-          </CardContent>
-          <div className={styles.editProfileButton}>
-            <Button text="Edit profile" onClick={editModalOpen} />
-          </div>
-        </Card>
+      <div
+        className={styles.banner}
+        style={{ backgroundImage: `url(${banner})` }}
+      >
+        <div className={styles.cardContainer}>
+          <Card sx={{ maxWidth: 450 }}>
+            <div className={styles.avatarContainer}>
+              <Avatar
+                alt="profile image"
+                sx={{ width: 70, height: 70 }}
+                src={avatar}
+              />
+            </div>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {bio}
+              </Typography>
+            </CardContent>
+            <div className={styles.editProfileButton}>
+              <Button text="Edit profile" onClick={editModalOpen} />
+            </div>
+          </Card>
+        </div>
       </div>
       <MyVenues myVenues={myVenues} />
       <Modal
@@ -172,7 +184,17 @@ export default function Profile() {
               value={newAvatar}
             />
           </div>
-
+          {/* //start */}
+          <div className={styles.input}>
+            <label htmlFor="">Change banner</label>
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              onChange={(e) => setNewBanner(e.target.value)}
+              value={newBanner}
+            />
+          </div>
+          {/* stop */}
           <div className={styles.input}>
             <label htmlFor="">Change bio</label>
             <TextField

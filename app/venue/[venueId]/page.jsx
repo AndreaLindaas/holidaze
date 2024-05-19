@@ -54,7 +54,6 @@ export default function Venue(props) {
   };
   const showBookings = () => {
     return venue.bookings.map((booking) => {
-      console.log(booking);
       return (
         <li key={booking.id} className={styles.customer}>
           <span>
@@ -133,6 +132,11 @@ export default function Venue(props) {
         ) : (
           <div className={styles.bookingsContainer}>
             <h2 className="orangeHeader">Bookings</h2>
+            {venue.bookings.length > 0 ? (
+              <ul className={styles.showBookings}> {showBookings()}</ul>
+            ) : (
+              <div>No Bookings on this venue</div>
+            )}
             <ul className={styles.showBookings}> {showBookings()}</ul>
           </div>
         )}
