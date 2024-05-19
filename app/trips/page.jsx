@@ -11,6 +11,7 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import moment from "moment";
 import useBookingsForUser from "../_hooks/fetchBookingsForUser";
 import MyTripsCard from "../_components/MyTripsCard/MyTripsCard";
 import styles from "./trips.module.scss";
@@ -24,35 +25,52 @@ export default function Trips() {
     useBookingsForUser(name, apiKey, accessToken);
   const renderMyBookings = () => {
     if (bookings && bookings.data && bookings.data.length > 0) {
-      return bookings.data.map((booking) => {
+      const futureTrips = bookings.data.filter((booking) =>
+        moment(booking.dateTo).isAfter()
+      );
+
+      if (futureTrips.length > 0) {
+        return futureTrips.map((booking) => {
+          return <MyTripsCard booking={booking} key={booking.id} />;
+        });
+      }
+    }
+
+    return (
+      <div className={styles.noTripsContainer}>
+        <Card sx={{ maxWidth: 500 }}>
+          <CardHeader
+            action={<IconButton aria-label="settings"></IconButton>}
+            title="No trips booked..."
+            subheader={<ExploreIcon />}
+          />
+          <CardMedia
+            component="img"
+            height="300"
+            image="/hut.jpg"
+            alt="Paella dish"
+          />
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              Time to start planning your next adventure.
+            </Typography>
+            <Link href="/">
+              <Button text="Explore" />
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  };
+
+  const renderMyPastBookings = () => {
+    if (bookings && bookings.data && bookings.data.length > 0) {
+      const pastTrips = bookings.data.filter((booking) =>
+        moment(booking.dateTo).isBefore()
+      );
+      return pastTrips.map((booking) => {
         return <MyTripsCard booking={booking} key={booking.id} />;
       });
-    } else {
-      return (
-        <div className={styles.noTripsContainer}>
-          <Card sx={{ maxWidth: 500 }}>
-            <CardHeader
-              action={<IconButton aria-label="settings"></IconButton>}
-              title="No Trips booked..."
-              subheader={<ExploreIcon />}
-            />
-            <CardMedia
-              component="img"
-              height="300"
-              image="/hut.jpg"
-              alt="Paella dish"
-            />
-            <CardContent>
-              <Typography variant="body2" color="text.secondary">
-                Time to start planning your next adventure.
-              </Typography>
-              <Link href="/">
-                <Button text="Explore" />
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-      );
     }
   };
 
@@ -66,8 +84,11 @@ export default function Trips() {
 
   return (
     <div className={styles.tripsContainer}>
-      <h1>Trips</h1>
+      <h1>My trips</h1>
+      <h2>Upcoming trips</h2>
       <div className={styles.renderBookings}>{renderMyBookings()}</div>
+      <h2>Past trips</h2>
+      <div className={styles.renderBookings}>{renderMyPastBookings()}</div>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function MyTripsCard(props) {
               {booking.venue.location.country || ", Duckburg"}
             </Typography>
             <Typography component="div">
-              {Moment(booking.dateFrom).format("MMMM Do YYYY")} -
+              {Moment(booking.dateFrom).format("MMMM Do YYYY")} -{" "}
               {Moment(booking.dateTo).format("MMMM Do YYYY")}
             </Typography>
           </CardContent>
