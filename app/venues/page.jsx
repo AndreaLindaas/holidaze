@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import useVenues from "../_hooks/fetchAllVenues";
 import Button from "../_components/Button/Button";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
 import VenueCard from "../_components/VenueCard/VenueCard";
 import styles from "./Venues.module.scss";
@@ -16,8 +18,11 @@ export default function Venues() {
     setPage(e.target.dataset.page);
   };
 
+  const changeLimit = (e) => {
+    setLimit(e.target.value);
+  };
+
   const showPagination = () => {
-    console.log(venues);
     if (isLoading) {
       return;
     }
@@ -62,6 +67,24 @@ export default function Venues() {
 
   return (
     <div>
+      <div className={styles.metadata}>
+        There are <span class="bold">{venues.meta.totalCount}</span> venues on
+        Holidaze!
+      </div>
+      <div className={styles.metadata}>
+        Showing
+        <Select
+          className={styles.limitSelector}
+          value={limit}
+          onChange={changeLimit}
+        >
+          <MenuItem value={10}>10</MenuItem>
+          <MenuItem value={20}>20</MenuItem>
+          <MenuItem value={50}>50</MenuItem>
+          <MenuItem value={100}>100</MenuItem>
+        </Select>
+        venues per page.
+      </div>
       <div className={styles.venueCardContainer}>{showVenues()}</div>
       <div className={styles.pagination}>{showPagination()}</div>
     </div>
