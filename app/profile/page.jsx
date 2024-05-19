@@ -44,23 +44,25 @@ export default function Profile() {
   } = useStore();
 
   useEffect(() => {
-    setIsVenueManager(venueManager);
     setNewAvatar(avatar);
-  }, [venueManager, avatar]);
-  // bruk ved henting av andre profiler
-  //   useEffect(() => {
-  //     fetch(`${API_URL}/profiles/${name}`, {
-  //       headers: {
-  //         "Content-type": "application/json; charset=UTF-8",
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //     })
-  //       .then((response) => response.json())
-  //       .then((result) => {
-  //         setProfile(result);
-  //         console.log("the result", result);
-  //       });
-  //   }, []);
+    setNewBanner(banner);
+  }, [avatar, banner]);
+  useEffect(() => {
+    if (apiKey && accessToken) {
+      fetch(`${API_URL}/profiles/${name}`, {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setIsVenueManager(result.data.venueManager);
+          setVenueManager(result.data.venueManager);
+        });
+    }
+  }, [apiKey, accessToken]);
 
   const editModalOpen = () => {
     setIsEditProfileOpen(true);

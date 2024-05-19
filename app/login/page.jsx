@@ -18,6 +18,7 @@ export default function Login() {
     setBio,
     setApiKey,
     setBanner,
+    setIsVenueManager,
   } = useStore();
   const submitForm = (event) => {
     event.preventDefault();
@@ -41,7 +42,6 @@ export default function Login() {
         setBio(result.data.bio);
         setAvatar(result.data.avatar.url);
         setBanner(result.data.banner.url);
-
         fetch(`${AUTH_URL}/create-api-key`, {
           method: "POST",
           body: JSON.stringify({}),
