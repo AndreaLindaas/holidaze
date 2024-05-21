@@ -12,7 +12,12 @@
     text-decoration: none;
   }
 }
-
+.flexFilters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
 @media screen and (min-width: 768px) {
   .venueCardContainer {
     > a {
