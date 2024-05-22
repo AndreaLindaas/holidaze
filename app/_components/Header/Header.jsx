@@ -48,11 +48,18 @@ export default function Header() {
           </>
         )}
         {!accessToken && (
-          <li>
-            <Link href="/login" className="login-link">
-              <span>Login</span>
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link href="/register">
+                <span>Register</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/login">
+                <span>Login</span>
+              </Link>
+            </li>
+          </>
         )}
 
         <li>

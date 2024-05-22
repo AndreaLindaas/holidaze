@@ -8,6 +8,7 @@
   border: 2px solid var(--orange);
   background-color: var(--orange);
   height: 42px;
+  min-width: 200px;
 }
 .icon {
   margin-right: 4px;
@@ -26,12 +27,26 @@
 .button {
   overflow: hidden;
 }
-
+.secondary {
+  background-color: #fff;
+}
 .button:after {
   left: -100%;
   clip-path: polygon(10% 0, 70% 0, 90% 100%, 30% 100%);
   background-color: rgba(255, 255, 255, 0.6);
   transition: all 500ms ease;
+}
+
+.secondary:after {
+  background-color: rgba(255, 109, 0, 0.1);
+}
+
+.disabled {
+  opacity: 0.6;
+}
+
+.disabled:after {
+  background-color: transparent;
 }
 
 .button:hover::after {

@@ -1,0 +1,32 @@
+.loginContainer {
+  max-width: 500px;
+  margin: 50px auto;
+  .loginCard {
+    width: 100%;
+    background-color: var(--peach);
+    padding: 30px;
+    form {
+      text-align: left;
+      .input {
+        display: flex;
+        margin: 0 auto;
+        flex-direction: column;
+        input {
+          background-color: white;
+        }
+      }
+      .loginRegisterButton {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+    }
+  }
+  .registerLoginButton {
+    display: flex;
+    justify-content: center;
+    a {
+      text-decoration: none;
+    }
+  }
+}
