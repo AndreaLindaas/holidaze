@@ -5,7 +5,7 @@ import useSearch from "../../_hooks/fetchSearch";
 import VenueCard from "../../_components/VenueCard/VenueCard";
 import Link from "next/link";
 import styles from "./Search.module.scss";
-import { TextField } from "@mui/material";
+import { TextField, MenuItem } from "@mui/material";
 export default function SearchPage(props) {
   const [numberOfGuests, setNumberOfGuests] = useState(2);
   const [maxPrice, setMaxPrice] = useState();
@@ -29,6 +29,9 @@ export default function SearchPage(props) {
   }, [searchWord, numberOfGuests, maxPrice, search]);
 
   const showSearchResults = () => {
+    if (!isLoadingSearchData && !searchWord) {
+      return <div>Enter search word</div>;
+    }
     if (hits.length === 0 && !isLoadingSearchData) {
       return (
         <div>No hits. Please try a new search or adjust your filters.</div>
@@ -42,7 +45,16 @@ export default function SearchPage(props) {
       );
     });
   };
-
+  const currencies = [
+    {
+      value: "USD",
+      label: "Price heigh-low",
+    },
+    {
+      value: "EUR",
+      label: "Price low-heigh",
+    },
+  ];
   return (
     <div>
       <Search searchWord={searchWord} />
@@ -67,8 +79,26 @@ export default function SearchPage(props) {
             onChange={(e) => setMaxPrice(e.target.value)}
           />
         </div>
+        <div>
+          <TextField
+            id="outlined-select-currency"
+            select
+            label="price range"
+            defaultValue="USD"
+          >
+            {currencies.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
       </div>
-      {hits.length > 0 && <div>Showing {hits.length} results</div>}
+      {hits.length > 0 && (
+        <div className="center">
+          Showing <span className="bold">{hits.length}</span> results
+        </div>
+      )}
       <div className={styles.venueCardContainer}> {showSearchResults()}</div>
     </div>
   );

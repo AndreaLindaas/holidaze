@@ -17,7 +17,7 @@ export default function MyVenueCard(props) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { accessToken, apiKey } = useStore();
 
-  const { venue } = props;
+  const { venue, isLoggedInUsersVenues } = props;
 
   const showImage = () => {
     if (venue.media && venue.media.length > 0) {
@@ -59,22 +59,30 @@ export default function MyVenueCard(props) {
     <div>
       <div className={styles.cardContainer}>
         <Card sx={{ width: 345 }} key={venue.id}>
-          <Link href={`venue/${venue.id}`}>
+          <Link href={`/venue/${venue.id}`}>
             <CardActionArea>
               {showImage()}
               <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  className={styles.venueName}
+                  component="div"
+                >
                   {venue.name}
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Link>
-          <span className={styles.editDeleteButtons}>
-            <Link href={`/venue/edit/${venue.id}`}>
-              <Button text="Edit" />
-            </Link>
-            <Button text="Delete" onClick={() => openDeleteModal()} />
-          </span>
+
+          {isLoggedInUsersVenues && (
+            <span className={styles.editDeleteButtons}>
+              <Link href={`/venue/edit/${venue.id}`}>
+                <Button text="Edit" />
+              </Link>
+              <Button text="Delete" onClick={() => openDeleteModal()} />
+            </span>
+          )}
         </Card>
       </div>
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>

@@ -151,7 +151,7 @@ export default function Profile() {
           </Card>
         </div>
       </div>
-      <MyVenues myVenues={myVenues} />
+      <MyVenues isLoggedInUsersVenues myVenues={myVenues} />
       <Modal
         open={isEditProfileOpen}
         aria-labelledby="modal-modal-title"
