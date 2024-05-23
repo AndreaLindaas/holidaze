@@ -44,7 +44,7 @@ export default function Search(props) {
             placeholder={randomPlaceholder()}
             onChange={(e) => setSearchWord(e.target.value)}
           />
-          <Button text="Search" />
+          <Button text="Search" narrow />
         </div>
       </form>
     </div>

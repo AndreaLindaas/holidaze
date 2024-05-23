@@ -14,6 +14,7 @@ export default function Button(props) {
     danger,
     icon,
     secondary,
+    narrow,
   } = props;
 
   return (
@@ -22,7 +23,7 @@ export default function Button(props) {
         danger ? styles.danger : ""
       } ${secondary ? styles.secondary : ""} ${
         disabled ? styles.disabled : ""
-      }`}
+      } ${narrow ? styles.narrow : ""}`}
       disabled={disabled}
       type={type}
       onClick={onClick}

@@ -78,9 +78,9 @@ export default function MyVenueCard(props) {
           {isLoggedInUsersVenues && (
             <span className={styles.editDeleteButtons}>
               <Link href={`/venue/edit/${venue.id}`}>
-                <Button text="Edit" />
+                <Button text="Edit" narrow />
               </Link>
-              <Button text="Delete" onClick={() => openDeleteModal()} />
+              <Button text="Delete" onClick={() => openDeleteModal()} narrow />
             </span>
           )}
         </Card>

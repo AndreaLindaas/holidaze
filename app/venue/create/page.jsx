@@ -29,6 +29,11 @@ export default function CreateVenue() {
   const [continent, setContinent] = useState("Europe");
   const [lattitude, setLattitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
+  const [addImageButtonDisabled, setAddImageButtonDisabled] = useState(true);
+  const [coordinatesButtonDisabled, setCoordinatesButtonDisabled] =
+    useState(true);
+  const [isGettingCoordinates, setIsGettingCoordinates] = useState(false);
+  const [isCreateButtonDisabled, setIsCreateButtonDisabled] = useState(false);
 
   const continents = [
     {
@@ -56,15 +61,54 @@ export default function CreateVenue() {
       label: "Australia",
     },
   ];
+  // this useEffect validates mediUrl
+  useEffect(() => {
+    if (tempMediaUrl.length < 3) {
+      setAddImageButtonDisabled(true);
+      return;
+    }
 
+    setAddImageButtonDisabled(false);
+  }, [tempMediaUrl]);
+
+  // this useEffect validates coordinatesButton
+  useEffect(() => {
+    console.log(address.length);
+    if (address.length < 2 || city.length < 2 || country.length < 2) {
+      setCoordinatesButtonDisabled(true);
+      return;
+    }
+
+    setCoordinatesButtonDisabled(false);
+  }, [address, city, country]);
+
+  // this useEffect validates create venue
+  useEffect(() => {
+    if (
+      nameOfVenue.length < 2 ||
+      description.length < 100 ||
+      price > 10000 ||
+      price < 1 ||
+      maxAmountOfGuests > 100 ||
+      maxAmountOfGuests < 1
+    ) {
+      setIsCreateButtonDisabled(true);
+      return;
+    }
+
+    setIsCreateButtonDisabled(false);
+  }, [nameOfVenue, description, price, maxAmountOfGuests]);
   const getGeolocation = async (e) => {
     e.preventDefault();
+    setIsGettingCoordinates(true);
     if (address && city && country) {
       const searchAddress = encodeURI(`${address} ${city} ${country}`);
       const searchUrl = `https://nominatim.openstreetmap.org/search.php?q=${searchAddress}&polygon_geojson=1&format=jsonv2`;
       fetch(searchUrl)
         .then((response) => response.json())
         .then((result) => {
+          setIsGettingCoordinates(false);
+
           if (result.length > 0) {
             setLattitude(result[0].lat);
             setLongitude(result[0].lon);
@@ -110,6 +154,7 @@ export default function CreateVenue() {
       .then((result) => {})
       .catch((error) => {});
   };
+
   const addImage = (e) => {
     e.preventDefault();
     if (tempMediaUrl) {
@@ -148,7 +193,7 @@ export default function CreateVenue() {
             />
           </div>
           <div className={styles.addButton}>
-            <Button text="Add" />
+            <Button text="Add" disabled={addImageButtonDisabled} />
           </div>
         </form>
       </Card>
@@ -165,7 +210,7 @@ export default function CreateVenue() {
             />
           </div>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-            <label>Description*</label>
+            <label>Description* ({description.length} letters)</label>
             <TextField
               className="whiteInput"
               variant="outlined"
@@ -173,6 +218,7 @@ export default function CreateVenue() {
               rows={4}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter a dercription of the place"
+              helperText="Must be minimum 100 letters "
             />
           </div>
         </Card>
@@ -213,8 +259,10 @@ export default function CreateVenue() {
               </div>
               <div className={styles.geoButton}>
                 <Button
+                  isLoading={isGettingCoordinates}
                   text="Get coordinates automatically (beta)"
                   onClick={getGeolocation}
+                  disabled={coordinatesButtonDisabled}
                 />
               </div>
             </div>
@@ -275,6 +323,7 @@ export default function CreateVenue() {
                   className="whiteInput"
                   variant="outlined"
                   onChange={(e) => setPrice(e.target.value)}
+                  helperText="Must be between 1 and 10 000 "
                 />
               </div>
             </div>
@@ -285,6 +334,7 @@ export default function CreateVenue() {
                   className="whiteInput"
                   variant="outlined"
                   onChange={(e) => setMaxAmountOfGuests(e.target.value)}
+                  helperText="Must be between 1 and 100"
                 />
               </div>
             </div>
@@ -311,7 +361,7 @@ export default function CreateVenue() {
           />
         </Card>
         <div className={styles.button}>
-          <Button text="Create" />
+          <Button text="Create" disabled={isCreateButtonDisabled} />
         </div>
       </form>
     </div>

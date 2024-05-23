@@ -9,6 +9,11 @@
   background-color: var(--orange);
   height: 42px;
   min-width: 200px;
+
+  &.narrow {
+    width: 100px;
+    min-width: 100px;
+  }
 }
 .icon {
   margin-right: 4px;

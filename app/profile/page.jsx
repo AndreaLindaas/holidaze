@@ -186,7 +186,7 @@ export default function Profile() {
               value={newAvatar}
             />
           </div>
-          {/* //start */}
+
           <div className={styles.input}>
             <label htmlFor="">Change banner</label>
             <TextField
@@ -196,7 +196,7 @@ export default function Profile() {
               value={newBanner}
             />
           </div>
-          {/* stop */}
+
           <div className={styles.input}>
             <label htmlFor="">Change bio</label>
             <TextField
