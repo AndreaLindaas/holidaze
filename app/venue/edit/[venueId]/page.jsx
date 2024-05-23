@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useEffect } from "react";
 import { API_URL } from "../../../_lib/constants";
+import { validateUrl } from "../../../_lib/utils";
 import Button from "../../../_components/Button/Button";
 import { useStore } from "../../../_lib/store";
 import styles from "../../../_styles/createEdit.module.scss";
@@ -18,7 +19,6 @@ export default function EditVenue(props) {
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
   const [tempMediaUrl, setTempMediaUrl] = useState("");
-
   const [price, setPrice] = useState(0);
   const [maxGuests, setMaxGuests] = useState(0);
   const [address, setAddress] = useState("");
@@ -32,6 +32,8 @@ export default function EditVenue(props) {
   const [breakfast, setBreakfast] = useState(false);
   const [pets, setPets] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [addImageButtonDisabled, setAddImageButtonDisabled] = useState(true);
+
   const continents = [
     {
       value: "Europe",
@@ -59,6 +61,21 @@ export default function EditVenue(props) {
     },
   ];
   const { accessToken, apiKey } = useStore();
+  // this useEffect validates mediUrl
+  useEffect(() => {
+    if (!validateUrl(tempMediaUrl)) {
+      setAddImageButtonDisabled(true);
+      return;
+    }
+
+    if (media.length >= 8) {
+      setAddImageButtonDisabled(true);
+      return;
+    }
+
+    setAddImageButtonDisabled(false);
+  }, [tempMediaUrl, media]);
+
   useEffect(() => {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
@@ -134,6 +151,7 @@ export default function EditVenue(props) {
     const newMedia = { url: tempMediaUrl };
     const mediaArray = [...media, newMedia];
     setMedia(mediaArray);
+    setTempMediaUrl("");
   };
   const removeItem = (index) => {
     setMedia((prevMedia) => prevMedia.filter((_, i) => i !== index));
@@ -147,7 +165,7 @@ export default function EditVenue(props) {
             alt="image of the rental"
             className={styles.image}
           />
-          <Button text="Remove" onClick={() => removeItem(i)} />
+          <Button text="Remove" onClick={() => removeItem(i)} narrow />
         </li>
       );
     });
@@ -172,14 +190,16 @@ export default function EditVenue(props) {
         <ul className="center">{showImages()}</ul>
         <form onSubmit={addImage}>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-            <label htmlFor="">Image url</label>
+            <label htmlFor="">Media url</label>
             <TextField
               className="whiteInput"
               variant="outlined"
               onChange={mediaUrlChange}
+              value={tempMediaUrl}
+              helperText="Maximum 8 images "
             />
+            <Button text="Add" narrow disabled={addImageButtonDisabled} />
           </div>
-          <Button text="Add" />
         </form>
       </Card>
       <form onSubmit={submitEditForm}>
@@ -327,10 +347,10 @@ export default function EditVenue(props) {
             label="pets"
             onChange={(e) => setPets(e.target.checked)}
             checked={pets}
-          />{" "}
+          />
         </Card>
         <div className={styles.button}>
-          <Button text="save changes" />
+          <Button text="Save changes" />
         </div>
       </form>
     </div>

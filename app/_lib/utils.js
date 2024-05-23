@@ -12,6 +12,11 @@ export const validateEmail = (email) => {
   }
   return emailFound;
 };
+export const validateUrl = (url) => {
+  const urlRegex = /^(https?):\/\/[^\s/$.?#].[^\s]*$/i;
+
+  return urlRegex.test(url);
+};
 
 const namePattern = /^[a-zA-Z0-9_]+$/;
 export const validateName = (name) => {

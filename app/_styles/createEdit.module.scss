@@ -34,7 +34,9 @@
   }
   .image {
     margin-top: 20px;
-    width: 100px;
+    width: 100%;
+    max-width: 400px;
+    object-fit: cover;
     padding: 5px;
     border-radius: 10px;
   }
@@ -43,9 +45,12 @@
     display: flex;
     list-style-type: none;
     flex-wrap: wrap;
+    justify-content: center;
     li {
       display: flex;
       align-items: center;
+      flex-direction: column;
+      margin-bottom: 36px;
     }
   }
 }
@@ -60,6 +65,10 @@
       display: flex;
       justify-content: center;
       gap: 10px;
+    }
+    .image {
+      width: 200px;
+      height: 160px;
     }
     .inputContainer {
       width: 270px;

@@ -10,6 +10,8 @@ import {
 import Button from "../../_components/Button/Button";
 import { API_URL } from "../../_lib/constants";
 import { useStore } from "../../_lib/store";
+import { validateUrl } from "../../_lib/utils";
+
 import styles from "../../_styles/createEdit.module.scss";
 export default function CreateVenue() {
   const { accessToken, apiKey } = useStore();
@@ -63,13 +65,16 @@ export default function CreateVenue() {
   ];
   // this useEffect validates mediUrl
   useEffect(() => {
-    if (tempMediaUrl.length < 3) {
+    if (!validateUrl(tempMediaUrl)) {
       setAddImageButtonDisabled(true);
       return;
     }
-
+    if (media.length >= 8) {
+      setAddImageButtonDisabled(true);
+      return;
+    }
     setAddImageButtonDisabled(false);
-  }, [tempMediaUrl]);
+  }, [tempMediaUrl, media]);
 
   // this useEffect validates coordinatesButton
   useEffect(() => {
@@ -161,6 +166,7 @@ export default function CreateVenue() {
       const newMedia = { url: tempMediaUrl };
       const mediaArray = [...media, newMedia];
       setMedia(mediaArray);
+      setTempMediaUrl("");
     }
   };
 
@@ -178,6 +184,7 @@ export default function CreateVenue() {
             return (
               <li key={i}>
                 <img src={image.url} alt="" className={styles.image} />
+                <Button text="Remove" onClick={() => removeItem(i)} narrow />
               </li>
             );
           })}
@@ -190,10 +197,12 @@ export default function CreateVenue() {
               variant="outlined"
               onChange={(e) => setTempMediaUrl(e.target.value)}
               placeholder="Add media url here"
+              value={tempMediaUrl}
+              helperText="Maximum 8 images "
             />
           </div>
           <div className={styles.addButton}>
-            <Button text="Add" disabled={addImageButtonDisabled} />
+            <Button text="Add" disabled={addImageButtonDisabled} narrow />
           </div>
         </form>
       </Card>
