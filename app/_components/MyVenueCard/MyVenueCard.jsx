@@ -80,7 +80,12 @@ export default function MyVenueCard(props) {
               <Link href={`/venue/edit/${venue.id}`}>
                 <Button text="Edit" narrow />
               </Link>
-              <Button text="Delete" onClick={() => openDeleteModal()} narrow />
+              <Button
+                text="Delete"
+                danger
+                onClick={() => openDeleteModal()}
+                narrow
+              />
             </span>
           )}
         </Card>
@@ -91,7 +96,7 @@ export default function MyVenueCard(props) {
             Sure you want to delete the venue?{" "}
           </Typography>
           <span className={styles.deleteCloseButtons}>
-            <Button text="Delete" onClick={deleteVenue} />
+            <Button text="Delete" danger onClick={deleteVenue} />
             <Button text="Close" onClick={closeDeleteModal} />
           </span>
         </Box>
