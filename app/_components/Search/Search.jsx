@@ -38,7 +38,6 @@ export default function Search(props) {
         <div className={styles.searchForm}>
           <TextField
             className="whiteInput"
-            InputProps={{ disableUnderline: true }}
             variant="outlined"
             value={searchWord}
             placeholder={randomPlaceholder()}

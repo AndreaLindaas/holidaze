@@ -19,7 +19,7 @@ export default function EditVenue(props) {
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
   const [tempMediaUrl, setTempMediaUrl] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState(-1);
   const [maxGuests, setMaxGuests] = useState(0);
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -34,6 +34,9 @@ export default function EditVenue(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [addImageButtonDisabled, setAddImageButtonDisabled] = useState(true);
   const [isSaveChangesDisabled, setIsSaveChangesDisabled] = useState(true);
+  const [errors, setErrors] = useState([]);
+  const [isEditVenue, setIsEditVenue] = useState(false);
+
   const continents = [
     {
       value: "Europe",
@@ -61,6 +64,7 @@ export default function EditVenue(props) {
     },
   ];
   const { accessToken, apiKey } = useStore();
+
   // this useEffect validates mediUrl
   useEffect(() => {
     if (!validateUrl(tempMediaUrl)) {
@@ -92,6 +96,7 @@ export default function EditVenue(props) {
 
     setIsSaveChangesDisabled(false);
   }, [name, description, price, maxGuests]);
+
   useEffect(() => {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
@@ -159,8 +164,21 @@ export default function EditVenue(props) {
       },
     })
       .then((response) => response.json())
-      .then((result) => {})
-      .catch((error) => {});
+      .then((result) => {
+        setIsEditVenue(false);
+
+        if (
+          result.statusCode == 401 ||
+          (result.errors && result.errors.length > 0)
+        ) {
+          setErrors(result.errors);
+        } else {
+          // router.push(`/venue/${result.data.id}`);
+        }
+      })
+      .catch((error) => {
+        setErrors([{ message: "Something went wrong. Please try again." }]);
+      });
   };
   const addImage = (e) => {
     e.preventDefault();
@@ -187,7 +205,7 @@ export default function EditVenue(props) {
     });
   };
   const mediaUrlChange = (e) => {
-    setTempMediaUrl(e.target.value); // Store entered URL in tempMediaUrl
+    setTempMediaUrl(e.target.value);
   };
 
   if (isLoading) {
@@ -368,8 +386,21 @@ export default function EditVenue(props) {
             checked={pets}
           />
         </Card>
+        {errors.length > 0 && (
+          <div>
+            <ul>
+              {errors.map((e, i) => (
+                <li key={i}>{e.message}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className={styles.button}>
-          <Button text="Save changes" disabled={isSaveChangesDisabled} />
+          <Button
+            text="Save changes"
+            disabled={isSaveChangesDisabled}
+            isLoading={isEditVenue}
+          />
         </div>
       </form>
     </div>

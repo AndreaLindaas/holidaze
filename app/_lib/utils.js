@@ -1,5 +1,4 @@
 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-import moment from "moment";
 
 export const validateEmail = (email) => {
   const emailFound = emailPattern.test(email);
@@ -36,7 +35,7 @@ export const getTimestampsBetweenDates = (startDate, endDate) => {
   currentDate.setSeconds(0);
   while (currentDate <= end) {
     // Store timestamp for current date
-    timestamps.push(moment(currentDate.getTime()));
+    timestamps.push(currentDate.getTime());
 
     // Move to next day
     currentDate.setDate(currentDate.getDate() + 1);

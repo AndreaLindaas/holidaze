@@ -66,77 +66,79 @@ export default function Register() {
       });
   };
   return (
-    <div className={styles.loginContainer}>
-      <Card className={styles.loginCard}>
-        <h1 className="center">Register</h1>
-        <form onSubmit={submitForm}>
-          <div className={styles.input}>
-            <label htmlFor="name">Name</label>
-            <TextField
-              className="whiteInput"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              variant="outlined"
-            />
-          </div>
-
-          <div className={styles.input}>
-            <label htmlFor="">Email</label>
-
-            <TextField
-              className="whiteInput"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              variant="outlined"
-            />
-          </div>
-          <div className={styles.input}>
-            <label htmlFor="">Password</label>
-            <TextField
-              className="whiteInput"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-              autoComplete="current-password"
-            />
-          </div>
-          <div className={styles.input}>
-            <label htmlFor="">Confirm Password</label>
-            <TextField
-              className="whiteInput"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type="password"
-              autoComplete="current-password"
-            />
-          </div>
-          {errors.length > 0 && (
-            <div>
-              <ul>
-                {errors.map((e, i) => (
-                  <li key={i}>{e.message}</li>
-                ))}
-              </ul>
+    <div className={styles.background}>
+      <div className={styles.loginContainer}>
+        <Card className={styles.loginCard}>
+          <h1 className="center">Register</h1>
+          <form onSubmit={submitForm}>
+            <div className={styles.input}>
+              <label htmlFor="name">Name</label>
+              <TextField
+                className="whiteInput"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                variant="outlined"
+              />
             </div>
-          )}
-          <div className={styles.loginRegisterButton}>
-            <Button
-              isLoading={isSigningUp}
-              disabled={signupButtonDisabled}
-              text="Sign up"
-              type="submit"
-            />
+
+            <div className={styles.input}>
+              <label htmlFor="">Email</label>
+
+              <TextField
+                className="whiteInput"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                variant="outlined"
+              />
+            </div>
+            <div className={styles.input}>
+              <label htmlFor="">Password</label>
+              <TextField
+                className="whiteInput"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                autoComplete="current-password"
+              />
+            </div>
+            <div className={styles.input}>
+              <label htmlFor="">Confirm Password</label>
+              <TextField
+                className="whiteInput"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                type="password"
+                autoComplete="current-password"
+              />
+            </div>
+            {errors.length > 0 && (
+              <div>
+                <ul>
+                  {errors.map((e, i) => (
+                    <li key={i}>{e.message}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div className={styles.loginRegisterButton}>
+              <Button
+                isLoading={isSigningUp}
+                disabled={signupButtonDisabled}
+                text="Sign up"
+                type="submit"
+              />
+            </div>
+          </form>
+          <p className="center">Alredy have an account?</p>
+          <div className={styles.registerLoginButton}>
+            <Link href="/login">
+              <Button text="Login" />
+            </Link>
           </div>
-        </form>
-        <p className="center">Alredy have an account?</p>
-        <div className={styles.registerLoginButton}>
-          <Link href="/login">
-            <Button text="Login" />
-          </Link>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -88,54 +88,56 @@ export default function Login() {
       });
   };
   return (
-    <div className={styles.loginContainer}>
-      <Card className={styles.loginCard}>
-        <h1 className="center">Login</h1>
-        <form onSubmit={submitForm}>
-          <div className={styles.input}>
-            <label>Email</label>
-            <TextField
-              className="whiteInput"
-              type="email"
-              variant="outlined"
-              value={loginEmail}
-              onChange={(e) => setLoginEmail(e.target.value)}
-            />
-          </div>
-          <div className={styles.input}>
-            <label htmlFor="">Password</label>
-            <TextField
-              className="whiteInput"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          {errors.length > 0 && (
-            <div>
-              <ul>
-                {errors.map((e, i) => (
-                  <li key={i}>{e.message}</li>
-                ))}
-              </ul>
+    <div className={styles.background}>
+      <div className={styles.loginContainer}>
+        <Card className={styles.loginCard}>
+          <h1 className="center">Login</h1>
+          <form onSubmit={submitForm}>
+            <div className={styles.input}>
+              <label>Email</label>
+              <TextField
+                className="whiteInput"
+                type="email"
+                variant="outlined"
+                value={loginEmail}
+                onChange={(e) => setLoginEmail(e.target.value)}
+              />
             </div>
-          )}
-          <div className={styles.loginRegisterButton}>
-            <Button
-              isLoading={isLoggingIn}
-              text="Login"
-              disabled={registerButtonDisabled}
-            />
+            <div className={styles.input}>
+              <label htmlFor="">Password</label>
+              <TextField
+                className="whiteInput"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {errors.length > 0 && (
+              <div>
+                <ul>
+                  {errors.map((e, i) => (
+                    <li key={i}>{e.message}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            <div className={styles.loginRegisterButton}>
+              <Button
+                isLoading={isLoggingIn}
+                text="Login"
+                disabled={registerButtonDisabled}
+              />
+            </div>
+          </form>
+          <p className="center">Dont´t have an account? </p>
+          <div className={styles.registerLoginButton}>
+            <Link href="/register">
+              <Button text="Register" secondary />
+            </Link>
           </div>
-        </form>
-        <p className="center">Dont´t have an account? </p>
-        <div className={styles.registerLoginButton}>
-          <Link href="/register">
-            <Button text="Register" secondary />
-          </Link>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </div>
   );
 }

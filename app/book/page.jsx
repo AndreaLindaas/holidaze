@@ -2,14 +2,14 @@
 import React from "react";
 import { bookingStore, useStore } from "../_lib/store";
 import moment from "moment";
-import { StaticDateRangePicker } from "@mui/x-date-pickers-pro";
 import Button from "../_components/Button/Button";
 import { useState } from "react";
 import { API_URL } from "../_lib/constants";
 import { TextField, Card } from "@mui/material";
 import { useRouter } from "next/navigation";
-import Moment from "moment";
+
 import styles from "./book.module.scss";
+
 export default function Booking() {
   const { venue, startDate, endDate, setStartDate, setEndDate } =
     bookingStore();
@@ -18,11 +18,11 @@ export default function Booking() {
   const router = useRouter();
 
   const [amountOfGuests, setAmountOfGuests] = useState(0);
-  const setBookingDates = (dates) => {
-    if (dates && dates.length > 1) {
-      setStartDate(dates[0]);
-      setEndDate(dates[1]);
-    }
+
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
   };
 
   const bookVenue = () => {
@@ -49,7 +49,7 @@ export default function Booking() {
         console.log("galt");
       });
   };
-  const numberOfNights = Moment(endDate).diff(Moment(startDate), "days");
+  const numberOfNights = moment(endDate).diff(moment(startDate), "days");
   const pricePerNight = venue.price;
   const totalPrice = pricePerNight * numberOfNights;
 
@@ -59,11 +59,7 @@ export default function Booking() {
         <img src={venue.media[0].url} />
       )}
       <h1> {venue.name}</h1>
-      <StaticDateRangePicker
-        slotProps={{ actionBar: { actions: [] } }}
-        value={[moment(startDate), moment(endDate)]}
-        onChange={(newValue) => setBookingDates(newValue)}
-      />
+
       <Card className={styles.priceDetailsCard}>
         <h3 className="orangeHeader">Price details</h3>
         <div>

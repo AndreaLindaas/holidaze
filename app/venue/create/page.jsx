@@ -36,7 +36,6 @@ export default function CreateVenue() {
     useState(true);
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false);
   const [isCreatingVenue, setIsCreatingVenue] = useState(false);
-
   const [isCreateButtonDisabled, setIsCreateButtonDisabled] = useState(false);
   const [errors, setErrors] = useState([]);
   const router = useRouter();
@@ -127,7 +126,7 @@ export default function CreateVenue() {
     }
   };
 
-  const submitCreateListing = (e) => {
+  const submitCreateVenue = (e) => {
     e.preventDefault();
     setIsCreatingVenue(true);
     const payload = {
@@ -225,7 +224,7 @@ export default function CreateVenue() {
           </div>
         </form>
       </Card>
-      <form onSubmit={submitCreateListing}>
+      <form onSubmit={submitCreateVenue}>
         <Card className={styles.whiteCard}>
           <h3>About the venue</h3>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>

@@ -1,33 +1,38 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { StaticDateRangePicker } from "@mui/x-date-pickers-pro/StaticDateRangePicker";
-import Link from "next/link";
-import moment from "moment";
+
 import Button from "../Button/Button";
 import { useStore, bookingStore } from "../../_lib/store";
 import { useRouter } from "next/navigation";
 import { getTimestampsBetweenDates } from "../../_lib/utils";
 import styles from "./MyBookingCalendar.module.scss";
 import { Card } from "@mui/material";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import "react-datepicker/dist/react-datepicker.css";
+
 export default function MyBookingCalendar(props) {
-  const [bookingDates, setBookingDates] = useState([null, null]);
   const [allBookedDates, setAllBookedDates] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(true);
   const { accessToken } = useStore();
   const { venue } = props;
-  const { setVenue, setStartDate, setEndDate } = bookingStore();
+  const { setVenue, startDate, endDate, setStartDate, setEndDate } =
+    bookingStore();
   const router = useRouter();
 
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
   const bookingClick = () => {
     setVenue(venue);
-    setStartDate(bookingDates[0]);
-    setEndDate(bookingDates[1]);
     router.push("/book");
   };
 
   const validateSelectedDates = () => {
-    const dates = getTimestampsBetweenDates(bookingDates[0], bookingDates[1]);
+    const dates = getTimestampsBetweenDates(startDate, endDate);
     let isValid = true;
     dates.forEach((d) => {
       if (isDateDisabled(d)) {
@@ -46,7 +51,7 @@ export default function MyBookingCalendar(props) {
 
     setErrorMessage("");
     setIsBookButtonDisabled(false);
-  }, [bookingDates]);
+  }, [startDate, endDate]);
 
   useEffect(() => {
     //Extract all dates from booking array
@@ -65,20 +70,22 @@ export default function MyBookingCalendar(props) {
   }, [venue]);
 
   const isDateDisabled = (date, position) => {
-    return allBookedDates.find((d) => d.isSame(date));
+    return allBookedDates.find((d) => moment(d).isSame(date));
   };
 
   return (
     <div className={styles.calendar}>
-      <StaticDateRangePicker
-        slotProps={{ actionBar: { actions: [] } }}
-        value={bookingDates}
-        shouldDisableDate={isDateDisabled}
-        disablePast
-        onChange={(newValue) => setBookingDates(newValue)}
+      <DatePicker
+        selected={startDate}
+        onChange={onChange}
+        startDate={startDate}
+        endDate={endDate}
+        selectsRange
+        minDate={new Date()}
+        inline
         className={styles.calendar}
+        excludeDates={allBookedDates}
       />
-
       {errorMessage && <p>{errorMessage}</p>}
       {accessToken ? (
         <Button
