@@ -1,24 +1,56 @@
 "use client";
 import useBooking from "../../_hooks/fetchBooking";
+import { useEffect } from "react";
 import { useStore } from "../../_lib/store";
 import SimpleSlider from "../../_components/Slider/Slider";
 import { Modal, Box, Typography, Card, Avatar } from "@mui/material";
 import Link from "next/link";
-import EmailIcon from "@mui/icons-material/Email";
 import styles from "./trip.module.scss";
 import Button from "../../_components/Button/Button";
 import { useState } from "react";
 import { API_URL } from "../../_lib/constants";
 import moment from "moment";
+import Map from "../../_components/Map/Map";
 export default function MyTrip(props) {
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [latLng, setLatLng] = useState([]);
 
   const { isLoading, data: trip } = useBooking(
     props.params.tripId,
     apiKey,
     accessToken
   );
+
+  useEffect(() => {
+    if (
+      !isLoading &&
+      trip &&
+      !!trip.data.venue.location.lat &&
+      !!trip.data.venue.location.lng
+    ) {
+      setLatLng([trip.data.venue.location.lat, trip.data.venue.location.lng]);
+    } else if (
+      !isLoading &&
+      trip &&
+      !!trip.data.venue.location.address &&
+      !!trip.data.venue.location.city &&
+      !!trip.data.venue.location.country
+    ) {
+      const address = encodeURI(
+        `${trip.data.venue.location.address} ${trip.data.venue.location.city} ${trip.data.venue.location.country}`
+      );
+      const searchUrl = `https://nominatim.openstreetmap.org/search.php?q=${address}&polygon_geojson=1&format=jsonv2`;
+      fetch(searchUrl)
+        .then((response) => response.json())
+        .then((result) => {
+          if (result.length > 0) {
+            setLatLng([result[0].lat, result[0].lon]);
+          }
+        });
+    }
+  }, [trip]);
+
   const openDeleteModal = () => {
     setIsDeleteModalOpen(true);
   };
@@ -69,17 +101,19 @@ export default function MyTrip(props) {
           <div className={styles.mail}>
             <Avatar src={trip.data.venue.owner.avatar.url} />
             <div className={styles.messageHost}>
-              <p className="bold">Message your host </p>
-              <a href={"mailto:" + trip.data.venue.owner.email}>
-                <EmailIcon />
+              <a
+                href={"mailto:" + trip.data.venue.owner.email}
+                className="bold"
+              >
+                Message your host
               </a>
-            </div>{" "}
+            </div>
           </div>
         </Card>
         <Card className={styles.rentalCard}>
           <div className={styles.rentalContainer}>
             <div className={styles.rental}>
-              <p className="bold ">See your rental</p>
+              <p className="bold ">See your venue</p>
               <Link href={`/venue/${trip.data.venue.id}`}>
                 <span>{trip.data.venue.name}</span>
               </Link>
@@ -103,9 +137,16 @@ export default function MyTrip(props) {
           <div className="bold"> Contact the host for address</div>
         )}
         <div>
-          <span className="bold">Amount paid</span>
+          <div className="bold">Number of nights</div>
+          <div className="bold">Price per night</div>
+          <div className="bold">Total price</div>
         </div>
-        <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
+        <div className={styles.cancelTripButton}>
+          <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
+        </div>
+        {latLng.length == 2 && (
+          <Map position={latLng} zoom={8} location={trip.data.venue.location} />
+        )}
       </div>
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">

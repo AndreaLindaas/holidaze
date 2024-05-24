@@ -80,7 +80,7 @@ export default function EditVenue(props) {
     setAddImageButtonDisabled(false);
   }, [tempMediaUrl, media]);
 
-  // this useEffect validates edit rental
+  // this useEffect validates edit venue
   useEffect(() => {
     if (
       name.length < 2 ||
@@ -196,7 +196,7 @@ export default function EditVenue(props) {
         <li key={i}>
           <img
             src={image.url}
-            alt="image of the rental"
+            alt="image of the venue"
             className={styles.image}
           />
           <Button text="Remove" onClick={() => removeItem(i)} narrow />
@@ -214,7 +214,7 @@ export default function EditVenue(props) {
 
   return (
     <div className={styles.formContainer}>
-      <h1 className="center">Edit your rental</h1>
+      <h1 className="center">Edit your venue</h1>
       <p className={styles.text}>
         Please fill out the form below with accurate and detailed information.
         This will help potential visitors understand what your venue offers and

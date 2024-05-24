@@ -233,7 +233,7 @@ export default function CreateVenue() {
               className="whiteInput"
               variant="outlined"
               onChange={(e) => setNameOfVenue(e.target.value)}
-              placeholder="What will you call your rental?"
+              placeholder="What will you call your venue?"
             />
           </div>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
