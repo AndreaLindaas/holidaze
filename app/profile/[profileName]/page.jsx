@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import useOtherProfile from "../../_hooks/fetchOtherProfile";
 import { useStore } from "../../_lib/store";
 import MyVenues from "../../_components/MyVenueCard/MyVenues";
+import style from "./otherProfile.module.scss";
+import Link from "next/link";
 import {
   CircularProgress,
   Card,
@@ -17,16 +19,27 @@ import {
   TextField,
 } from "@mui/material";
 import styles from "../profile.module.scss";
-import Venues from "../../venues/page";
 
 export default function OtherProfiles(props) {
   const { accessToken, apiKey, banner } = useStore();
+
+  console.log(apiKey, accessToken);
   const { isLoading: isLoadingOtherProfileData, data: otherProfile } =
     useOtherProfile(props.params.profileName, apiKey, accessToken);
 
-  console.log("other profile", otherProfile);
-
-  if (isLoadingOtherProfileData) {
+  if (!accessToken) {
+    return (
+      <div className={style.notLoggedIn}>
+        <Card className={style.card}>
+          To see this page please{" "}
+          <Link href="/login" className={style.loginText}>
+            login
+          </Link>
+        </Card>
+      </div>
+    );
+  }
+  if (isLoadingOtherProfileData || !otherProfile) {
     return (
       <div className="center">
         <CircularProgress />

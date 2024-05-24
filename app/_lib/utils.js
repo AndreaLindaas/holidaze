@@ -53,3 +53,17 @@ export const addressToLatLong = (address) => {
       return result;
     });
 };
+
+export const daysBetween = (date1, date2) => {
+  // Convert both dates to Date objects
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+
+  // Calculate the time difference in milliseconds
+  const timeDifference = Math.abs(d2 - d1);
+
+  // Convert the time difference from milliseconds to days
+  const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+  return dayDifference;
+};

@@ -1,0 +1,19 @@
+.notLoggedIn {
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  .card {
+    text-align: center;
+    background-color: var(--peach);
+    max-width: 300px;
+    padding: 40px;
+    .loginText {
+      font-weight: bold;
+      text-decoration: none;
+      color: #000;
+      &:hover {
+        text-decoration: underline var(--orange);
+      }
+    }
+  }
+}

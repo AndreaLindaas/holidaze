@@ -11,6 +11,7 @@ import OwnerInformation from "../../_components/OwnerInformation/OwnerInformatio
 import PlaceOffers from "../../_components/PlaceOffers/PlaceOffers";
 import { useMediaQuery } from "@mui/material";
 import { useStore } from "../../_lib/store";
+import { daysBetween } from "../../_lib/utils";
 import moment from "moment";
 export default function Venue(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
@@ -52,8 +53,10 @@ export default function Venue(props) {
     }
     return ratings;
   };
+
   const showBookings = () => {
     return venue.bookings.map((booking) => {
+      const numberOfDays = daysBetween(booking.dateFrom, booking.dateTo);
       return (
         <li key={booking.id} className={styles.customer}>
           <span>
@@ -67,6 +70,9 @@ export default function Venue(props) {
             <div className={styles.dates}>
               {moment(booking.dateFrom).format("MMMM Do YYYY")}-{" "}
               {moment(booking.dateTo).format("MMMM Do YYYY")}
+            </div>
+            <div className={styles.dates}>
+              {numberOfDays} days for {numberOfDays * venue.price},-
             </div>
           </div>
         </li>
@@ -115,10 +121,8 @@ export default function Venue(props) {
             <PlaceOffers venue={venue} />
             {isDesktop && (
               <>
-                {venue.owner.email != email ? (
+                {venue.owner.email != email && (
                   <OwnerInformation owner={venue.owner} />
-                ) : (
-                  <div>Stå noe om inntjening her</div>
                 )}
               </>
             )}
@@ -137,17 +141,14 @@ export default function Venue(props) {
             ) : (
               <div>No Bookings on this venue</div>
             )}
-            <ul className={styles.showBookings}> {showBookings()}</ul>
           </div>
         )}
       </div>
 
       {!isDesktop && (
         <>
-          {venue.owner.email != email ? (
+          {venue.owner.email != email && (
             <OwnerInformation owner={venue.owner} />
-          ) : (
-            <div>Stå noe om inntjening her</div>
           )}
         </>
       )}

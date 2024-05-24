@@ -151,6 +151,8 @@ export default function Profile() {
           </Card>
         </div>
       </div>
+
+      <p>You have listed {myVenues.length} venues.</p>
       <MyVenues isLoggedInUsersVenues myVenues={myVenues} />
       <Modal
         open={isEditProfileOpen}

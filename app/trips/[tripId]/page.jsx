@@ -92,7 +92,6 @@ export default function MyTrip(props) {
         trip.data.venue.location.city &&
         trip.data.venue.location.country ? (
           <div>
-            <h3>Location</h3>
             <p>
               <span className="bold">Address: </span>
               {trip.data.venue.location.address},{" "}
@@ -104,7 +103,6 @@ export default function MyTrip(props) {
           <div className="bold"> Contact the host for address</div>
         )}
         <div>
-          <h3>Payment info</h3>
           <span className="bold">Amount paid</span>
         </div>
         <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
