@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-
+import { validateUrl } from "../_lib/utils";
 import { API_URL } from "../_lib/constants";
 import {
   Card,
@@ -27,6 +27,7 @@ export default function Profile() {
   const [isVenueManager, setIsVenueManager] = useState(false);
   const [newAvatar, setNewAvatar] = useState("");
   const [newBanner, setNewBanner] = useState("");
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false);
   const {
     name,
     accessToken,
@@ -43,10 +44,28 @@ export default function Profile() {
     setBanner,
   } = useStore();
 
+  // this useEffect validates mediUrl
+  useEffect(() => {
+    if (!validateUrl(newAvatar)) {
+      setIsSaveButtonDisabled(true);
+      return;
+    }
+    if (!validateUrl(newBanner)) {
+      setIsSaveButtonDisabled(true);
+      return;
+    }
+    if (bio.length > 160) {
+      setIsSaveButtonDisabled(true);
+      return;
+    }
+    setIsSaveButtonDisabled(false);
+  }, [newAvatar, newBanner, bio]);
+
   useEffect(() => {
     setNewAvatar(avatar);
     setNewBanner(banner);
   }, [avatar, banner]);
+
   useEffect(() => {
     if (apiKey && accessToken) {
       fetch(`${API_URL}/profiles/${name}`, {
@@ -64,11 +83,34 @@ export default function Profile() {
     }
   }, [apiKey, accessToken]);
 
+  useEffect(() => {
+    if (accessToken && apiKey && name) {
+      fetch(`${API_URL}/profiles/${name}/venues`, {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          setMyVenues(result.data);
+        })
+        .catch((error) => {});
+    }
+  }, [accessToken, apiKey, name]);
+
   const editModalOpen = () => {
     setIsEditProfileOpen(true);
   };
   const editModalClose = () => {
     setIsEditProfileOpen(false);
+  };
+
+  const saveBio = (bio) => {
+    if (bio.length <= 160) {
+      setBio(bio);
+    }
   };
 
   const saveProfile = (event) => {
@@ -106,22 +148,6 @@ export default function Profile() {
       .catch((error) => {});
   };
 
-  useEffect(() => {
-    if (accessToken && apiKey && name) {
-      fetch(`${API_URL}/profiles/${name}/venues`, {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": apiKey,
-        },
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          setMyVenues(result.data);
-        })
-        .catch((error) => {});
-    }
-  }, [accessToken, apiKey, name]);
   return (
     <div>
       <div
@@ -141,6 +167,11 @@ export default function Profile() {
               <Typography gutterBottom variant="h5" component="div">
                 {name}
               </Typography>
+              {isVenueManager && (
+                <Typography className={styles.venueManager}>
+                  Venue manager
+                </Typography>
+              )}
               <Typography variant="body2" color="text.secondary">
                 {bio}
               </Typography>
@@ -152,12 +183,15 @@ export default function Profile() {
         </div>
       </div>
 
-      <p>You have listed {myVenues.length} venues.</p>
+      <p className="center">
+        You have listed <span className="bold">{myVenues.length}</span> venues.
+      </p>
       <MyVenues isLoggedInUsersVenues myVenues={myVenues} />
       <Modal
         open={isEditProfileOpen}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className={styles.modal}
       >
         <Box className="modal">
           <Typography variant="h6" component="h2" className="orangeHeader">
@@ -173,7 +207,7 @@ export default function Profile() {
                 <FormControlLabel
                   control={<Switch />}
                   checked={isVenueManager}
-                  label="Host"
+                  label="Venue manager"
                   onChange={(e) => setIsVenueManager(e.target.checked)}
                 />
               </FormGroup>
@@ -186,6 +220,9 @@ export default function Profile() {
               variant="outlined"
               onChange={(e) => setNewAvatar(e.target.value)}
               value={newAvatar}
+              multiline
+              rows={4}
+              helperText="Must be a valid URL"
             />
           </div>
 
@@ -196,22 +233,32 @@ export default function Profile() {
               variant="outlined"
               onChange={(e) => setNewBanner(e.target.value)}
               value={newBanner}
+              multiline
+              rows={4}
+              helperText="Must be a valid URL"
             />
           </div>
 
           <div className={styles.input}>
-            <label htmlFor="">Change bio</label>
+            <label htmlFor="">Change bio ({bio.length}letters)</label>
             <TextField
               id="outlined-basic"
               variant="outlined"
               multiline
-              onChange={(e) => setBio(e.target.value)}
+              rows={4}
+              onChange={(e) => saveBio(e.target.value)}
               value={bio}
+              helperText="Max 160 letters"
             />
           </div>
           <div className={styles.editModalButtons}>
-            <Button text="Save" onClick={saveProfile} />
-            <Button text="close" onClick={editModalClose} />
+            <Button
+              text="Save"
+              narrow
+              onClick={saveProfile}
+              disabled={isSaveButtonDisabled}
+            />
+            <Button text="close" narrow onClick={editModalClose} />
           </div>
         </Box>
       </Modal>
