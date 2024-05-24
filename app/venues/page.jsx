@@ -66,7 +66,8 @@ export default function Venues() {
   }
 
   return (
-    <div>
+    <div className={styles.allVenuesContainer}>
+      <h1 className="center">All venues</h1>
       <div className={styles.metadata}>
         There are <span class="bold">{venues.meta.totalCount}</span> venues on
         Holidaze!

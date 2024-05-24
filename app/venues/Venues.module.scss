@@ -1,12 +1,14 @@
-.metadata {
-  text-align: center;
-  margin-bottom: 10px;
+.allVenuesContainer {
+  margin-top: 60px;
+  .metadata {
+    text-align: center;
+    margin-bottom: 20px;
 
-  .limitSelector {
-    margin: 0 10px;
+    .limitSelector {
+      margin: 0 10px;
+    }
   }
 }
-
 .venueCardContainer {
   display: flex;
   flex-direction: row;
