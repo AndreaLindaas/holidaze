@@ -11,7 +11,7 @@ import Button from "../../_components/Button/Button";
 import { API_URL } from "../../_lib/constants";
 import { useStore } from "../../_lib/store";
 import { validateUrl } from "../../_lib/utils";
-
+import { useRouter } from "next/navigation";
 import styles from "../../_styles/createEdit.module.scss";
 export default function CreateVenue() {
   const { accessToken, apiKey } = useStore();
@@ -35,7 +35,11 @@ export default function CreateVenue() {
   const [coordinatesButtonDisabled, setCoordinatesButtonDisabled] =
     useState(true);
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false);
+  const [isCreatingVenue, setIsCreatingVenue] = useState(false);
+
   const [isCreateButtonDisabled, setIsCreateButtonDisabled] = useState(false);
+  const [errors, setErrors] = useState([]);
+  const router = useRouter();
 
   const continents = [
     {
@@ -103,6 +107,7 @@ export default function CreateVenue() {
 
     setIsCreateButtonDisabled(false);
   }, [nameOfVenue, description, price, maxAmountOfGuests]);
+
   const getGeolocation = async (e) => {
     e.preventDefault();
     setIsGettingCoordinates(true);
@@ -124,6 +129,7 @@ export default function CreateVenue() {
 
   const submitCreateListing = (e) => {
     e.preventDefault();
+    setIsCreatingVenue(true);
     const payload = {
       name: nameOfVenue,
       description: description,
@@ -156,8 +162,21 @@ export default function CreateVenue() {
       },
     })
       .then((response) => response.json())
-      .then((result) => {})
-      .catch((error) => {});
+      .then((result) => {
+        setIsCreatingVenue(false);
+
+        if (
+          result.statusCode == 401 ||
+          (result.errors && result.errors.length > 0)
+        ) {
+          setErrors(result.errors);
+        } else {
+          router.push(`/venue/${result.data.id}`);
+        }
+      })
+      .catch((error) => {
+        setErrors([{ message: "Something went wrong. Please try again." }]);
+      });
   };
 
   const addImage = (e) => {
@@ -179,7 +198,7 @@ export default function CreateVenue() {
         how it fits their needs.
       </p>
       <Card className={styles.orangeCard}>
-        <ul className="center">
+        <ul className={`center ${styles.mediaList}`}>
           {media.map((image, i) => {
             return (
               <li key={i}>
@@ -219,7 +238,9 @@ export default function CreateVenue() {
             />
           </div>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-            <label>Description* ({description.length} letters)</label>
+            <label>
+              Description* ({description ? description.length : 0} letters)
+            </label>
             <TextField
               className="whiteInput"
               variant="outlined"
@@ -369,8 +390,21 @@ export default function CreateVenue() {
             onChange={(e) => setPets(e.target.checked)}
           />
         </Card>
+        {errors.length > 0 && (
+          <div>
+            <ul>
+              {errors.map((e, i) => (
+                <li key={i}>{e.message}</li>
+              ))}
+            </ul>
+          </div>
+        )}
         <div className={styles.button}>
-          <Button text="Create" disabled={isCreateButtonDisabled} />
+          <Button
+            text="Create"
+            disabled={isCreateButtonDisabled || isCreatingVenue}
+            isLoading={isCreatingVenue}
+          />
         </div>
       </form>
     </div>

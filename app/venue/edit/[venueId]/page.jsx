@@ -33,7 +33,7 @@ export default function EditVenue(props) {
   const [pets, setPets] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [addImageButtonDisabled, setAddImageButtonDisabled] = useState(true);
-
+  const [isSaveChangesDisabled, setIsSaveChangesDisabled] = useState(true);
   const continents = [
     {
       value: "Europe",
@@ -76,6 +76,22 @@ export default function EditVenue(props) {
     setAddImageButtonDisabled(false);
   }, [tempMediaUrl, media]);
 
+  // this useEffect validates edit rental
+  useEffect(() => {
+    if (
+      name.length < 2 ||
+      description.length < 100 ||
+      price > 10000 ||
+      price < 1 ||
+      maxGuests > 100 ||
+      maxGuests < 1
+    ) {
+      setIsSaveChangesDisabled(true);
+      return;
+    }
+
+    setIsSaveChangesDisabled(false);
+  }, [name, description, price, maxGuests]);
   useEffect(() => {
     fetch(`${API_URL}/venues/${props.params.venueId}`)
       .then((response) => response.json())
@@ -187,7 +203,7 @@ export default function EditVenue(props) {
         how it fits their needs.
       </p>
       <Card className={styles.orangeCard}>
-        <ul className="center">{showImages()}</ul>
+        <ul className={`center ${styles.mediaList}`}>{showImages()}</ul>
         <form onSubmit={addImage}>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
             <label htmlFor="">Media url</label>
@@ -216,13 +232,14 @@ export default function EditVenue(props) {
             />
           </div>
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
-            <label htmlFor="">Description*</label>
+            <label htmlFor="">Description*({description.length} letters)</label>
             <TextField
               className="whiteInput"
               variant="outlined"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
               multiline
+              helperText="Must be minimum 100 letters "
             />
           </div>{" "}
         </Card>{" "}
@@ -312,6 +329,7 @@ export default function EditVenue(props) {
                 variant="outlined"
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
+                helperText="Must be between 1 and 10 000 "
               />
             </div>
             <div className={styles.inputContainer}>
@@ -321,6 +339,7 @@ export default function EditVenue(props) {
                 variant="outlined"
                 onChange={(e) => setMaxGuests(e.target.value)}
                 value={maxGuests}
+                helperText="Must be between 1 and 100"
               />
             </div>
           </div>
@@ -350,7 +369,7 @@ export default function EditVenue(props) {
           />
         </Card>
         <div className={styles.button}>
-          <Button text="Save changes" />
+          <Button text="Save changes" disabled={isSaveChangesDisabled} />
         </div>
       </form>
     </div>
