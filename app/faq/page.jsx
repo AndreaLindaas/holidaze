@@ -80,7 +80,7 @@ export default function Faq() {
           guests understand the terms before booking.
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      <Accordion className={styles.lastAccordion}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1-content"
@@ -95,9 +95,9 @@ export default function Faq() {
       </Accordion>
 
       <p className="center">
-        Didn´t find what you were looking for?{" "}
+        Didn't find what you were looking for?{" "}
         <Link href="/contact" className={styles.contactUs}>
-          Contact us Here.
+          Contact us here.
         </Link>
       </p>
     </div>

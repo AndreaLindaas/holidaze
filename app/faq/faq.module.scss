@@ -7,13 +7,21 @@
   h2 {
     margin: 30px 0 10px 0;
   }
-  .accordion {
+
+  .lastAccordion {
+    margin-bottom: 50px;
   }
   .contactUs {
     color: var(--orange);
     text-decoration: none;
     &:hover {
       text-decoration: underline;
+    }
+  }
+
+  :global {
+    .MuiAccordionSummary-content.Mui-expanded {
+      font-weight: bold;
     }
   }
 }
