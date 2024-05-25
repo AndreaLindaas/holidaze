@@ -12,7 +12,7 @@ export default function Faq() {
   return (
     <div className={styles.accordionContainer}>
       <h1 className="center">Hei {name}! What can we help you with?</h1>
-      <h2 className="center">For Guests</h2>
+      <h2 className="center">For guests</h2>
       <Accordion className={styles.accordion}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -50,7 +50,7 @@ export default function Faq() {
           You will find information on the trip details under my trips.
         </AccordionDetails>
       </Accordion>
-      <h2 className="center">For Hosts</h2>
+      <h2 className="center">For venue managers</h2>
 
       <Accordion className={styles.accordion}>
         <AccordionSummary
@@ -95,7 +95,7 @@ export default function Faq() {
       </Accordion>
 
       <p className="center">
-        Didn't find what you were looking for?{" "}
+        Didn&apos;t find what you were looking for?
         <Link href="/contact" className={styles.contactUs}>
           Contact us here.
         </Link>
