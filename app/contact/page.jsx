@@ -10,7 +10,7 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
 
   useEffect(() => {
     if (name.length < 2) {
@@ -32,15 +32,15 @@ export default function Contact() {
     e.preventDefault();
   };
 
-  const openDeleteModal = () => {
+  const openSuccessModal = () => {
     setName("");
     setEmail("");
     setMessage("");
 
-    setIsDeleteModalOpen(true);
+    setSuccessModalOpen(true);
   };
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
+  const closeSuccessModal = () => {
+    setSuccessModalOpen(false);
   };
   return (
     <>
@@ -54,7 +54,7 @@ export default function Contact() {
                 className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setName(e.target.value)}
-                helperText="Must be minimun two letters"
+                helperText="Must be minimun 2 letters"
                 value={name}
               />
             </div>
@@ -76,7 +76,7 @@ export default function Contact() {
                 className="whiteInput"
                 variant="outlined"
                 onChange={(e) => setMessage(e.target.value)}
-                helperText="Must be minimun ten letters"
+                helperText="Must be minimun 10 letters"
                 value={message}
               />
 
@@ -85,19 +85,19 @@ export default function Contact() {
                 narrow
                 className={styles.sendButton}
                 disabled={isSendButtonDisabled}
-                onClick={() => openDeleteModal()}
+                onClick={() => openSuccessModal()}
               />
             </div>
           </Card>
         </form>
       </div>
-      <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
+      <Modal open={successModalOpen} onClose={closeSuccessModal}>
         <Box className="modal">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Thank you for you message! We will be in touch shortly.
           </Typography>
           <span className={styles.closeButtonModal}>
-            <Button text="Close" onClick={closeDeleteModal} narrow />
+            <Button text="Close" onClick={closeSuccessModal} narrow />
           </span>
         </Box>
       </Modal>

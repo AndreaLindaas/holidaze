@@ -16,7 +16,7 @@ export default function Footer() {
           <h4 className="orangeHeader">Contact</h4>
           <p>Email: support@Holidaze.com</p>
           <p>Phone: +123-456-7890</p>
-          <div class="social-links">
+          <div>
             <a href="https://facebook.com" target="_blank">
               <FacebookIcon />
             </a>

@@ -91,6 +91,7 @@ export default function Register() {
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
                 variant="outlined"
+                helperText="Must be a valid @stud.noroff.no"
               />
             </div>
             <div className={styles.input}>
@@ -101,6 +102,7 @@ export default function Register() {
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
                 autoComplete="current-password"
+                helperText="Minimum 8 characters"
               />
             </div>
             <div className={styles.input}>

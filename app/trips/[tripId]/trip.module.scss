@@ -48,6 +48,13 @@
     width: 100%;
     box-sizing: border-box;
 
+    .tripData {
+      div {
+        display: grid;
+        grid-template-columns: 150px 50px;
+      }
+    }
+
     div {
       width: 200px;
       margin: 0 auto;

@@ -16,6 +16,7 @@ import { daysBetween } from "../../_lib/utils";
 export default function MyTrip(props) {
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [latLng, setLatLng] = useState([]);
 
   const { isLoading, data: trip } = useBooking(
@@ -23,7 +24,7 @@ export default function MyTrip(props) {
     apiKey,
     accessToken
   );
-
+  console.log(trip);
   useEffect(() => {
     if (
       !isLoading &&
@@ -59,6 +60,13 @@ export default function MyTrip(props) {
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
   };
+  const openEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
   const deleteTrip = () => {
     fetch(`${API_URL}/bookings/${trip.data.id}`, {
       method: "DELETE",
@@ -145,17 +153,22 @@ export default function MyTrip(props) {
           )}
         </Card>
         <Card className={styles.infoCard}>
-          <div>
+          <div className={styles.tripData}>
             <div>
-              Number of nights:{" "}
+              <span>Visitors:</span>
+
+              <span className="bold"> {trip.data.guests}</span>
+            </div>
+            <div>
+              <span>Number of nights:</span>
               <span className="bold"> {numberOfNights()}</span>
             </div>
             <div>
-              Price per night:{" "}
+              <span> Price per night:</span>
               <span className="bold">{trip.data.venue.price},-</span>
             </div>
             <div>
-              Total price:{" "}
+              <span> Total price:</span>
               <span className="bold">
                 {numberOfNights() * trip.data.venue.price},-
               </span>
@@ -165,7 +178,9 @@ export default function MyTrip(props) {
       </div>
       <div className={styles.cancelTripButton}>
         <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
+        <Button text="Edit trip" onClick={() => openEditModal()} />
       </div>
+
       {latLng.length == 2 && (
         <Map position={latLng} zoom={8} location={trip.data.venue.location} />
       )}
@@ -178,6 +193,17 @@ export default function MyTrip(props) {
           <span className={styles.flexanselCloseTripButton}>
             <Button danger text="Cancel" onClick={deleteTrip} />
             <Button text="Close" onClick={closeDeleteModal} />
+          </span>
+        </Box>
+      </Modal>
+
+      <Modal open={isEditModalOpen} onClose={closeEditModal}>
+        <Box className="modal">
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Sure you want to cancel the trip?
+          </Typography>
+          <span className={styles.flexanselCloseTripButton}>
+            <Button text="Close" onClick={closeEditModal} />
           </span>
         </Box>
       </Modal>

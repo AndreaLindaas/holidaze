@@ -57,6 +57,7 @@ export default function Venue(props) {
   const showBookings = () => {
     return venue.bookings.map((booking) => {
       const numberOfDays = daysBetween(booking.dateFrom, booking.dateTo);
+      const numberOfGuests = booking.guests - 1;
       return (
         <li key={booking.id} className={styles.customer}>
           <span>
@@ -64,15 +65,17 @@ export default function Venue(props) {
           </span>
           <div>
             <div>
-              {booking.customer.name} and {booking.guests}{" "}
-              {booking.guests == 1 ? "guest" : "guests"}
+              {booking.customer.name}
+              {numberOfGuests > 0 &&
+                `and ${numberOfGuests}
+              ${numberOfGuests == 1 ? "guest" : "guests"}`}
             </div>
             <div className={styles.dates}>
               {moment(booking.dateFrom).format("MMMM Do YYYY")}-{" "}
               {moment(booking.dateTo).format("MMMM Do YYYY")}
             </div>
             <div className={styles.dates}>
-              {numberOfDays} days for {numberOfDays * venue.price},-
+              {numberOfDays} nights for {numberOfDays * venue.price},-
             </div>
           </div>
         </li>
