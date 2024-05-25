@@ -320,6 +320,7 @@ export default function EditVenue(props) {
                 variant="outlined"
                 onChange={(e) => setLattitude(e.target.value)}
                 helperText="Must be within the range of -90 , 90 "
+                type="number"
                 value={lattitude}
               />
             </div>
@@ -331,6 +332,7 @@ export default function EditVenue(props) {
                 variant="outlined"
                 onChange={(e) => setLongitude(e.target.value)}
                 helperText="Must be within the range of -180 , 180 "
+                type="number"
                 value={longitude}
               />
             </div>
@@ -348,6 +350,7 @@ export default function EditVenue(props) {
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
                 helperText="Must be between 1 and 10 000 "
+                type="number"
               />
             </div>
             <div className={styles.inputContainer}>
@@ -358,6 +361,7 @@ export default function EditVenue(props) {
                 onChange={(e) => setMaxGuests(e.target.value)}
                 value={maxGuests}
                 helperText="Must be between 1 and 100"
+                type="number"
               />
             </div>
           </div>

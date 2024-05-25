@@ -325,6 +325,7 @@ export default function CreateVenue() {
                   variant="outlined"
                   onChange={(e) => setLattitude(e.target.value)}
                   helperText="Must be within the range of -90 , 90 "
+                  type="number"
                 />
               </div>
             </div>
@@ -337,6 +338,7 @@ export default function CreateVenue() {
                   variant="outlined"
                   onChange={(e) => setLongitude(e.target.value)}
                   helperText="Must be within the range of -180 , 180 "
+                  type="number"
                 />
               </div>
             </div>
@@ -353,6 +355,7 @@ export default function CreateVenue() {
                   variant="outlined"
                   onChange={(e) => setPrice(e.target.value)}
                   helperText="Must be between 1 and 10 000 "
+                  type="number"
                 />
               </div>
             </div>
@@ -364,6 +367,7 @@ export default function CreateVenue() {
                   variant="outlined"
                   onChange={(e) => setMaxAmountOfGuests(e.target.value)}
                   helperText="Must be between 1 and 100"
+                  type="number"
                 />
               </div>
             </div>

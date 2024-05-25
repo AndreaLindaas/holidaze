@@ -24,6 +24,11 @@
     }
   }
 }
+.closeButtonModal {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
 @media screen and (min-width: 768px) {
   .contactContainer {
     form {
