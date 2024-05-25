@@ -127,37 +127,42 @@ export default function MyTrip(props) {
           </div>
         </Card>
       </div>
-      <Card className={styles.infoCard}>
-        {trip.data.venue.location.address &&
-        trip.data.venue.location.city &&
-        trip.data.venue.location.country ? (
+      <div className={styles.flexMailRental}>
+        <Card className={styles.infoCard}>
+          {trip.data.venue.location.address &&
+          trip.data.venue.location.city &&
+          trip.data.venue.location.country ? (
+            <div>
+              <p>
+                <span>Address: </span>
+                {trip.data.venue.location.address},{" "}
+                {trip.data.venue.location.city},{" "}
+                {trip.data.venue.location.country}
+              </p>
+            </div>
+          ) : (
+            <div> Contact the host for address</div>
+          )}
+        </Card>
+        <Card className={styles.infoCard}>
           <div>
-            <p>
-              <span>Address: </span>
-              {trip.data.venue.location.address},{" "}
-              {trip.data.venue.location.city},{" "}
-              {trip.data.venue.location.country}
-            </p>
+            <div>
+              Number of nights:{" "}
+              <span className="bold"> {numberOfNights()}</span>
+            </div>
+            <div>
+              Price per night:{" "}
+              <span className="bold">{trip.data.venue.price},-</span>
+            </div>
+            <div>
+              Total price:{" "}
+              <span className="bold">
+                {numberOfNights() * trip.data.venue.price},-
+              </span>
+            </div>
           </div>
-        ) : (
-          <div> Contact the host for address</div>
-        )}
-        <div>
-          <div>
-            Number of nights: <span className="bold"> {numberOfNights()}</span>
-          </div>
-          <div>
-            Price per night:{" "}
-            <span className="bold">{trip.data.venue.price},-</span>
-          </div>
-          <div>
-            Total price:{" "}
-            <span className="bold">
-              {numberOfNights() * trip.data.venue.price},-
-            </span>
-          </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
       <div className={styles.cancelTripButton}>
         <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
       </div>

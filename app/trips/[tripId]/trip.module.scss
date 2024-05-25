@@ -13,13 +13,13 @@
     }
   }
   .flexMailRental {
-    display: flex;
-    gap: 20px;
     .mailCard,
     .rentalCard {
       padding: 10px;
       margin: 20px 0;
       width: 100%;
+      box-sizing: border-box;
+
       a {
         color: var(--orange);
         text-decoration: none;
@@ -38,9 +38,20 @@
       }
     }
   }
+  .cancelTripButton {
+    display: flex;
+    justify-content: center;
+  }
   .infoCard {
-    width: 40%;
     padding: 10px;
+    margin: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+
+    div {
+      width: 200px;
+      margin: 0 auto;
+    }
   }
   .rentalContainer {
     .rental {
@@ -63,4 +74,11 @@
   justify-content: center;
   gap: 20px;
   margin: 10px 0;
+}
+
+@media screen and (min-width: 768px) {
+  .flexMailRental {
+    display: flex;
+    gap: 20px;
+  }
 }
