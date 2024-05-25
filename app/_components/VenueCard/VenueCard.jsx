@@ -49,7 +49,7 @@ export default function VenueCard(props) {
               {venue.location.country || ", Duckburg"}
             </Typography>
             <Typography variant="body2">
-              <span className="bold"> {venue.price} NOK </span> night
+              <span className="bold"> {venue.price},- </span> night
             </Typography>
             <Typography variant="body2">
               <span className="bold">{venue.maxGuests}</span> guests

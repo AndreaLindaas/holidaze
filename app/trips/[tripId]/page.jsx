@@ -11,6 +11,8 @@ import { useState } from "react";
 import { API_URL } from "../../_lib/constants";
 import moment from "moment";
 import Map from "../../_components/Map/Map";
+import { daysBetween } from "../../_lib/utils";
+
 export default function MyTrip(props) {
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -76,10 +78,14 @@ export default function MyTrip(props) {
 
       .catch((error) => {});
   };
+  const numberOfNights = () => {
+    return daysBetween(trip.data.dateFrom, trip.data.dateTo);
+  };
 
   if (isLoading || !trip) {
     return <div>Loading...</div>;
   }
+  console.log("trip", trip);
   return (
     <div className={styles.tripContainer}>
       <SimpleSlider venue={trip.data.venue} />
@@ -137,9 +143,11 @@ export default function MyTrip(props) {
           <div className="bold"> Contact the host for address</div>
         )}
         <div>
-          <div className="bold">Number of nights</div>
-          <div className="bold">Price per night</div>
-          <div className="bold">Total price</div>
+          <div className="bold">Number of nights: {numberOfNights()}</div>
+          <div className="bold">Price per night: {trip.data.venue.price},-</div>
+          <div className="bold">
+            Total price: {numberOfNights() * trip.data.venue.price},-
+          </div>
         </div>
         <div className={styles.cancelTripButton}>
           <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
@@ -148,6 +156,7 @@ export default function MyTrip(props) {
           <Map position={latLng} zoom={8} location={trip.data.venue.location} />
         )}
       </div>
+
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
