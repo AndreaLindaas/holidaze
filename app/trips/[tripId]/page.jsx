@@ -127,35 +127,43 @@ export default function MyTrip(props) {
           </div>
         </Card>
       </div>
-      <div>
+      <Card className={styles.infoCard}>
         {trip.data.venue.location.address &&
         trip.data.venue.location.city &&
         trip.data.venue.location.country ? (
           <div>
             <p>
-              <span className="bold">Address: </span>
+              <span>Address: </span>
               {trip.data.venue.location.address},{" "}
               {trip.data.venue.location.city},{" "}
               {trip.data.venue.location.country}
             </p>
           </div>
         ) : (
-          <div className="bold"> Contact the host for address</div>
+          <div> Contact the host for address</div>
         )}
         <div>
-          <div className="bold">Number of nights: {numberOfNights()}</div>
-          <div className="bold">Price per night: {trip.data.venue.price},-</div>
-          <div className="bold">
-            Total price: {numberOfNights() * trip.data.venue.price},-
+          <div>
+            Number of nights: <span className="bold"> {numberOfNights()}</span>
+          </div>
+          <div>
+            Price per night:{" "}
+            <span className="bold">{trip.data.venue.price},-</span>
+          </div>
+          <div>
+            Total price:{" "}
+            <span className="bold">
+              {numberOfNights() * trip.data.venue.price},-
+            </span>
           </div>
         </div>
-        <div className={styles.cancelTripButton}>
-          <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
-        </div>
-        {latLng.length == 2 && (
-          <Map position={latLng} zoom={8} location={trip.data.venue.location} />
-        )}
+      </Card>
+      <div className={styles.cancelTripButton}>
+        <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
       </div>
+      {latLng.length == 2 && (
+        <Map position={latLng} zoom={8} location={trip.data.venue.location} />
+      )}
 
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { bookingStore, useStore } from "../_lib/store";
 import moment from "moment";
 import Button from "../_components/Button/Button";
@@ -14,18 +14,22 @@ export default function Booking() {
   const { venue, startDate, endDate, setStartDate, setEndDate } =
     bookingStore();
   const { accessToken, apiKey } = useStore();
-  const { isBookButtonDisabled, setIsBookButtonDiasbled } = useState(false);
   const router = useRouter();
-
+  const [errors, setErrors] = useState([]);
   const [amountOfGuests, setAmountOfGuests] = useState(0);
-
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
-  };
+  const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(false);
+  const [isBooking, setIsBooking] = useState(false);
+  console.log(startDate);
+  useEffect(() => {
+    if (amountOfGuests < 1 || amountOfGuests > venue.maxGuests) {
+      setIsBookButtonDisabled(true);
+      return;
+    }
+    setIsBookButtonDisabled(false);
+  }, [amountOfGuests]);
 
   const bookVenue = () => {
+    setIsBooking(true);
     const payload = {
       dateFrom: startDate,
       dateTo: endDate,
@@ -43,10 +47,16 @@ export default function Booking() {
     })
       .then((response) => response.json())
       .then((result) => {
-        router.push("/book/success");
+        if (result.errors && result.errors.length > 0) {
+          setErrors(result.errors);
+          setIsBooking(false);
+        } else {
+          router.push("/book/success");
+        }
       })
       .catch((error) => {
-        console.log("galt");
+        setErrors([{ message: "Something went wrong. Please try again." }]);
+        setIsBooking(false);
       });
   };
   const numberOfNights = moment(endDate).diff(moment(startDate), "days");
@@ -58,31 +68,57 @@ export default function Booking() {
       {venue.media && venue.media.length > 0 && (
         <img src={venue.media[0].url} />
       )}
-      <h1> {venue.name}</h1>
-
-      <Card className={styles.priceDetailsCard}>
-        <h3 className="orangeHeader">Price details</h3>
-        <div>
-          {venue.price} NOK x {numberOfNights} nights
-        </div>
-        <div>
-          <span className="bold">Total:</span> {totalPrice}
+      <h1 className="center"> {venue.name}</h1>
+      <h2 className="center">Booking details</h2>
+      <Card className={styles.checkContainer}>
+        <div className={styles.flexCheckInOut}>
+          <div>
+            <h3>Check-in</h3>
+            <span>{moment(startDate).format("MMMM Do YYYY")}</span>
+          </div>
+          <div>
+            <h3>Check-out</h3>
+            <span>{moment(endDate).format("MMMM Do YYYY")}</span>
+          </div>
         </div>
       </Card>
+      <div className={styles.cardContainer}>
+        <Card className={styles.priceDetailsCard}>
+          <h3 className="orangeHeader">Price details</h3>
+          <div>
+            {venue.price} NOK x {numberOfNights} nights
+          </div>
+          <div>
+            <span className="bold">Total:</span> {totalPrice},-
+          </div>
+        </Card>
+      </div>
       <div className={styles.guests}>
         <label className="bold">Number of guests?</label>
-        <p className={styles.greyText}>
-          This place allows maximum
-          {""} <span className="bold">{venue.maxGuests}</span> guests
-        </p>
         <TextField
+          className="whiteInput"
           variant="outlined"
           onChange={(e) => setAmountOfGuests(e.target.value)}
           type="number"
+          helperText={`This palce allows maximum ${venue.maxGuests} guests`}
         />
       </div>
-
-      <Button text="Book" onClick={bookVenue} className={styles.buttonBook} />
+      {errors.length > 0 && (
+        <div>
+          <ul className="center">
+            {errors.map((e, i) => (
+              <li key={i}>{e.message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <Button
+        text="Book"
+        onClick={bookVenue}
+        className={styles.buttonBook}
+        disabled={isBookButtonDisabled}
+        isLoading={isBooking}
+      />
     </div>
   );
 }

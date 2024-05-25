@@ -63,7 +63,7 @@ export default function Header() {
         )}
 
         <li>
-          <Link href="/">
+          <Link href="/contact">
             <span> Contact</span>
           </Link>
         </li>
