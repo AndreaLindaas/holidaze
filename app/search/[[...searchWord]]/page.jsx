@@ -6,10 +6,13 @@ import VenueCard from "../../_components/VenueCard/VenueCard";
 import Link from "next/link";
 import styles from "./Search.module.scss";
 import { TextField, MenuItem } from "@mui/material";
+import { sortDataBy } from "../../_lib/utils";
+
 export default function SearchPage(props) {
   const [numberOfGuests, setNumberOfGuests] = useState(2);
   const [maxPrice, setMaxPrice] = useState();
   const [hits, setHits] = useState([]);
+  const [sort, setSort] = useState("default");
   const { searchWord } = props.params;
   const { isLoading: isLoadingSearchData, data: search } =
     useSearch(searchWord);
@@ -17,7 +20,17 @@ export default function SearchPage(props) {
   useEffect(() => {
     if (searchWord) {
       if (!isLoadingSearchData && search.data) {
-        const filtered = search.data.filter((venue) => {
+        let searchResults = search.data;
+
+        if (sort != "default") {
+          if (sort == "priceDesc") {
+            searchResults = sortDataBy(searchResults, "price", "descending");
+          } else if (sort == "priceAsc") {
+            searchResults = sortDataBy(searchResults, "price", "ascending");
+          }
+        }
+
+        const filtered = searchResults.filter((venue) => {
           if (maxPrice > 0) {
             return venue.maxGuests >= numberOfGuests && venue.price <= maxPrice;
           }
@@ -26,7 +39,7 @@ export default function SearchPage(props) {
         setHits(filtered);
       }
     }
-  }, [searchWord, numberOfGuests, maxPrice, search]);
+  }, [searchWord, numberOfGuests, maxPrice, search, sort]);
 
   const showSearchResults = () => {
     if (!isLoadingSearchData && !searchWord) {
@@ -37,6 +50,7 @@ export default function SearchPage(props) {
         <div>No hits. Please try a new search or adjust your filters.</div>
       );
     }
+
     return hits.map((venue) => {
       return (
         <Link href={`/venue/${venue.id}`} key={venue.id}>
@@ -45,14 +59,18 @@ export default function SearchPage(props) {
       );
     });
   };
-  const currencies = [
+  const sortingTypes = [
     {
-      value: "USD",
-      label: "Price heigh-low",
+      value: "default",
+      label: "Relevance",
     },
     {
-      value: "EUR",
-      label: "Price low-heigh",
+      value: "priceDesc",
+      label: "Price high-low",
+    },
+    {
+      value: "priceAsc",
+      label: "Price low-high",
     },
   ];
   return (
@@ -81,12 +99,14 @@ export default function SearchPage(props) {
         </div>
         <div>
           <TextField
-            id="outlined-select-currency"
             select
-            label="price range"
-            defaultValue="USD"
+            className="whiteInput"
+            variant="outlined"
+            label="Sort"
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
           >
-            {currencies.map((option) => (
+            {sortingTypes.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>

@@ -67,3 +67,15 @@ export const daysBetween = (date1, date2) => {
 
   return dayDifference;
 };
+
+export const sortDataBy = (data, key, direction) => {
+  let sortedData;
+  sortedData = data.sort(function (a, b) {
+    if (direction == "descending") {
+      return b[key] - a[key];
+    }
+    return a[key] - b[key];
+  });
+
+  return sortedData;
+};
