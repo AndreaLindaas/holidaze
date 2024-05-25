@@ -67,6 +67,11 @@ export default function Header() {
             <span> Contact</span>
           </Link>
         </li>
+        <li>
+          <Link href="/faq">
+            <span> Help center</span>
+          </Link>
+        </li>
         {accessToken && (
           <>
             <li>

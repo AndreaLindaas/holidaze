@@ -9,7 +9,6 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  console.log(message.length);
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -31,7 +30,6 @@ export default function Contact() {
 
   const submitContact = (e) => {
     e.preventDefault();
-    console.log("hallo");
   };
 
   const openDeleteModal = () => {
