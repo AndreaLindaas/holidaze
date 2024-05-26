@@ -244,7 +244,7 @@ export default function CreateVenue() {
               className="whiteInput"
               variant="outlined"
               multiline
-              rows={4}
+              rows={20}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Enter a dercription of the place"
               helperText="Must be minimum 100 letters "

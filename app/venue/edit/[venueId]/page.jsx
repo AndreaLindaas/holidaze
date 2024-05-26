@@ -257,6 +257,7 @@ export default function EditVenue(props) {
               onChange={(e) => setDescription(e.target.value)}
               value={description}
               multiline
+              rows={20}
               helperText="Must be minimum 100 letters "
             />
           </div>{" "}
