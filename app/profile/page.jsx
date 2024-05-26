@@ -16,6 +16,7 @@ import {
   Switch,
   TextField,
   Link,
+  CircularProgress,
 } from "@mui/material";
 import Button from "../_components/Button/Button";
 import styles from "./profile.module.scss";
@@ -23,9 +24,10 @@ import { useStore } from "../_lib/store";
 import MyVenues from "../_components/MyVenueCard/MyVenues";
 import useProfile from "../_hooks/fetchProfile";
 import useVenuesForProfile from "../_hooks/fetchVenuesForProfile";
+import Map from "../_components/Map/Map";
 export default function Profile() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-
+  const [venuePositions, setVenuePositions] = useState([]);
   const [isVenueManager, setIsVenueManager] = useState(false);
   const [newAvatar, setNewAvatar] = useState("");
   const [newBanner, setNewBanner] = useState("");
@@ -53,6 +55,24 @@ export default function Profile() {
   );
   const { isLoading: isLoadingVenuesForProfileData, data: myVenues } =
     useVenuesForProfile(name, apiKey, accessToken);
+  useEffect(() => {
+    if (myVenues) {
+      const tempArray = [];
+      myVenues.map((venue) => {
+        if (venue.location.lat != 0 && venue.location.lng != 0) {
+          const venueLocation = {
+            lat: venue.location.lat,
+            lng: venue.location.lng,
+            location: venue.location,
+            name: venue.name,
+            id: venue.id,
+          };
+          tempArray.push(venueLocation);
+        }
+      });
+      setVenuePositions(tempArray);
+    }
+  }, [myVenues]);
   // this useEffect validates mediUrl
   useEffect(() => {
     if (!validateUrl(newAvatar)) {
@@ -130,6 +150,14 @@ export default function Profile() {
       .catch((error) => {});
   };
 
+  if (isLoadingProfileData || isLoadingVenuesForProfileData) {
+    return (
+      <div>
+        <CircularProgress />
+      </div>
+    );
+  }
+
   return (
     <div>
       <div
@@ -169,6 +197,14 @@ export default function Profile() {
         You have listed <span className="bold">{myVenues.length}</span> venues.
       </p>
       <MyVenues isLoggedInUsersVenues myVenues={myVenues} />
+      {venuePositions.length > 0 && (
+        <div className={styles.map}>
+          <Map positions={venuePositions} zoom={2} />
+          <p className="center">
+            This map does not show venues without valid coordinates.
+          </p>
+        </div>
+      )}
       <Modal
         open={isEditProfileOpen}
         aria-labelledby="modal-modal-title"

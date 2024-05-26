@@ -15,7 +15,7 @@ import { daysBetween } from "../../_lib/utils";
 import moment from "moment";
 export default function Venue(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
-  const [latLng, setLatLng] = useState([]);
+  const [latLng, setLatLng] = useState(null);
   const { email } = useStore();
   const {
     isLoading,
@@ -26,7 +26,11 @@ export default function Venue(props) {
 
   useEffect(() => {
     if (!isLoading && !!venue.location.lat && !!venue.location.lng) {
-      setLatLng([venue.location.lat, venue.location.lng]);
+      setLatLng({
+        lat: venue.location.lat,
+        lng: venue.location.lng,
+        location: venue.location,
+      });
     } else if (
       !isLoading &&
       !!venue.location.address &&
@@ -41,7 +45,11 @@ export default function Venue(props) {
         .then((response) => response.json())
         .then((result) => {
           if (result.length > 0) {
-            setLatLng([result[0].lat, result[0].lon]);
+            setLatLng({
+              lat: result[0].lat,
+              lng: result[0].lon,
+              location: venue.location,
+            });
           }
         });
     }
@@ -156,8 +164,8 @@ export default function Venue(props) {
         </>
       )}
 
-      {latLng.length == 2 && (
-        <Map position={latLng} zoom={8} location={venue.location} />
+      {latLng && latLng.lat && latLng.lng && (
+        <Map positions={[latLng]} zoom={8} />
       )}
     </div>
   );

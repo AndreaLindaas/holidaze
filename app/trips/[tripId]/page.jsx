@@ -21,7 +21,7 @@ export default function MyTrip(props) {
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [latLng, setLatLng] = useState([]);
+  const [latLng, setLatLng] = useState(null);
   const [newAmountOfGuests, setNewAmountOfGuests] = useState(0);
   const { setStartDate, setEndDate, startDate, endDate } = bookingStore();
   const [errors, setErrors] = useState([]);
@@ -35,7 +35,6 @@ export default function MyTrip(props) {
   const { isLoading: isLoadingVenue, data: venue } = useVenue(
     trip ? trip.data.venue.id : null
   );
-  console.log(venue);
   useEffect(() => {
     if (
       !isLoading &&
@@ -43,7 +42,11 @@ export default function MyTrip(props) {
       !!trip.data.venue.location.lat &&
       !!trip.data.venue.location.lng
     ) {
-      setLatLng([trip.data.venue.location.lat, trip.data.venue.location.lng]);
+      setLatLng({
+        lat: venue.location.lat,
+        lng: venue.location.lng,
+        location: venue.location,
+      });
     } else if (
       !isLoading &&
       trip &&
@@ -59,7 +62,11 @@ export default function MyTrip(props) {
         .then((response) => response.json())
         .then((result) => {
           if (result.length > 0) {
-            setLatLng([result[0].lat, result[0].lon]);
+            setLatLng({
+              lat: result[0].lat,
+              lng: result[0].lon,
+              location: venue.location,
+            });
           }
         });
     }
@@ -172,8 +179,6 @@ export default function MyTrip(props) {
   if (isLoading || !trip) {
     return <div>Loading...</div>;
   }
-  console.log("trip", trip);
-  console.log("amount", newAmountOfGuests);
 
   return (
     <div className={styles.tripContainer}>
@@ -271,8 +276,8 @@ export default function MyTrip(props) {
         />
       </div>
 
-      {latLng.length == 2 && (
-        <Map position={latLng} zoom={8} location={trip.data.venue.location} />
+      {latLng && latLng.lat && latLng.lng && (
+        <Map positions={[latLng]} zoom={8} />
       )}
 
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
