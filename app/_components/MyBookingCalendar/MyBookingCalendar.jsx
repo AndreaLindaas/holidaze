@@ -16,7 +16,7 @@ export default function MyBookingCalendar(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(true);
   const { accessToken } = useStore();
-  const { venue } = props;
+  const { venue, hideBookButton } = props;
   const { setVenue, startDate, endDate, setStartDate, setEndDate } =
     bookingStore();
   const router = useRouter();
@@ -37,6 +37,8 @@ export default function MyBookingCalendar(props) {
     dates.forEach((d) => {
       if (isDateDisabled(d)) {
         isValid = false;
+        setStartDate(null);
+        setEndDate(null);
       }
     });
     return isValid;
@@ -87,17 +89,21 @@ export default function MyBookingCalendar(props) {
         excludeDates={allBookedDates}
       />
       {errorMessage && <p>{errorMessage}</p>}
-      {accessToken ? (
-        <Button
-          className={styles.bookButton}
-          disabled={isBookButtonDisabled || errorMessage}
-          text="Book"
-          onClick={bookingClick}
-        />
-      ) : (
-        <Card className={styles.textForLogin}>
-          <div> To book this venue you need to log in.</div>
-        </Card>
+      {!hideBookButton && (
+        <>
+          {accessToken ? (
+            <Button
+              className={styles.bookButton}
+              disabled={isBookButtonDisabled || errorMessage}
+              text="Book"
+              onClick={bookingClick}
+            />
+          ) : (
+            <Card className={styles.textForLogin}>
+              <div> To book this venue you need to log in.</div>
+            </Card>
+          )}
+        </>
       )}
     </div>
   );

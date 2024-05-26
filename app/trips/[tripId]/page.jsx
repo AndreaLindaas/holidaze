@@ -1,10 +1,12 @@
 "use client";
 import useBooking from "../../_hooks/fetchBooking";
+import useVenue from "../../_hooks/fetchVenue";
 import { useEffect } from "react";
-import { useStore } from "../../_lib/store";
+import { useStore, bookingStore } from "../../_lib/store";
 import SimpleSlider from "../../_components/Slider/Slider";
-import { Modal, Box, Typography, Card, Avatar } from "@mui/material";
+import { Modal, Box, Typography, Card, Avatar, TextField } from "@mui/material";
 import Link from "next/link";
+import { useMediaQuery } from "@mui/material";
 import styles from "./trip.module.scss";
 import Button from "../../_components/Button/Button";
 import { useState } from "react";
@@ -12,19 +14,28 @@ import { API_URL } from "../../_lib/constants";
 import moment from "moment";
 import Map from "../../_components/Map/Map";
 import { daysBetween } from "../../_lib/utils";
+import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
 
 export default function MyTrip(props) {
+  const isDesktop = useMediaQuery("(min-width:768px)");
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [latLng, setLatLng] = useState([]);
-
+  const [newAmountOfGuests, setNewAmountOfGuests] = useState(0);
+  const { setStartDate, setEndDate, startDate, endDate } = bookingStore();
+  const [errors, setErrors] = useState([]);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
   const { isLoading, data: trip } = useBooking(
     props.params.tripId,
     apiKey,
     accessToken
   );
-  console.log(trip);
+  const { isLoading: isLoadingVenue, data: venue } = useVenue(
+    trip ? trip.data.venue.id : null
+  );
+  console.log(venue);
   useEffect(() => {
     if (
       !isLoading &&
@@ -51,6 +62,12 @@ export default function MyTrip(props) {
             setLatLng([result[0].lat, result[0].lon]);
           }
         });
+    }
+
+    if (!isLoading && trip) {
+      setNewAmountOfGuests(trip.data.guests);
+      setStartDate(trip.data.dateFrom);
+      setEndDate(trip.data.dateTo);
     }
   }, [trip]);
 
@@ -86,14 +103,78 @@ export default function MyTrip(props) {
 
       .catch((error) => {});
   };
+
+  const saveChangesToEditTrip = () => {
+    setIsSaving(true);
+
+    console.log("hallloooo");
+    const payload = {
+      dateFrom: startDate,
+      dateTo: endDate,
+      guests: Number(newAmountOfGuests),
+    };
+    fetch(`${API_URL}/bookings/${trip.data.id}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+      },
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        setIsSaving(false);
+
+        if (
+          result.statusCode == 401 ||
+          (result.errors && result.errors.length > 0)
+        ) {
+          setErrors(result.errors);
+        } else {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        setErrors([{ message: "Something went wrong. Please try again." }]);
+        setIsSaving(false);
+      });
+  };
+
   const numberOfNights = () => {
     return daysBetween(trip.data.dateFrom, trip.data.dateTo);
   };
+  const numberOfNewNights = () => {
+    if (startDate && endDate) {
+      return daysBetween(startDate, endDate);
+    }
+    return 0;
+  };
+  useEffect(() => {
+    if (trip) {
+      if (
+        newAmountOfGuests > trip.data.venue.maxGuests ||
+        newAmountOfGuests < 1
+      ) {
+        setSaveButtonDisabled(true);
+        return;
+      }
+
+      if (!startDate || !endDate) {
+        setSaveButtonDisabled(true);
+        return;
+      }
+
+      setSaveButtonDisabled(false);
+    }
+  }, [newAmountOfGuests, startDate, endDate]);
 
   if (isLoading || !trip) {
     return <div>Loading...</div>;
   }
   console.log("trip", trip);
+  console.log("amount", newAmountOfGuests);
+
   return (
     <div className={styles.tripContainer}>
       <SimpleSlider venue={trip.data.venue} />
@@ -177,8 +258,17 @@ export default function MyTrip(props) {
         </Card>
       </div>
       <div className={styles.cancelTripButton}>
-        <Button danger text="Cancel trip" onClick={() => openDeleteModal()} />
-        <Button text="Edit trip" onClick={() => openEditModal()} />
+        <Button
+          narrow={!isDesktop}
+          danger
+          text="Cancel trip"
+          onClick={() => openDeleteModal()}
+        />
+        <Button
+          narrow={!isDesktop}
+          text="Edit trip"
+          onClick={() => openEditModal()}
+        />
       </div>
 
       {latLng.length == 2 && (
@@ -197,13 +287,56 @@ export default function MyTrip(props) {
         </Box>
       </Modal>
 
-      <Modal open={isEditModalOpen} onClose={closeEditModal}>
+      <Modal
+        open={isEditModalOpen}
+        onClose={closeEditModal}
+        className={styles.editTripModal}
+      >
         <Box className="modal">
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Sure you want to cancel the trip?
+          <Typography variant="h5" component="h2" className="orangeHeader">
+            Edit trip
           </Typography>
+          <TextField
+            label="Guests?"
+            className="whiteInput"
+            variant="outlined"
+            onChange={(e) => setNewAmountOfGuests(e.target.value)}
+            value={newAmountOfGuests}
+            type="number"
+            helperText={`This palce allows maximum ${trip.data.venue.maxGuests} guests`}
+          />
+          <div className={styles.travelDates}>
+            <Typography variant="h6" gutterBottom>
+              Travel dates
+            </Typography>
+            <MyBookingCalendar venue={venue} hideBookButton />
+          </div>
+          <Typography variant="h6" gutterBottom>
+            Details
+          </Typography>
+          <div>
+            <span>Number of nights:</span>
+            <span className="bold"> {numberOfNights()}</span>
+          </div>
+          <div>
+            <span> Price per night:</span>
+            <span className="bold">{trip.data.venue.price},-</span>
+          </div>
+          <div>
+            <span> Total price:</span>
+            <span className="bold">
+              {numberOfNewNights() * trip.data.venue.price},-
+            </span>
+          </div>
           <span className={styles.flexanselCloseTripButton}>
-            <Button text="Close" onClick={closeEditModal} />
+            <Button
+              text="Save"
+              narrow
+              onClick={saveChangesToEditTrip}
+              isLoading={isSaving}
+              disabled={saveButtonDisabled}
+            />
+            <Button text="Close" narrow onClick={closeEditModal} />
           </span>
         </Box>
       </Modal>
