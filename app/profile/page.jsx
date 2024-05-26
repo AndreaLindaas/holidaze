@@ -21,9 +21,11 @@ import Button from "../_components/Button/Button";
 import styles from "./profile.module.scss";
 import { useStore } from "../_lib/store";
 import MyVenues from "../_components/MyVenueCard/MyVenues";
+import useProfile from "../_hooks/fetchProfile";
+import useVenuesForProfile from "../_hooks/fetchVenuesForProfile";
 export default function Profile() {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const [myVenues, setMyVenues] = useState([]);
+
   const [isVenueManager, setIsVenueManager] = useState(false);
   const [newAvatar, setNewAvatar] = useState("");
   const [newBanner, setNewBanner] = useState("");
@@ -44,6 +46,13 @@ export default function Profile() {
     setBanner,
   } = useStore();
 
+  const { isLoading: isLoadingProfileData, data: profile } = useProfile(
+    name,
+    apiKey,
+    accessToken
+  );
+  const { isLoading: isLoadingVenuesForProfileData, data: myVenues } =
+    useVenuesForProfile(name, apiKey, accessToken);
   // this useEffect validates mediUrl
   useEffect(() => {
     if (!validateUrl(newAvatar)) {
@@ -67,38 +76,11 @@ export default function Profile() {
   }, [avatar, banner]);
 
   useEffect(() => {
-    if (apiKey && accessToken) {
-      fetch(`${API_URL}/profiles/${name}`, {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": apiKey,
-        },
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          setIsVenueManager(result.data.venueManager);
-          setVenueManager(result.data.venueManager);
-        });
+    if (profile) {
+      setIsVenueManager(profile.venueManager);
+      setVenueManager(profile.venueManager);
     }
-  }, [apiKey, accessToken]);
-
-  useEffect(() => {
-    if (accessToken && apiKey && name) {
-      fetch(`${API_URL}/profiles/${name}/venues`, {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          Authorization: `Bearer ${accessToken}`,
-          "X-Noroff-API-Key": apiKey,
-        },
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          setMyVenues(result.data);
-        })
-        .catch((error) => {});
-    }
-  }, [accessToken, apiKey, name]);
+  }, [profile]);
 
   const editModalOpen = () => {
     setIsEditProfileOpen(true);
@@ -258,7 +240,7 @@ export default function Profile() {
               onClick={saveProfile}
               disabled={isSaveButtonDisabled}
             />
-            <Button text="close" narrow onClick={editModalClose} />
+            <Button text="Close" narrow onClick={editModalClose} />
           </div>
         </Box>
       </Modal>

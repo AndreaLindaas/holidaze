@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { API_URL } from "../_lib/constants";
 
-const fetchOtherProfile = async (name, apiKey, accessToken) => {
+const fetchProfile = async (name, apiKey, accessToken) => {
   const response = await fetch(`${API_URL}/profiles/${name}?_venues=true `, {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -19,10 +19,10 @@ const fetchOtherProfile = async (name, apiKey, accessToken) => {
   }
 };
 
-export default function useOtherProfile(name, apiKey, accessToken) {
+export default function useProfile(name, apiKey, accessToken) {
   return useQuery({
-    queryKey: ["otherProfile", name],
-    queryFn: () => fetchOtherProfile(name, apiKey, accessToken),
+    queryKey: ["profile", name],
+    queryFn: () => fetchProfile(name, apiKey, accessToken),
     enabled: !!name && !!apiKey && !!accessToken,
   });
 }
