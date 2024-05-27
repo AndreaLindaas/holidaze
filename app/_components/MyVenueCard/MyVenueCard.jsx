@@ -7,6 +7,7 @@ import {
   Typography,
   Modal,
   Box,
+  useMediaQuery,
 } from "@mui/material";
 import Button from "../Button/Button";
 import Link from "next/link";
@@ -16,7 +17,7 @@ import { useStore } from "../../_lib/store";
 export default function MyVenueCard(props) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { accessToken, apiKey } = useStore();
-
+  const isDesktop = useMediaQuery("(min-width:768px)");
   const { venue, isLoggedInUsersVenues } = props;
 
   const showImage = () => {
@@ -93,11 +94,20 @@ export default function MyVenueCard(props) {
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Sure you want to delete the venue?{" "}
+            Sure you want to delete the venue?
           </Typography>
           <span className={styles.deleteCloseButtons}>
-            <Button text="Delete" danger onClick={deleteVenue} />
-            <Button text="Close" onClick={closeDeleteModal} />
+            <Button
+              narrow={!isDesktop}
+              text="Delete"
+              danger
+              onClick={deleteVenue}
+            />
+            <Button
+              narrow={!isDesktop}
+              text="Close"
+              onClick={closeDeleteModal}
+            />
           </span>
         </Box>
       </Modal>

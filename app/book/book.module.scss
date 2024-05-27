@@ -43,7 +43,8 @@
     margin: 20px auto;
   }
   .guests {
-    width: 300px;
+    max-width: 300px;
+    width: 100%;
     display: flex;
     margin: 0 auto;
     flex-direction: column;

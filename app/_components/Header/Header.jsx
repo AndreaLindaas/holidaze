@@ -18,6 +18,7 @@ export default function Header() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
+    setMenuOpen(false);
     setAnchorEl(null);
   };
   const { isVenueManager, avatar, accessToken } = useStore();
@@ -39,7 +40,7 @@ export default function Header() {
         {!isDesktop && (
           <>
             {isVenueManager && (
-              <li>
+              <li onClick={closeMenu}>
                 <Link href="/venue/create">
                   <span>List your home</span>
                 </Link>
@@ -49,12 +50,12 @@ export default function Header() {
         )}
         {!accessToken && (
           <>
-            <li>
+            <li onClick={closeMenu}>
               <Link href="/register">
                 <span>Register</span>
               </Link>
             </li>
-            <li>
+            <li onClick={closeMenu}>
               <Link href="/login">
                 <span>Login</span>
               </Link>
@@ -62,32 +63,32 @@ export default function Header() {
           </>
         )}
 
-        <li>
+        <li onClick={closeMenu}>
           <Link href="/contact">
             <span> Contact</span>
           </Link>
         </li>
-        <li>
+        <li onClick={closeMenu}>
           <Link href="/faq">
             <span> Help center</span>
           </Link>
         </li>
         {accessToken && (
           <>
-            <li>
+            <li onClick={closeMenu}>
               <Link href="/trips">
                 <span> My trips</span>
               </Link>
             </li>
             {!isDesktop && (
-              <li>
+              <li onClick={closeMenu}>
                 <Link href="/profile">
                   <span>Profile</span>
                 </Link>
               </li>
             )}
             {!isDesktop && (
-              <li>
+              <li onClick={closeMenu}>
                 <Link href="/logout">
                   <span>Logout</span>
                 </Link>

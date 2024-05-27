@@ -96,7 +96,7 @@ export default function Login() {
             <div className={styles.input}>
               <label>Email</label>
               <TextField
-                className="whiteInput"
+                className="whiteInput emailInput"
                 type="email"
                 variant="outlined"
                 value={loginEmail}
@@ -106,7 +106,7 @@ export default function Login() {
             <div className={styles.input}>
               <label htmlFor="">Password</label>
               <TextField
-                className="whiteInput"
+                className="whiteInput password"
                 type="password"
                 autoComplete="current-password"
                 value={password}

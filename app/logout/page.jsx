@@ -11,5 +11,5 @@ export default function Logout() {
     }, 1000);
   }, []);
 
-  return <div>Logging you out.</div>;
+  return <div className="center padding">Logging you out.</div>;
 }

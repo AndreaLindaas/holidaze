@@ -16,18 +16,23 @@ export default function MyBookingCalendar(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(true);
   const { accessToken } = useStore();
+  const [tempStartDate, setTempStartDate] = useState(new Date());
+  const [tempEndDate, setTempEndDate] = useState(null);
   const { venue, hideBookButton } = props;
+
   const { setVenue, startDate, endDate, setStartDate, setEndDate } =
     bookingStore();
   const router = useRouter();
 
   const onChange = (dates) => {
     const [start, end] = dates;
-    setStartDate(start);
-    setEndDate(end);
+    setTempStartDate(start);
+    setTempEndDate(end);
   };
   const bookingClick = () => {
     setVenue(venue);
+    setStartDate(tempStartDate);
+    setEndDate(tempEndDate);
     router.push("/book");
   };
 
@@ -37,8 +42,8 @@ export default function MyBookingCalendar(props) {
     dates.forEach((d) => {
       if (isDateDisabled(d)) {
         isValid = false;
-        setStartDate(null);
-        setEndDate(null);
+        setTempStartDate(new Date());
+        setTempEndDate(null);
       }
     });
     return isValid;
@@ -53,7 +58,7 @@ export default function MyBookingCalendar(props) {
 
     setErrorMessage("");
     setIsBookButtonDisabled(false);
-  }, [startDate, endDate]);
+  }, [tempStartDate, tempEndDate]);
 
   useEffect(() => {
     //Extract all dates from booking array
@@ -78,10 +83,10 @@ export default function MyBookingCalendar(props) {
   return (
     <div className={styles.calendar}>
       <DatePicker
-        selected={startDate}
         onChange={onChange}
-        startDate={startDate}
-        endDate={endDate}
+        selected={tempStartDate}
+        startDate={tempStartDate}
+        endDate={tempEndDate}
         selectsRange
         minDate={new Date()}
         inline

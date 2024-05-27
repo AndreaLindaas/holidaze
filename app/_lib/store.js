@@ -48,6 +48,7 @@ export const bookingStore = create(
       setVenue: (v) => set({ venue: v }),
       setStartDate: (s) => set({ startDate: s }),
       setEndDate: (e) => set({ endDate: e }),
+      clearBooking: () => set({ venue: {}, startDate: "", endDate: "" }),
     }),
     {
       name: "holidaze-booking", // name of the item in the storage (must be unique)

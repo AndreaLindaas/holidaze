@@ -83,7 +83,7 @@ export default function Profile() {
       setIsSaveButtonDisabled(true);
       return;
     }
-    if (bio.length > 160) {
+    if (bio && bio.length > 160) {
       setIsSaveButtonDisabled(true);
       return;
     }
@@ -205,12 +205,7 @@ export default function Profile() {
           </p>
         </div>
       )}
-      <Modal
-        open={isEditProfileOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className={styles.modal}
-      >
+      <Modal open={isEditProfileOpen} className={styles.modal}>
         <Box className="modal">
           <Typography variant="h6" component="h2" className="orangeHeader">
             Edit profile
@@ -258,7 +253,7 @@ export default function Profile() {
           </div>
 
           <div className={styles.input}>
-            <label htmlFor="">Change bio ({bio.length}letters)</label>
+            <label htmlFor="">Change bio ({bio && bio.length} letters)</label>
             <TextField
               id="outlined-basic"
               variant="outlined"

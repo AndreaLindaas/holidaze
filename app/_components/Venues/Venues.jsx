@@ -47,7 +47,9 @@ export default function Venues() {
   }
   return (
     <div>
-      <div className={styles.venueCardContainer}>{showVenues()}</div>
+      <div className={`allVenues ${styles.venueCardContainer}`}>
+        {showVenues()}
+      </div>
       <div className={styles.seeMoreButton}>
         <Button text="See all venues" onClick={seeAllVenues} />
       </div>

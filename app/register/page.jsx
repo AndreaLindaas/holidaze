@@ -72,13 +72,14 @@ export default function Register() {
           <h1 className="center">Register</h1>
           <form onSubmit={submitForm}>
             <div className={styles.input}>
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Username</label>
               <TextField
-                className="whiteInput"
+                className="whiteInput name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 type="text"
                 variant="outlined"
+                helperText="only a-z, A-Z, 0-9 and _"
               />
             </div>
 
@@ -86,7 +87,7 @@ export default function Register() {
               <label htmlFor="">Email</label>
 
               <TextField
-                className="whiteInput"
+                className="whiteInput email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
@@ -97,7 +98,7 @@ export default function Register() {
             <div className={styles.input}>
               <label htmlFor="">Password</label>
               <TextField
-                className="whiteInput"
+                className="whiteInput password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"
@@ -108,7 +109,7 @@ export default function Register() {
             <div className={styles.input}>
               <label htmlFor="">Confirm Password</label>
               <TextField
-                className="whiteInput"
+                className="whiteInput confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 type="password"

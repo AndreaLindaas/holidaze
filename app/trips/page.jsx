@@ -23,44 +23,52 @@ export default function Trips() {
 
   const { isLoading: isLoadingBookingData, data: bookings } =
     useBookingsForUser(name, apiKey, accessToken);
+
   const renderMyBookings = () => {
     if (bookings && bookings.data && bookings.data.length > 0) {
       const futureTrips = bookings.data.filter((booking) =>
         moment(booking.dateTo).isAfter()
       );
-      console.log(bookings);
       if (futureTrips.length > 0) {
-        return futureTrips.map((booking) => {
-          return <MyTripsCard booking={booking} key={booking.id} />;
-        });
+        return (
+          <>
+            <h2>Upcoming trips</h2>
+            <div className={styles.renderBookings}>
+              {futureTrips.map((booking) => {
+                return <MyTripsCard booking={booking} key={booking.id} />;
+              })}
+            </div>
+          </>
+        );
       }
     }
 
     return (
-      <div className={styles.noTripsContainer}>
-        <Card sx={{ maxWidth: 500 }}>
-          <CardHeader
-            action={<IconButton aria-label="settings"></IconButton>}
-            title="No trips booked..."
-            subheader={<ExploreIcon />}
-          />
-          <CardMedia
-            component="img"
-            height="300"
-            image="/hut.jpg"
-            alt="Paella dish"
-          />
-          <CardContent>
-            <Typography variant="body2" color="text.secondary">
-              Time to start planning your next adventure.
-            </Typography>
-            <div className={styles.exploreButton}>
-              <Link href="/">
-                <Button text="Explore" />
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+      <div className={styles.renderBookings}>
+        <div className={styles.noTripsContainer}>
+          <Card sx={{ maxWidth: 500 }}>
+            <CardHeader
+              action={<IconButton aria-label="settings"></IconButton>}
+              title="You have no trips booked"
+            />
+            <CardMedia
+              component="img"
+              height="300"
+              image="/hut.jpg"
+              alt="Paella dish"
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                Time to start planning your next adventure.
+              </Typography>
+              <div className={styles.exploreButton}>
+                <Link href="/">
+                  <Button text="Explore" />
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   };
@@ -70,9 +78,16 @@ export default function Trips() {
       const pastTrips = bookings.data.filter((booking) =>
         moment(booking.dateTo).isBefore()
       );
-      return pastTrips.map((booking) => {
-        return <MyTripsCard booking={booking} key={booking.id} />;
-      });
+      return (
+        <>
+          <h2>Past trips</h2>
+          <div className={styles.renderBookings}>
+            {pastTrips.map((booking) => {
+              return <MyTripsCard booking={booking} key={booking.id} />;
+            })}
+          </div>
+        </>
+      );
     }
   };
 
@@ -87,10 +102,10 @@ export default function Trips() {
   return (
     <div className={styles.tripsContainer}>
       <h1>My trips</h1>
-      <h2>Upcoming trips</h2>
-      <div className={styles.renderBookings}>{renderMyBookings()}</div>
-      <h2>Past trips</h2>
-      <div className={styles.renderBookings}>{renderMyPastBookings()}</div>
+
+      {renderMyBookings()}
+
+      {renderMyPastBookings()}
     </div>
   );
 }

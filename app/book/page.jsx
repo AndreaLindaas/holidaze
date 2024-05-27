@@ -19,7 +19,6 @@ export default function Booking() {
   const [amountOfGuests, setAmountOfGuests] = useState(0);
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(false);
   const [isBooking, setIsBooking] = useState(false);
-  console.log(startDate);
   useEffect(() => {
     if (amountOfGuests < 1 || amountOfGuests > venue.maxGuests) {
       setIsBookButtonDisabled(true);

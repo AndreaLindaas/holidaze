@@ -38,6 +38,7 @@
   margin: 0 auto;
 }
 .modal {
+  overflow: scroll;
   h2 {
     margin: 30px;
   }
@@ -48,6 +49,19 @@
     .host {
       display: flex;
       justify-content: center;
+
+      :global {
+        .Mui-checked {
+          .MuiSwitch-thumb {
+            color: var(--orange);
+          }
+        }
+        .MuiSwitch-root {
+          .Mui-checked + .MuiSwitch-track {
+            background-color: var(--orange);
+          }
+        }
+      }
     }
   }
   .input {

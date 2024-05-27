@@ -81,7 +81,6 @@ export default function CreateVenue() {
 
   // this useEffect validates coordinatesButton
   useEffect(() => {
-    console.log(address.length);
     if (address.length < 2 || city.length < 2 || country.length < 2) {
       setCoordinatesButtonDisabled(true);
       return;

@@ -15,9 +15,11 @@ import moment from "moment";
 import Map from "../../_components/Map/Map";
 import { daysBetween } from "../../_lib/utils";
 import MyBookingCalendar from "../../_components/MyBookingCalendar/MyBookingCalendar";
+import { useRouter } from "next/navigation";
 
 export default function MyTrip(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
+  const router = useRouter();
   const { apiKey, accessToken } = useStore();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -37,10 +39,10 @@ export default function MyTrip(props) {
   );
   useEffect(() => {
     if (
-      !isLoading &&
-      trip &&
-      !!trip.data.venue.location.lat &&
-      !!trip.data.venue.location.lng
+      !isLoadingVenue &&
+      venue &&
+      !!venue.location.lat &&
+      !!venue.location.lng
     ) {
       setLatLng({
         lat: venue.location.lat,
@@ -49,13 +51,13 @@ export default function MyTrip(props) {
       });
     } else if (
       !isLoading &&
-      trip &&
-      !!trip.data.venue.location.address &&
-      !!trip.data.venue.location.city &&
-      !!trip.data.venue.location.country
+      venue &&
+      !!venue.location.address &&
+      !!venue.location.city &&
+      !!venue.location.country
     ) {
       const address = encodeURI(
-        `${trip.data.venue.location.address} ${trip.data.venue.location.city} ${trip.data.venue.location.country}`
+        `${venue.location.address} ${venue.location.city} ${venue.location.country}`
       );
       const searchUrl = `https://nominatim.openstreetmap.org/search.php?q=${address}&polygon_geojson=1&format=jsonv2`;
       fetch(searchUrl)
@@ -104,7 +106,7 @@ export default function MyTrip(props) {
       .then((response) => {
         if (response.status < 300) {
           closeDeleteModal(true);
-          return alert("succsess");
+          router.push("/trips");
         }
       })
 
@@ -262,19 +264,21 @@ export default function MyTrip(props) {
           </div>
         </Card>
       </div>
-      <div className={styles.cancelTripButton}>
-        <Button
-          narrow={!isDesktop}
-          danger
-          text="Cancel trip"
-          onClick={() => openDeleteModal()}
-        />
-        <Button
-          narrow={!isDesktop}
-          text="Edit trip"
-          onClick={() => openEditModal()}
-        />
-      </div>
+      {moment(trip.data.dateFrom).isAfter() && (
+        <div className={styles.cancelTripButton}>
+          <Button
+            narrow={!isDesktop}
+            danger
+            text="Cancel trip"
+            onClick={() => openDeleteModal()}
+          />
+          <Button
+            narrow={!isDesktop}
+            text="Edit trip"
+            onClick={() => openEditModal()}
+          />
+        </div>
+      )}
 
       {latLng && latLng.lat && latLng.lng && (
         <Map positions={[latLng]} zoom={8} />
@@ -286,8 +290,17 @@ export default function MyTrip(props) {
             Sure you want to cancel the trip?
           </Typography>
           <span className={styles.flexanselCloseTripButton}>
-            <Button danger text="Cancel" onClick={deleteTrip} />
-            <Button text="Close" onClick={closeDeleteModal} />
+            <Button
+              narrow={!isDesktop}
+              danger
+              text="Cancel"
+              onClick={deleteTrip}
+            />
+            <Button
+              narrow={!isDesktop}
+              text="Close"
+              onClick={closeDeleteModal}
+            />
           </span>
         </Box>
       </Modal>

@@ -12,11 +12,33 @@
     text-decoration: none;
   }
 }
+.mapContainer {
+  height: 500px;
+  margin-bottom: 50px;
+}
 .flexFilters {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+}
+
+.showMapSwitch {
+  display: flex;
+  align-items: center;
+
+  :global {
+    .Mui-checked {
+      .MuiSwitch-thumb {
+        color: var(--orange);
+      }
+    }
+    .MuiSwitch-root {
+      .Mui-checked + .MuiSwitch-track {
+        background-color: var(--orange);
+      }
+    }
+  }
 }
 @media screen and (min-width: 768px) {
   .venueCardContainer {
