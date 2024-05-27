@@ -187,7 +187,9 @@ export default function CreateVenue() {
       setTempMediaUrl("");
     }
   };
-
+  const removeItem = (index) => {
+    setMedia((prevMedia) => prevMedia.filter((_, i) => i !== index));
+  };
   return (
     <div className={styles.formContainer}>
       <h1 className="center">List your home</h1>
