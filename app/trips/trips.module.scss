@@ -7,6 +7,11 @@
   .noTripsContainer {
     text-align: center;
     margin-top: 100px;
+    .exploreButton {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
   }
 }
 @media screen and (min-width: 768px) {
@@ -15,5 +20,6 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    margin-bottom: 50px;
   }
 }

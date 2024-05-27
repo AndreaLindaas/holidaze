@@ -28,7 +28,7 @@ export default function Trips() {
       const futureTrips = bookings.data.filter((booking) =>
         moment(booking.dateTo).isAfter()
       );
-
+      console.log(bookings);
       if (futureTrips.length > 0) {
         return futureTrips.map((booking) => {
           return <MyTripsCard booking={booking} key={booking.id} />;
@@ -54,9 +54,11 @@ export default function Trips() {
             <Typography variant="body2" color="text.secondary">
               Time to start planning your next adventure.
             </Typography>
-            <Link href="/">
-              <Button text="Explore" />
-            </Link>
+            <div className={styles.exploreButton}>
+              <Link href="/">
+                <Button text="Explore" />
+              </Link>
+            </div>
           </CardContent>
         </Card>
       </div>
