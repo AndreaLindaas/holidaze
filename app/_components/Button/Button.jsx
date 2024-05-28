@@ -29,7 +29,7 @@ export default function Button(props) {
       onClick={onClick}
     >
       {icon && <span className={styles.icon}>{icon}</span>}
-      {isLoading ? <CircularProgress /> : text}
+      {isLoading ? <CircularProgress size="30px" /> : text}
     </button>
   );
 }
