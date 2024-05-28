@@ -18,6 +18,7 @@ export default function Booking() {
   const [errors, setErrors] = useState([]);
   const [amountOfGuests, setAmountOfGuests] = useState(0);
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(false);
+  const [isPaymentValid, setIsPaymentValid] = useState(false);
   const [isBooking, setIsBooking] = useState(false);
   useEffect(() => {
     if (amountOfGuests < 1 || amountOfGuests > venue.maxGuests) {
@@ -26,6 +27,10 @@ export default function Booking() {
     }
     setIsBookButtonDisabled(false);
   }, [amountOfGuests]);
+
+  const isPaymentValidCallback = (isValid) => {
+    setIsPaymentValid(isValid);
+  };
 
   const bookVenue = () => {
     setIsBooking(true);
@@ -99,10 +104,10 @@ export default function Booking() {
           variant="outlined"
           onChange={(e) => setAmountOfGuests(e.target.value)}
           type="number"
-          helperText={`This palce allows maximum ${venue.maxGuests} guests`}
+          helperText={`This place allows maximum ${venue.maxGuests} guests`}
         />
       </div>
-      <Payment />
+      <Payment isValid={isPaymentValidCallback} />
       {errors.length > 0 && (
         <div>
           <ul className="center">
@@ -116,7 +121,7 @@ export default function Booking() {
         text="Book"
         onClick={bookVenue}
         className={styles.buttonBook}
-        disabled={isBookButtonDisabled}
+        disabled={isBookButtonDisabled || !isPaymentValid}
         isLoading={isBooking}
       />
     </div>

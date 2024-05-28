@@ -11,5 +11,12 @@ export default function Logout() {
     }, 1000);
   }, []);
 
-  return <div className="center padding">Logging you out.</div>;
+  return (
+    <div className="center padding">
+      <h1>Bye bye!</h1>
+      <div>
+        <img src="/byedog.webp" className="byedog" />
+      </div>
+    </div>
+  );
 }

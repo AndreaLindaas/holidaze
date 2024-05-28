@@ -30,6 +30,7 @@ export default function Profile() {
   const [isVenueManager, setIsVenueManager] = useState(false);
   const [newAvatar, setNewAvatar] = useState("");
   const [newBanner, setNewBanner] = useState("");
+  const [newBio, setNewBio] = useState("");
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(false);
   const {
     name,
@@ -54,6 +55,7 @@ export default function Profile() {
   );
   const { isLoading: isLoadingVenuesForProfileData, data: myVenues } =
     useVenuesForProfile(name, apiKey, accessToken);
+
   useEffect(() => {
     if (myVenues) {
       const tempArray = [];
@@ -82,17 +84,19 @@ export default function Profile() {
       setIsSaveButtonDisabled(true);
       return;
     }
-    if (bio && bio.length > 160) {
+    if (newBio && newBio.length > 160) {
       setIsSaveButtonDisabled(true);
       return;
     }
+
     setIsSaveButtonDisabled(false);
-  }, [newAvatar, newBanner, bio]);
+  }, [newAvatar, newBanner, newBio]);
 
   useEffect(() => {
     setNewAvatar(avatar);
     setNewBanner(banner);
-  }, [avatar, banner]);
+    setNewBio(bio);
+  }, [avatar, banner, bio]);
 
   useEffect(() => {
     if (profile) {
@@ -108,19 +112,13 @@ export default function Profile() {
     setIsEditProfileOpen(false);
   };
 
-  const saveBio = (bio) => {
-    if (bio.length <= 160) {
-      setBio(bio);
-    }
-  };
-
   const saveProfile = (event) => {
     const payload = {
       venueManager: isVenueManager,
       avatar: {
         url: newAvatar,
       },
-      bio: bio,
+      bio: newBio,
       banner: {
         url: newBanner,
       },
@@ -159,7 +157,6 @@ export default function Profile() {
 
   return (
     <div>
-      test
       <div
         className={styles.banner}
         style={{ backgroundImage: `url(${banner})` }}
@@ -257,14 +254,18 @@ export default function Profile() {
           </div>
 
           <div className={styles.input}>
-            <label htmlFor="">Change bio ({bio && bio.length} letters)</label>
+            <label htmlFor="">
+              Change bio ({newBio ? newBio.length : "0"} letters)
+            </label>
             <TextField
               id="outlined-basic"
               variant="outlined"
               multiline
               rows={4}
-              onChange={(e) => saveBio(e.target.value)}
-              value={bio}
+              onChange={(e) =>
+                e.target.value.length <= 160 && setNewBio(e.target.value)
+              }
+              value={newBio}
               helperText="Max 160 letters"
             />
           </div>
