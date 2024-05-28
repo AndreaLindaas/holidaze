@@ -29,6 +29,8 @@ export default function MyTrip(props) {
   const [errors, setErrors] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState(true);
+  const [tempStartDate, setTempStartDate] = useState(new Date());
+  const [tempEndDate, setTempEndDate] = useState(null);
   const { isLoading, data: trip } = useBooking(
     props.params.tripId,
     apiKey,
@@ -77,6 +79,8 @@ export default function MyTrip(props) {
       setNewAmountOfGuests(trip.data.guests);
       setStartDate(trip.data.dateFrom);
       setEndDate(trip.data.dateTo);
+      setTempStartDate(trip.data.dateFrom);
+      setTempEndDate(trip.data.dateTo);
     }
   }, [trip]);
 
@@ -91,6 +95,12 @@ export default function MyTrip(props) {
   };
   const closeEditModal = () => {
     setIsEditModalOpen(false);
+  };
+
+  const onCalendarDateChange = (dates) => {
+    const [start, end] = dates;
+    setTempStartDate(start);
+    setTempEndDate(end);
   };
 
   const deleteTrip = () => {
@@ -117,8 +127,8 @@ export default function MyTrip(props) {
     setIsSaving(true);
 
     const payload = {
-      dateFrom: startDate,
-      dateTo: endDate,
+      dateFrom: tempStartDate,
+      dateTo: tempEndDate,
       guests: Number(newAmountOfGuests),
     };
     fetch(`${API_URL}/bookings/${trip.data.id}`, {
@@ -153,8 +163,8 @@ export default function MyTrip(props) {
     return daysBetween(trip.data.dateFrom, trip.data.dateTo);
   };
   const numberOfNewNights = () => {
-    if (startDate && endDate) {
-      return daysBetween(startDate, endDate);
+    if (tempStartDate && tempEndDate) {
+      return daysBetween(tempStartDate, tempEndDate);
     }
     return 0;
   };
@@ -331,14 +341,20 @@ export default function MyTrip(props) {
             <Typography variant="h6" gutterBottom>
               Travel dates
             </Typography>
-            <MyBookingCalendar venue={venue} hideBookButton />
+            <MyBookingCalendar
+              venue={venue}
+              onChange={onCalendarDateChange}
+              startDate={tempStartDate}
+              endDate={tempEndDate}
+              hideBookButton
+            />
           </div>
           <Typography variant="h6" gutterBottom>
             Details
           </Typography>
           <div>
             <span>Number of nights:</span>
-            <span className="bold"> {numberOfNights()}</span>
+            <span className="bold"> {numberOfNewNights()}</span>
           </div>
           <div>
             <span> Price per night:</span>
