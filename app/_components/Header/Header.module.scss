@@ -1,0 +1,100 @@
+.header {
+  margin: 10px 0;
+  .logo {
+    display: flex;
+    flex-direction: row;
+    img {
+      width: 50px;
+    }
+  }
+  a,
+  a:visited {
+    text-decoration: none;
+    color: #000;
+    span {
+      font-size: 40px;
+    }
+  }
+  svg {
+    color: var(--jet);
+    font-size: 40px;
+    margin-right: 10px;
+  }
+  .logoAvatar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+.menuList {
+  li {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    a,
+    a:visited {
+      text-decoration: none;
+      color: #000;
+    }
+  }
+}
+
+// :global {
+//   .MuiPaper-root.MuiDrawer-paper.MuiDrawer-paperAnchorTop {
+//     background-color: var(--jet);
+//     color: #fff;
+//   }
+// }
+@media screen and (min-width: 768px) {
+  .header {
+    margin: 0 70px;
+
+    a,
+    a:visited {
+      color: var(--jet);
+    }
+
+    .menuListButton {
+      display: flex;
+    }
+  }
+  .menuList {
+    display: flex;
+    justify-content: center;
+    li {
+      a,
+      a:visited {
+        color: var(--jet);
+      }
+      a:hover {
+        text-decoration: underline var(--orange);
+      }
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+  .iconAvatar {
+    display: flex;
+    padding: 2px;
+    &:hover {
+      background-color: var(--peach);
+      padding: 2px;
+      border-radius: 10px;
+    }
+    svg {
+      margin: 6px 0 0 0;
+      font-size: 30px;
+    }
+  }
+  .dropDownMenu {
+    ul {
+      li {
+        a {
+          text-decoration: none;
+          color: #000;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+.formContainer {
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 10px;
+  .orangeCard {
+    padding: 20px;
+    background-color: var(--peach);
+    margin: 20px 0;
+  }
+  .whiteCard {
+    padding: 20px;
+  }
+  .text {
+    padding: 20px;
+  }
+  form {
+    text-align: center;
+  }
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    label {
+      text-align: left;
+    }
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    button {
+      width: 200px;
+    }
+  }
+  .image {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    object-fit: cover;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .mediaList {
+    text-align: center;
+    display: flex;
+    list-style-type: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    li {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 36px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .formContainer {
+    width: 700px;
+    .flexAddressCity,
+    .flexCountryContinents,
+    .flexLatLong,
+    .flexPriceGuests {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .image {
+      width: 200px;
+      height: 160px;
+    }
+    .inputContainer {
+      width: 270px;
+    }
+    .fullWidth {
+      width: 540px;
+    }
+    .addButton {
+      margin-left: 60px;
+    }
+    .geoButton {
+      margin: 10px 0;
+    }
+  }
+}

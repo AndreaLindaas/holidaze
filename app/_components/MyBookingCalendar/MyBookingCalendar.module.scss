@@ -1,0 +1,21 @@
+.calendar {
+  margin-bottom: 20px;
+  text-align: center;
+  :global {
+    .MuiButtonBase-root.Mui-disabled.MuiPickersDay-root {
+      // color: var(--red);
+    }
+    .MuiPickersToolbar-root {
+      padding-top: 0;
+    }
+  }
+  .textForLogin {
+    padding: 20px;
+    font-weight: bold;
+  }
+  .bookButton {
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+  }
+}

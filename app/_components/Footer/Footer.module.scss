@@ -1,0 +1,38 @@
+.footer {
+  background-color: var(--jet);
+  color: #fff;
+  text-align: center;
+  padding: 30px;
+  margin-top: auto;
+
+  h4 {
+    margin: 30px 0;
+  }
+  a {
+    color: #fff;
+    svg {
+      margin-right: 10px;
+    }
+  }
+  .subscribeButton {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+  }
+
+  .footerBottom {
+    margin: 50px 0;
+  }
+}
+@media screen and (min-width: 768px) {
+  .footer {
+    .footerContentContainer {
+      display: flex;
+      justify-content: space-around;
+    }
+    .footerBottom {
+      margin: 25px 0;
+    }
+  }
+}

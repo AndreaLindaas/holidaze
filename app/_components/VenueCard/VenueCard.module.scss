@@ -1,0 +1,21 @@
+.cardContent {
+  background-color: var(--jet);
+  color: #fff;
+  text-decoration: none;
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  p {
+    color: var(--orange);
+  }
+  .rating {
+    margin-top: 10px;
+    svg {
+      font-size: 20px;
+    }
+  }
+}

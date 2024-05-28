@@ -1,0 +1,19 @@
+.myTripsCardContainer {
+  width: 90%;
+  margin: 60px auto;
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+}
+@media screen and (min-width: 768px) {
+  .myTripsCardContainer {
+    width: 345px;
+    margin: 0;
+    :global {
+      .MuiPaper-root {
+        height: 270px;
+      }
+    }
+  }
+}

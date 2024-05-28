@@ -1,0 +1,41 @@
+.background {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/boat.jpg");
+  background-size: cover;
+  .loginContainer {
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 100px;
+    .loginCard {
+      width: 100%;
+      background-color: var(--peach);
+      padding: 30px;
+      box-sizing: border-box;
+
+      form {
+        text-align: left;
+        .input {
+          display: flex;
+          margin: 0 auto;
+          flex-direction: column;
+          input {
+            background-color: white;
+          }
+        }
+        .loginRegisterButton {
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+        }
+      }
+    }
+    .registerLoginButton {
+      display: flex;
+      justify-content: center;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+}

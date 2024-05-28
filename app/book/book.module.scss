@@ -1,0 +1,62 @@
+.bookContainer {
+  img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+  }
+  .checkContainer {
+    max-width: 700px;
+    margin: 0 auto;
+    .flexCheckInOut {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+      background-color: var(--peach);
+
+      h3 {
+        margin: 0;
+      }
+    }
+  }
+  .cardContainer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    .priceDetailsCard {
+      background-color: var(--peach);
+      text-align: center;
+      padding: 15px 0;
+      margin-bottom: 40px;
+      width: 700px;
+
+      h3 {
+        margin: 5px 0;
+      }
+    }
+  }
+  .greyText {
+    color: grey;
+    margin: 5px 0;
+  }
+
+  .buttonBook {
+    margin: 20px auto;
+  }
+  .guests {
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    label {
+      text-align: left;
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .bookContainer {
+    img {
+      max-height: 400px;
+    }
+  }
+}

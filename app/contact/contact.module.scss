@@ -1,0 +1,42 @@
+.contactContainer {
+  margin: 0 auto;
+  width: 100%;
+  form {
+    border-radius: 6px;
+    margin: 0 auto;
+    padding: 10px;
+
+    .contactCard {
+      padding: 20px;
+      background-color: var(--peach);
+      margin: 20px 0;
+
+      .inputContainer {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        label {
+          margin-top: 20px;
+        }
+      }
+      .sendButton {
+        margin: 20px 0;
+      }
+    }
+  }
+}
+.closeButtonModal {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+@media screen and (min-width: 768px) {
+  .contactContainer {
+    width: 700px;
+    form {
+      .fullWidth {
+        width: 540px;
+      }
+    }
+  }
+}

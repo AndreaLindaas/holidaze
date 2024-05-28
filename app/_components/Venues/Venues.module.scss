@@ -1,0 +1,56 @@
+.venueCardContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  row-gap: 50px;
+  justify-content: center;
+  margin: 20px;
+
+  > a {
+    width: 100%;
+    text-decoration: none;
+  }
+}
+.seeMoreButton {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+.explore {
+  background-color: var(--jet);
+  color: #fff;
+  padding: 20px;
+  margin-bottom: 80px;
+  .exploreContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 30px;
+    :global {
+      .MuiCardContent-root {
+        height: 160px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .venueCardContainer {
+    > a {
+      width: 345px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      &:hover {
+        border: 1px solid var(--orange);
+      }
+    }
+  }
+  .explore {
+    .exploreContent {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+}

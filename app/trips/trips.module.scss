@@ -1,0 +1,30 @@
+.tripsContainer {
+  h1,
+  h2 {
+    text-align: center;
+  }
+
+  .noTripsContainer {
+    text-align: center;
+    .exploreButton {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .renderBookings {
+    display: flex;
+    justify-content: center;
+  }
+}
+@media screen and (min-width: 768px) {
+  .renderBookings {
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+}

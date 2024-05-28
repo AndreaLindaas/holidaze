@@ -1,0 +1,25 @@
+.carousel {
+  margin: 0 auto;
+  .slide {
+    height: 400px;
+    width: 100%;
+    img {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  :global {
+    .thumbs-wrapper {
+      margin: 0;
+      .thumbs {
+        padding: 0;
+      }
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .carousel {
+    width: 90%;
+  }
+}
