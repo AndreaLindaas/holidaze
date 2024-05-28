@@ -37,13 +37,11 @@ export default function MyBookingCalendar(props) {
   };
 
   const validateSelectedDates = () => {
-    const dates = getTimestampsBetweenDates(startDate, endDate);
+    const dates = getTimestampsBetweenDates(tempStartDate, tempEndDate);
     let isValid = true;
     dates.forEach((d) => {
       if (isDateDisabled(d)) {
         isValid = false;
-        setTempStartDate(new Date());
-        setTempEndDate(null);
       }
     });
     return isValid;
@@ -54,6 +52,8 @@ export default function MyBookingCalendar(props) {
       setErrorMessage("Some of the days are already booked. Please try again.");
       setIsBookButtonDisabled(true);
       return;
+    } else {
+      setErrorMessage("");
     }
 
     if (!tempStartDate || !tempEndDate) {
