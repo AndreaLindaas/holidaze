@@ -10,7 +10,7 @@ import styles from "./Venues.module.scss";
 import { CircularProgress } from "@mui/material";
 
 export default function Venues() {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
   const { isLoading, data: venues, isError } = useVenues(limit, page);
 
@@ -79,9 +79,9 @@ export default function Venues() {
           value={limit}
           onChange={changeLimit}
         >
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={20}>20</MenuItem>
-          <MenuItem value={50}>50</MenuItem>
+          <MenuItem value={12}>12</MenuItem>
+          <MenuItem value={24}>24</MenuItem>
+          <MenuItem value={48}>48</MenuItem>
           <MenuItem value={100}>100</MenuItem>
         </Select>
         venues per page.
