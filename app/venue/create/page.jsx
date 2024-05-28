@@ -14,7 +14,7 @@ import { validateUrl } from "../../_lib/utils";
 import { useRouter } from "next/navigation";
 import styles from "../../_styles/createEdit.module.scss";
 export default function CreateVenue() {
-  const { accessToken, apiKey } = useStore();
+  const { accessToken, apiKey, isVenueManager } = useStore();
   const [nameOfVenue, setNameOfVenue] = useState("");
   const [description, setDescription] = useState("");
   const [media, setMedia] = useState([]);
@@ -189,6 +189,15 @@ export default function CreateVenue() {
   const removeItem = (index) => {
     setMedia((prevMedia) => prevMedia.filter((_, i) => i !== index));
   };
+  if (!isVenueManager) {
+    return (
+      <div className="center">
+        You need to be a venue manager to list a venue. Go to Profile to become
+        a venue manager.
+      </div>
+    );
+  }
+
   return (
     <div className={styles.formContainer}>
       <h1 className="center">List your home</h1>
