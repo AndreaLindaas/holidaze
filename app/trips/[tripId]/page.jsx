@@ -264,7 +264,7 @@ export default function MyTrip(props) {
           </div>
         </Card>
       </div>
-      {moment(trip.data.dateFrom).isAfter() && (
+      {moment(trip.data.dateFrom).isAfter() ? (
         <div className={styles.cancelTripButton}>
           <Button
             narrow={!isDesktop}
@@ -278,6 +278,11 @@ export default function MyTrip(props) {
             onClick={() => openEditModal()}
           />
         </div>
+      ) : (
+        <p className="center">
+          You cannot change dates or number of guests for this trip, since it
+          has started. For any inquiries please contact the venue manager.
+        </p>
       )}
 
       {latLng && latLng.lat && latLng.lng && (

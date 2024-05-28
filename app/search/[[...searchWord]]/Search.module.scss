@@ -12,15 +12,24 @@
     text-decoration: none;
   }
 }
+.flexFilters {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  :global {
+    .MuiInputBase-input {
+      width: 270px;
+    }
+    .MuiInputBase-root {
+      width: 300px;
+    }
+  }
+}
 .mapContainer {
   height: 500px;
   margin-bottom: 50px;
-}
-.flexFilters {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
 }
 
 .showMapSwitch {
@@ -50,5 +59,11 @@
         border: 1px solid var(--orange);
       }
     }
+  }
+  .flexFilters {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
   }
 }

@@ -56,6 +56,11 @@ export default function MyBookingCalendar(props) {
       return;
     }
 
+    if (!tempStartDate || !tempEndDate) {
+      setIsBookButtonDisabled(true);
+      return;
+    }
+
     setErrorMessage("");
     setIsBookButtonDisabled(false);
   }, [tempStartDate, tempEndDate]);

@@ -34,6 +34,23 @@ describe("holidaze", () => {
     );
     cy.get("form .password input").type("12345678");
     cy.get("button").contains("Login").click();
+    cy.wait(4000);
     cy.contains("My trips");
+  });
+
+  it("can book a venue", () => {
+    cy.get(".allVenues a").first().click();
+    cy.get(".react-datepicker__navigation--next").click();
+    cy.get(".react-datepicker__navigation--next").click();
+    cy.get(".react-datepicker__navigation--next").click();
+    cy.get(".react-datepicker__navigation--next").click();
+    cy.get(".react-datepicker__navigation--next").click();
+
+    cy.get(".react-datepicker__week .react-datepicker__day").first().click();
+    cy.get(".react-datepicker__week .react-datepicker__day").first().click();
+
+    cy.get(".react-datepicker__week .react-datepicker__day").last().click();
+
+    cy.get("button").contains("Book").click();
   });
 });

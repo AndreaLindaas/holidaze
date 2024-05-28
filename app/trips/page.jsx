@@ -33,7 +33,7 @@ export default function Trips() {
         return (
           <>
             <h2>Upcoming trips</h2>
-            <div className={styles.renderBookings}>
+            <div className={`upcomingTrips ${styles.renderBookings}`}>
               {futureTrips.map((booking) => {
                 return <MyTripsCard booking={booking} key={booking.id} />;
               })}

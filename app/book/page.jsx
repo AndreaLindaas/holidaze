@@ -95,7 +95,7 @@ export default function Booking() {
       <div className={styles.guests}>
         <label className="bold">Number of guests?</label>
         <TextField
-          className="whiteInput"
+          className="whiteInput numberOfGuests"
           variant="outlined"
           onChange={(e) => setAmountOfGuests(e.target.value)}
           type="number"
