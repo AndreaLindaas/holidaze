@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Holidaze - Unlock your next adventure
 
-## Getting Started
+### Status
 
-First, run the development server:
+### Introduction
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Holidaze is my final exam dor the studies. It is supposed to show my skills learned over the past two years. The goal was to create a booking site for venues, with the API´s provided by the school.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Read more in the report delivered in Moodle.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Technical
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Some of the technologies used in this project.
 
-## Learn More
+- Next.js
+- React
+- Cypress
+- MUI
+- Moment.js
+- Material icons
+- SASS
+- Netlify
+- Figma
+- Leaflet.js
 
-To learn more about Next.js, take a look at the following resources:
+### Run locally
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1.         git clone https://github.com/AndreaLindaas/holidaze.git
+2.         cd holidaze
+3.         npm install
+4.         npm run dev
+5.         Visit http://localhost:3000/
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Run Cypress testing
 
-## Deploy on Vercel
+1.         npm run cypress
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Links
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Production: https://holidaze.lindaas.net/
+Develop: https://holidaze-dev.lindaas.net/
+Figma: https://www.figma.com/design/KhgwTe8A9GWa5xHTtJWeIs/Holidaze?node-id=97-1033&t=HZ8YbOZrXiCAztxM-1
