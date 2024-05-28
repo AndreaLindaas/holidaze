@@ -10,6 +10,12 @@
   height: 42px;
   min-width: 200px;
 
+  :global {
+    .MuiCircularProgress-root {
+      color: #fff;
+    }
+  }
+
   &.narrow {
     width: 100px;
     min-width: 100px;

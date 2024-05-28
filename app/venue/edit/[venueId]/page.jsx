@@ -13,6 +13,7 @@ import { validateUrl } from "../../../_lib/utils";
 import Button from "../../../_components/Button/Button";
 import { useStore } from "../../../_lib/store";
 import styles from "../../../_styles/createEdit.module.scss";
+import { useRouter } from "next/navigation";
 
 export default function EditVenue(props) {
   const [name, setName] = useState("");
@@ -36,6 +37,7 @@ export default function EditVenue(props) {
   const [isSaveChangesDisabled, setIsSaveChangesDisabled] = useState(true);
   const [errors, setErrors] = useState([]);
   const [isEditVenue, setIsEditVenue] = useState(false);
+  const router = useRouter();
 
   const continents = [
     {
@@ -131,7 +133,7 @@ export default function EditVenue(props) {
 
   const submitEditForm = (e) => {
     e.preventDefault();
-
+    setIsEditVenue(true);
     const payload = {
       name: name,
       description: description,
@@ -173,10 +175,11 @@ export default function EditVenue(props) {
         ) {
           setErrors(result.errors);
         } else {
-          // router.push(`/venue/${result.data.id}`);
+          router.push(`/venue/${result.data.id}`);
         }
       })
       .catch((error) => {
+        setIsEditVenue(false);
         setErrors([{ message: "Something went wrong. Please try again." }]);
       });
   };
@@ -338,9 +341,8 @@ export default function EditVenue(props) {
               />
             </div>
           </div>
-        </Card>{" "}
+        </Card>
         <Card className={styles.whiteCard}>
-          {" "}
           <h3>Pricing and details</h3>
           <div className={styles.flexPriceGuests}>
             <div className={styles.inputContainer}>
@@ -403,7 +405,7 @@ export default function EditVenue(props) {
         <div className={styles.button}>
           <Button
             text="Save changes"
-            disabled={isSaveChangesDisabled}
+            disabled={isSaveChangesDisabled || isEditVenue}
             isLoading={isEditVenue}
           />
         </div>
