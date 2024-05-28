@@ -7,7 +7,7 @@ import { useState } from "react";
 import { API_URL } from "../_lib/constants";
 import { TextField, Card } from "@mui/material";
 import { useRouter } from "next/navigation";
-
+import Payment from "../_components/Payment/Payment";
 import styles from "./book.module.scss";
 
 export default function Booking() {
@@ -102,6 +102,7 @@ export default function Booking() {
           helperText={`This palce allows maximum ${venue.maxGuests} guests`}
         />
       </div>
+      <Payment />
       {errors.length > 0 && (
         <div>
           <ul className="center">

@@ -1,0 +1,22 @@
+.paymentContainer {
+  display: flex;
+  justify-content: center;
+  .cardContent {
+    max-width: 400px;
+    padding: 10px;
+    .cardNumber {
+      display: flex;
+      justify-content: center;
+      & :global {
+        .MuiFormControl-root.MuiTextField-root {
+          width: 100%;
+        }
+      }
+    }
+    .dateCvc {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+}
