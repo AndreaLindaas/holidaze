@@ -116,7 +116,6 @@ export default function MyTrip(props) {
   const saveChangesToEditTrip = () => {
     setIsSaving(true);
 
-    console.log("hallloooo");
     const payload = {
       dateFrom: startDate,
       dateTo: endDate,
