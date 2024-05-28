@@ -10,7 +10,7 @@ import useVenues from "../../_hooks/fetchAllVenues";
 import { useRouter } from "next/navigation";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 export default function Venues() {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(12);
   const [page, setPage] = useState(1);
   const router = useRouter();
 
