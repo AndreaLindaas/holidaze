@@ -16,6 +16,8 @@ import moment from "moment";
 export default function Venue(props) {
   const isDesktop = useMediaQuery("(min-width:768px)");
   const [latLng, setLatLng] = useState(null);
+  const [tempStartDate, setTempStartDate] = useState(new Date());
+  const [tempEndDate, setTempEndDate] = useState(null);
   const { email } = useStore();
   const {
     isLoading,
@@ -23,6 +25,12 @@ export default function Venue(props) {
     isError,
     error,
   } = useVenue(props.params.venueId);
+
+  const onCalendarDateChange = (dates) => {
+    const [start, end] = dates;
+    setTempStartDate(start);
+    setTempEndDate(end);
+  };
 
   useEffect(() => {
     if (!isLoading && !!venue.location.lat && !!venue.location.lng) {
@@ -142,7 +150,12 @@ export default function Venue(props) {
 
         {venue.owner.email != email ? (
           <div className={styles.calendar}>
-            <MyBookingCalendar venue={venue} />
+            <MyBookingCalendar
+              venue={venue}
+              startDate={tempStartDate}
+              endDate={tempEndDate}
+              onChange={onCalendarDateChange}
+            />
           </div>
         ) : (
           <div className={styles.bookingsContainer}>

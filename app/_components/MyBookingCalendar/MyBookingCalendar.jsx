@@ -16,28 +16,21 @@ export default function MyBookingCalendar(props) {
   const [errorMessage, setErrorMessage] = useState("");
   const [isBookButtonDisabled, setIsBookButtonDisabled] = useState(true);
   const { accessToken } = useStore();
-  const [tempStartDate, setTempStartDate] = useState(new Date());
-  const [tempEndDate, setTempEndDate] = useState(null);
-  const { venue, hideBookButton } = props;
 
-  const { setVenue, startDate, endDate, setStartDate, setEndDate } =
-    bookingStore();
+  const { venue, hideBookButton, onBook, onChange, startDate, endDate } = props;
+
+  const { setVenue, setStartDate, setEndDate } = bookingStore();
   const router = useRouter();
 
-  const onChange = (dates) => {
-    const [start, end] = dates;
-    setTempStartDate(start);
-    setTempEndDate(end);
-  };
   const bookingClick = () => {
     setVenue(venue);
-    setStartDate(tempStartDate);
-    setEndDate(tempEndDate);
+    setStartDate(startDate);
+    setEndDate(endDate);
     router.push("/book");
   };
 
   const validateSelectedDates = () => {
-    const dates = getTimestampsBetweenDates(tempStartDate, tempEndDate);
+    const dates = getTimestampsBetweenDates(startDate, endDate);
     let isValid = true;
     dates.forEach((d) => {
       if (isDateDisabled(d)) {
@@ -56,14 +49,14 @@ export default function MyBookingCalendar(props) {
       setErrorMessage("");
     }
 
-    if (!tempStartDate || !tempEndDate) {
+    if (!startDate || !endDate) {
       setIsBookButtonDisabled(true);
       return;
     }
 
     setErrorMessage("");
     setIsBookButtonDisabled(false);
-  }, [tempStartDate, tempEndDate]);
+  }, [startDate, endDate]);
 
   useEffect(() => {
     //Extract all dates from booking array
@@ -89,9 +82,9 @@ export default function MyBookingCalendar(props) {
     <div className={styles.calendar}>
       <DatePicker
         onChange={onChange}
-        selected={tempStartDate}
-        startDate={tempStartDate}
-        endDate={tempEndDate}
+        selected={startDate}
+        startDate={startDate}
+        endDate={endDate}
         selectsRange
         minDate={new Date()}
         inline
