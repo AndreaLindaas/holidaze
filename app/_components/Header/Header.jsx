@@ -126,7 +126,10 @@ export default function Header() {
           <>
             <div>{renderMenuList()} </div>
             {accessToken && (
-              <div onClick={handleClick} className={styles.iconAvatar}>
+              <div
+                onClick={handleClick}
+                className={`userMenu ${styles.iconAvatar}`}
+              >
                 <ArrowDropDownIcon />
 
                 <Avatar src={avatar} alt="profile Image" />
@@ -135,10 +138,9 @@ export default function Header() {
           </>
         )}
       </div>
-      {/* {isDesktop && <div>{renderMenuList()} </div>} */}
+
       <Menu
         className={styles.dropDownMenu}
-        id="basic-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -147,13 +149,13 @@ export default function Header() {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Link href="/profile">
+          <Link className="profileButton" href="/profile">
             <span>Profile</span>
           </Link>
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
-          <Link href="/venue/create">
+          <Link className="createVenueButton" href="/venue/create">
             <span>List your home</span>
           </Link>
         </MenuItem>

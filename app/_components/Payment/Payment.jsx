@@ -32,7 +32,7 @@ export default function Payment(props) {
             onChange={(e) =>
               e.target.value.length <= 16 && setCardNumber(e.target.value)
             }
-            className="whiteInput"
+            className="whiteInput paymentCardNumber"
             label="Card number"
             type="number"
             helperText="16 digit number"
@@ -44,7 +44,7 @@ export default function Payment(props) {
             onChange={(e) =>
               e.target.value.length <= 5 && setDate(e.target.value)
             }
-            className="whiteInput"
+            className="whiteInput date"
             label="Expiration date"
             inputProps={{ maxLength: 5 }}
             helperText="e.g. 02/12"
@@ -54,7 +54,7 @@ export default function Payment(props) {
             onChange={(e) =>
               e.target.value.length <= 3 && setCvc(e.target.value)
             }
-            className="whiteInput"
+            className="whiteInput cvc"
             label="CVC"
             type="number"
             helperText="3 digit number"

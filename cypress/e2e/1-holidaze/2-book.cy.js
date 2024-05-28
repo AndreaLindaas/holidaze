@@ -37,6 +37,9 @@ describe("holidaze", () => {
     cy.get("button").contains("Book").click();
     cy.wait(1000);
     cy.get(".numberOfGuests").type("1");
+    cy.get(".paymentCardNumber").type("1234567890123456");
+    cy.get(".date").type("02/25");
+    cy.get(".cvc").type("123");
     cy.get("button").contains("Book").click();
     cy.contains("Your booking was successfully made");
   });
@@ -46,6 +49,6 @@ describe("holidaze", () => {
     cy.get(".upcomingTrips a").first().click();
     cy.get("button").contains("Cancel trip").click();
     cy.wait(1000);
-    cy.get("button").contains("Cancel").click({ force: true });
+    cy.get(".cancelTripButton").click({ force: true });
   });
 });

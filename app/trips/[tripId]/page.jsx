@@ -292,7 +292,7 @@ export default function MyTrip(props) {
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Sure you want to cancel the trip?
+            Are you sure you want to cancel the trip? This is not reversible.
           </Typography>
           <span className={styles.flexanselCloseTripButton}>
             <Button

@@ -21,7 +21,7 @@ export default function MyMap(props) {
           <Popup>
             {position.name && position.id && (
               <>
-                <Link href={`venue/${position.id}`}>
+                <Link href={`/venue/${position.id}`}>
                   <strong>{position.name}</strong>
                 </Link>
                 <br />

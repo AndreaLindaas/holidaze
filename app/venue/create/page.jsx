@@ -212,7 +212,7 @@ export default function CreateVenue() {
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
             <label>Media url</label>
             <TextField
-              className="whiteInput"
+              className="whiteInput mediaUrl"
               variant="outlined"
               onChange={(e) => setTempMediaUrl(e.target.value)}
               placeholder="Add media url here"
@@ -231,7 +231,7 @@ export default function CreateVenue() {
           <div className={`${styles.inputContainer} ${styles.fullWidth}`}>
             <label>Name*</label>
             <TextField
-              className="whiteInput"
+              className="whiteInput venueName"
               variant="outlined"
               onChange={(e) => setNameOfVenue(e.target.value)}
               placeholder="What will you call your venue?"
@@ -242,12 +242,12 @@ export default function CreateVenue() {
               Description* ({description ? description.length : 0} letters)
             </label>
             <TextField
-              className="whiteInput"
+              className="whiteInput description"
               variant="outlined"
               multiline
               rows={20}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter a dercription of the place"
+              placeholder="Enter a description of the place"
               helperText="Must be minimum 100 letters "
             />
           </div>
@@ -259,7 +259,7 @@ export default function CreateVenue() {
               <div className={styles.inputContainer}>
                 <label>Address</label>
                 <TextField
-                  className="whiteInput"
+                  className="whiteInput address"
                   variant="outlined"
                   onChange={(e) => setAddress(e.target.value)}
                 />
@@ -269,7 +269,7 @@ export default function CreateVenue() {
               <div className={styles.inputContainer}>
                 <label>City</label>
                 <TextField
-                  className="whiteInput"
+                  className="whiteInput city"
                   variant="outlined"
                   onChange={(e) => setCity(e.target.value)}
                 />
@@ -282,7 +282,7 @@ export default function CreateVenue() {
               <div className={styles.inputContainer}>
                 <label>Country</label>
                 <TextField
-                  className="whiteInput"
+                  className="whiteInput country"
                   variant="outlined"
                   onChange={(e) => setCountry(e.target.value)}
                 />
@@ -352,7 +352,7 @@ export default function CreateVenue() {
               <div className={styles.inputContainer}>
                 <label>Price*</label>
                 <TextField
-                  className="whiteInput"
+                  className="whiteInput price"
                   variant="outlined"
                   onChange={(e) => setPrice(e.target.value)}
                   helperText="Must be between 1 and 10 000 "
@@ -364,7 +364,7 @@ export default function CreateVenue() {
               <div className={styles.inputContainer}>
                 <label>Max amount of guests*</label>
                 <TextField
-                  className="whiteInput"
+                  className="whiteInput maxGuests"
                   variant="outlined"
                   onChange={(e) => setMaxAmountOfGuests(e.target.value)}
                   helperText="Must be between 1 and 100"

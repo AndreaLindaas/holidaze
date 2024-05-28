@@ -94,10 +94,11 @@ export default function MyVenueCard(props) {
       <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
         <Box className="modal">
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Sure you want to delete the venue?
+            Are you sure you want to delete the venue?
           </Typography>
           <span className={styles.deleteCloseButtons}>
             <Button
+              className="deleteVenueButton"
               narrow={!isDesktop}
               text="Delete"
               danger

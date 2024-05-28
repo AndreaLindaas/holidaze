@@ -66,7 +66,18 @@ export default function SearchPage(props) {
 
   const showSearchResults = () => {
     if (!isLoadingSearchData && !searchWord) {
-      return <div>Enter search word</div>;
+      return (
+        <div>
+          <p className="center">Enter search word</p>
+          <div className={styles.palmContainer}>
+            <img
+              src="/palm.jpg"
+              alt="image of a palm tree"
+              className={styles.palmImage}
+            />
+          </div>
+        </div>
+      );
     }
     if (hits.length === 0 && !isLoadingSearchData) {
       return (
@@ -134,12 +145,14 @@ export default function SearchPage(props) {
             ))}
           </TextField>
         </div>
+
         {venuePositions.length > 0 && (
           <div className={styles.showMapSwitch}>
             <Switch onChange={(e) => setShowMap(e.target.checked)} /> Show map
           </div>
         )}
       </div>
+
       {hits.length > 0 && (
         <div className="center">
           Showing <span className="bold">{hits.length}</span> results
