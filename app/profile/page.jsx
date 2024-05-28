@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { validateUrl } from "../_lib/utils";
 import { API_URL } from "../_lib/constants";
@@ -73,7 +72,7 @@ export default function Profile() {
       setVenuePositions(tempArray);
     }
   }, [myVenues]);
-  // this useEffect validates mediUrl
+  //this useEffect validates mediUrl
   useEffect(() => {
     if (!validateUrl(newAvatar)) {
       setIsSaveButtonDisabled(true);
@@ -160,6 +159,7 @@ export default function Profile() {
 
   return (
     <div>
+      test
       <div
         className={styles.banner}
         style={{ backgroundImage: `url(${banner})` }}
@@ -192,11 +192,15 @@ export default function Profile() {
           </Card>
         </div>
       </div>
-
-      <p className="center">
-        You have listed <span className="bold">{myVenues.length}</span> venues.
-      </p>
-      <MyVenues isLoggedInUsersVenues myVenues={myVenues} />
+      {myVenues && (
+        <>
+          <p className="center">
+            You have listed <span className="bold">{myVenues.length}</span>{" "}
+            venues.
+          </p>
+          <MyVenues isLoggedInUsersVenues myVenues={myVenues} />
+        </>
+      )}
       {venuePositions.length > 0 && (
         <div className={styles.map}>
           <Map positions={venuePositions} zoom={2} />

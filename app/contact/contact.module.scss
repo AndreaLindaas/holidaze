@@ -1,15 +1,16 @@
 .contactContainer {
   margin: 0 auto;
-  max-width: 700px;
-
+  width: 100%;
   form {
     border-radius: 6px;
     margin: 0 auto;
     padding: 10px;
+
     .contactCard {
       padding: 20px;
       background-color: var(--peach);
       margin: 20px 0;
+
       .inputContainer {
         display: flex;
         flex-direction: column;
@@ -31,6 +32,7 @@
 }
 @media screen and (min-width: 768px) {
   .contactContainer {
+    width: 700px;
     form {
       .fullWidth {
         width: 540px;

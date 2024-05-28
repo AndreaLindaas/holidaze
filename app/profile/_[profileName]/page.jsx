@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import useProfile from "../../_hooks/fetchProfile";
 import { useStore } from "../../_lib/store";
 import MyVenues from "../../_components/MyVenueCard/MyVenues";
@@ -15,7 +15,7 @@ import {
 import styles from "../profile.module.scss";
 
 export default function Profiles(props) {
-  const { accessToken, apiKey, banner } = useStore();
+  const { accessToken, apiKey } = useStore();
 
   const { isLoading: isLoadingProfileData, data: profile } = useProfile(
     props.params.profileName,
@@ -72,11 +72,11 @@ export default function Profiles(props) {
       </div>
       {profile.venues.length > 0 && (
         <>
-          <div className={styles.profileRent}>
+          <div className={`center ${styles.profileRent}`}>
             {profile.name} are renting out these
             <span className="bold"> {profile.venues.length}</span> venues
           </div>
-          <MyVenues myVenues={profile.venues} />{" "}
+          <MyVenues myVenues={profile.venues} />
         </>
       )}
     </>
