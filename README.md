@@ -25,15 +25,15 @@ Some of the technologies used in this project.
 
 ### Run locally
 
-1.          git clone https://github.com/AndreaLindaas/holidaze.git
-2.          cd holidaze
-3.          npm install
-4.          npm run dev
-5.          Visit http://localhost:3000/
+1.           git clone https://github.com/AndreaLindaas/holidaze.git
+2.           cd holidaze
+3.           npm install
+4.           npm run dev
+5.           Visit http://localhost:3000/
 
 ### Run Cypress testing
 
-1.          npm run cypress
+1.           npm run cypress
 
 ### Links
 
