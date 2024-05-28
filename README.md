@@ -4,7 +4,7 @@ Holidaze - Unlock your next adventure
 
 ### Introduction
 
-Holidaze is my final exam dor the studies. It is supposed to show my skills learned over the past two years. The goal was to create a booking site for venues, with the API´s provided by the school.
+Holidaze is my final exam for the studies. It is supposed to show my skills learned over the past two years. The goal was to create a booking site for venues, with the API´s provided by the school.
 
 Read more in the report delivered in Moodle.
 
@@ -25,15 +25,15 @@ Some of the technologies used in this project.
 
 ### Run locally
 
-1.         git clone https://github.com/AndreaLindaas/holidaze.git
-2.         cd holidaze
-3.         npm install
-4.         npm run dev
-5.         Visit http://localhost:3000/
+1.          git clone https://github.com/AndreaLindaas/holidaze.git
+2.          cd holidaze
+3.          npm install
+4.          npm run dev
+5.          Visit http://localhost:3000/
 
 ### Run Cypress testing
 
-1.         npm run cypress
+1.          npm run cypress
 
 ### Links
 
